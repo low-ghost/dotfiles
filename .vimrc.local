@@ -1,0 +1,35 @@
+" custom vimux bindings
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vl :VimuxRunLastCommand<CR>
+nnoremap <Leader>vi :VimuxInspectRunner<CR>
+nnoremap <Leader>vq :VimuxCloseRunner<CR>
+
+nnoremap <Leader>ve= :call VimuxSetEnv()<CR>
+function! VimuxSetEnv()
+    call inputsave()
+    let name = input('code prefix before buffername: ')
+    call inputrestore()
+    let b:VimuxEnv = name
+endfunction
+"function! VimuxMapEnv()
+    "call inputsave()
+    "let key = input('key: ')
+    "call inputrestore()
+    "call inputsave()
+    "let VimuxCommand = input('command: ')
+    "call inputrestore()
+    "return g:mapSting = \"nnoremap <Leader>ve\" . key . \"\"VimuxRunCommand(\"\" . VimuxCommand . \"\")<CR>\"
+"endfunction
+"nnoremap <Leader>vem :call VimuxMapEnv()<CR>
+nnoremap <Leader>ver :call VimuxRunCommand(b:VimuxEnv . " " . bufname("%"))<CR>
+
+inoremap jk <Esc>
+inoremap <Leader>; <Esc>A;<Esc>
+nnoremap <Leader>; A;<Esc>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sov :so $MYVIMRC<CR>
+nnoremap <space> :w<CR>
+nmap <space>f <Plug>(easymotion-sn)
+nmap <space>2 <Plug>(easymotion-s2)
+nnoremap <c-x> :wall!<CR>:mksession! Session.vim<CR>
+let g:EasyMotion_smartcase = 1

@@ -1,0 +1,2 @@
+Bundle 'benmills/vimux'
+Bundle 'christoomey/vim-tmux-navigator'
