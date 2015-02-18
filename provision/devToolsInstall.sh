@@ -1,17 +1,25 @@
 #!/bin/bash
-echo "installing dev tools"
-sudo apt-get update > /dev/null
+
+echo "installing basic dev tools"
+apt-get update > /dev/null
 echo "git"
-sudo apt-get install git -y > /dev/null
-echo "vim-nox"
-sudo apt-get install vim-nox -y > /dev/null
+apt-get install git -y > /dev/null
+echo "vim-nox 'cus of +clipboard and other goodies"
+apt-get install vim-nox -y > /dev/null
 echo "python-software-properties, build-essential"
-sudo apt-get install python-software-properties build-essential -y > /dev/null
+apt-get install python-software-properties build-essential -y > /dev/null
+
 echo "tmux"
-sudo apt-get install tmux -y > /dev/null
+apt-get install tmux -y > /dev/null
+cp /vagrant/.tmux.conf ~/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux source-file ~/.tmux.conf
+
 echo "php repo"
-sudo add-apt-repository ppa:ondrej/php5 -y > /dev/null
+add-apt-repository ppa:ondrej/php5 -y > /dev/null
 echo "update"
-sudo apt-get update -y > /dev/null
+apt-get update -y > /dev/null
 echo "curl"
-sudo apt-get install curl php5-curl -y > /dev/null
+apt-get install curl php5-curl -y > /dev/null
+echo "oh-my-zsh"
+curl -L http://install.ohmyz.sh | sh
