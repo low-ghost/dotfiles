@@ -1,64 +1,38 @@
 #!/bin/bash
+# Set MySQL root password
+debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
+debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
 
-# from mattandersen/vagrant-lamp
-
-php_config_file="/etc/php5/apache2/php.ini"
-xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
-mysql_config_file="/etc/mysql/my.cnf"
-
-
-# Update the server
+# Install packages
 apt-get update
-apt-get -y upgrade
+apt-get -y install mysql-server-5.5 php5-mysql libsqlite3-dev apache2 php5 php5-dev build-essential php-pear ruby1.9.1-dev
 
-if [[ -e /var/lock/vagrant-provision ]]; then
-    exit;
-fi
+# Set timezone
+echo "America/New_York" | tee /etc/timezone
+dpkg-reconfigure --frontend noninteractive tzdata
 
-################################################################################
-# Everything below this line should only need to be done once
-# To re-run full provisioning, delete /var/lock/vagrant-provision and run
-#
-#    $ vagrant provision
-#
-# From the host machine
-################################################################################
+# Setup database
+echo "DROP DATABASE IF EXISTS test" | mysql -uroot -proot
+echo "CREATE USER 'devdb'@'localhost' IDENTIFIED BY 'devdb'" | mysql -uroot -proot
+echo "CREATE DATABASE devdb" | mysql -uroot -proot
+echo "GRANT ALL ON devdb.* TO 'devdb'@'localhost'" | mysql -uroot -proot
+echo "FLUSH PRIVILEGES" | mysql -uroot -proot
 
-IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
-sed -i "s/^${IPADDR}.*//" /etc/hosts
-echo $IPADDR ubuntu.localhost >> /etc/hosts			# Just to quiet down some error messages
+# Apache changes
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+a2enmod rewrite
+cat /var/custom_config_files/apache2/default | tee /etc/apache2/sites-available/000-default.conf
 
-# Install basic tools
-apt-get -y install binutils-doc
+# Install Mailcatcher
+echo "Installing mailcatcher"
+gem install mailcatcher --no-ri --no-rdoc
+mailcatcher --http-ip=192.168.56.101
 
-# Install Apache
-apt-get -y install apache2
-apt-get -y install php5 php5-mysql php5-sqlite php5-xdebug
+# Configure PHP
+sed -i '/;sendmail_path =/c sendmail_path = "/usr/local/bin/catchmail"' /etc/php5/apache2/php.ini
+sed -i '/display_errors = Off/c display_errors = On' /etc/php5/apache2/php.ini
+sed -i '/error_reporting = E_ALL & ~E_DEPRECATED/c error_reporting = E_ALL | E_STRICT' /etc/php5/apache2/php.ini
+sed -i '/html_errors = Off/c html_errors = On' /etc/php5/apache2/php.ini
 
-sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
-sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
-
-cat << EOF > ${xdebug_config_file}
-zend_extension=xdebug.so
-xdebug.remote_enable=1
-xdebug.remote_connect_back=1
-xdebug.remote_port=9000
-xdebug.remote_host=10.0.2.2
-EOF
-
-# Install MySQL
-echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
-apt-get -y install mysql-client mysql-server
-
-sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
-
-# Allow root access from any host
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION" | mysql -u root --password=root
-echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=root
-
-# Restart Services
+# Make sure things are up and running as they should be
 service apache2 restart
-service mysql restart
-
-touch /var/lock/vagrant-provision
