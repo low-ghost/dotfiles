@@ -2,10 +2,13 @@
 
 echo "installing basic dev tools"
 apt-get update > /dev/null
+
 echo "git"
 apt-get install git -y > /dev/null
+
 echo "vim-nox 'cus of +clipboard and other goodies"
 apt-get install vim-nox -y > /dev/null
+
 echo "python-software-properties, build-essential"
 apt-get install python-software-properties build-essential -y > /dev/null
 
@@ -17,9 +20,14 @@ tmux source-file ~/.tmux.conf
 
 echo "php repo"
 add-apt-repository ppa:ondrej/php5 -y > /dev/null
+
 echo "update"
 apt-get update -y > /dev/null
+
 echo "curl"
 apt-get install curl php5-curl -y > /dev/null
+
 echo "oh-my-zsh"
+apt-get install zsh -y > /dev/null
+chsh -s /bin/zsh
 curl -L http://install.ohmyz.sh | sh
