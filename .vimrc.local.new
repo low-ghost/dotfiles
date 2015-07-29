@@ -1,0 +1,69 @@
+set noshowmode
+let g:bufferline_echo=0
+" custom vimux bindings
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vl :VimuxRunLastCommand<CR>
+nnoremap <Leader>vi :VimuxInspectRunner<CR>
+nnoremap <Leader>vq :VimuxCloseRunner<CR>
+
+nnoremap <Leader>ve= :call VimuxSetEnv()<CR>
+function! VimuxSetEnv()
+    call inputsave()
+    let name = input('code prefix before buffername: ')
+    call inputrestore()
+    let b:VimuxEnv = name
+endfunction
+"function! VimuxMapEnv()
+    "call inputsave()
+    "let key = input('key: ')
+    "call inputrestore()
+    "call inputsave()
+    "let VimuxCommand = input('command: ')
+    "call inputrestore()
+    "return g:mapSting = \"nnoremap <Leader>ve\" . key . \"\"VimuxRunCommand(\"\" . VimuxCommand . \"\")<CR>\"
+"endfunction
+"nnoremap <Leader>vem :call VimuxMapEnv()<CR>
+nnoremap <Leader>ver :call VimuxRunCommand(b:VimuxEnv . " " . bufname("%"))<CR>
+
+inoremap ii <Esc>
+inoremap <Esc> <Esc><Esc>
+inoremap <Leader>; <Esc>A;<Esc>
+nnoremap <Leader>; A;<Esc>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sov :so $MYVIMRC<CR>
+nnoremap <space> :w<CR>
+nmap <space><Space> <Plug>(easymotion-s)
+nmap <space>f <Plug>(easymotion-sn)
+nmap <space>2 <Plug>(easymotion-s2)
+nnoremap <c-x> :wall!<CR>:mksession! Session.vim<CR>
+let g:EasyMotion_smartcase = 1
+
+nnoremap <Leader>eneo :NeoSnippetEdit<CR>
+nnoremap <Leader>rneo :NeoSnippetMakeCache<CR>
+
+nnoremap <Space><Tab> :bnext<cr>
+nnoremap <Leader>d :bd<cr>
+nnoremap <Leader>h :hide<cr>
+nnoremap <Tab><Space> :bprevious<cr>
+
+let g:snips_author = 'Michael Bagwell <Michael_Bagwell@cable.comcast.com>'
+function! TestFileNameToVar()
+    let b:origFile = substitute(expand("%:t:r"), "Test", "", "")
+    " doesn't work
+    let b:origFileVar = substitute(b:origFile, "(\a)", "\L\1", "g")
+    let b:stringToMod = "nnoremap <leader>emod :e ../../models/" . b:origFile . ".php<cr>"
+    exec b:stringToMod
+    return b:origFile
+endfunction
+
+function! Laravel()
+    let g:LARAROOT = fnamemodify(b:git_dir, ":h")
+    let stringToCon = "nnoremap <leader>ecn :e " . g:LARAROOT . "/app/config/CSAConsole.php<cr>"
+    exec stringToCon
+    let stringToRoute = "nnoremap <leader>ert :e " . g:LARAROOT . "/app/routes.php<cr>"
+    exec stringToRoute
+    command! -nargs=+ Laragrep execute 'silent grep! -r --exclude-dir={node_modules,plugins,vendor,git,logs,meta} <args> '.LARAROOT | copen 33
+endfunction
+
+nnoremap <Leader>th bi$this-><Esc>
+nnoremap <Leader>bug yiwovar_dump(<Esc>pa);<Esc>
