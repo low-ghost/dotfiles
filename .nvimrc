@@ -72,7 +72,7 @@ au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 "restore cursor from prev edit
 function! ResCur()
-	if line("'\"") <= line("$")
+	if match(bufname("%"), "term://") == -1 && line("'\"") <= line("$")
 		normal! g`"
 		return 1
 	endif
@@ -416,3 +416,101 @@ let g:airline_theme = 'solarized'
 nnoremap <leader>yt :YcmCompleter GetType<CR>
 nnoremap <leader>yg :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>yd :YcmCompleter GetDoc<CR>
+
+tnoremap <esc> <C-\><C-n>
+tnoremap <C-w> <C-\><C-n><C-w>
+
+let s:NermPrefix = "term://" . $SHELL . "_"
+
+function! s:NermGetBufName(count, name)
+	if a:name==1
+		call inputsave()
+		let name = input('Enter terminal name: ')
+		call inputrestore()
+		return s:NermPrefix . name
+	endif
+	return s:NermPrefix . count
+endfunction
+
+"strip prefix of buffer name
+"function! s:NermStripPrefix(name)
+	"return substitute(a:name, s:NermPrefix, "", "");
+"endfunction
+
+"get an array of buffer numbers corresponding to terminals
+function! s:NermGetTermNumbers()
+	return s:_find_buffers_with_var("NermBuf", 1)
+endfunction
+
+"display list of terminals
+function! s:NermDisplayTerms(termNumbers)
+	return "terminals:\n\n" .
+		\ join(
+		\		map(
+		\			a:termNumbers,
+		\			'"[" . v:key . "] " . substitute(bufname(v:val), s:NermPrefix, "", "")'), "\n")
+endfunction
+
+"like :ls but for terms
+function! g:NermListTerms()
+	echo s:NermDisplayTerms(s:NermGetTermNumbers())
+endfunction
+
+"show a list of terminals and prompt for the number to which the user wants to
+"travel. Perform a tab drop to get there
+function! g:NermPrompt()
+	call inputsave()
+	let termNumbers = s:NermGetTermNumbers()
+	"have to copy termNumbers so it doesn't mutate
+	let choiceNum = input(s:NermDisplayTerms(copy(termNumbers)) . "\n\nEnter terminal name: ")
+	call inputrestore()
+	let choice = get(termNumbers, choiceNum, 'false')
+	if choice != 'false'
+		execute "tab drop " . bufname(choice)
+	else
+		echo "\n\nSorry, that terminal doesn't exist"
+	endif
+endfunction
+
+" borrowed from jeetsukumaran/vim-buffergato
+" Searches for all buffers that have a buffer-scoped variable `varname`
+" with value that matches the expression `expr`. Returns list of buffer
+" numbers that meet the criterion.
+function! s:_find_buffers_with_var(varname, expr)
+    let l:results = []
+    for l:bni in range(1, bufnr("$"))
+        if !bufexists(l:bni)
+            continue
+        endif
+        let l:bvar = getbufvar(l:bni, "")
+        if empty(a:varname)
+            call add(l:results, l:bni)
+        elseif has_key(l:bvar, a:varname) && empty(a:expr)
+            call add(l:results, l:bni)
+        elseif has_key(l:bvar, a:varname) && l:bvar[a:varname] =~ a:expr
+            call add(l:results, l:bni)
+        endif
+    endfor
+    return l:results
+endfunction
+
+function! g:NermCreateOrGoToTerm(splitOrTab, count, name)
+	let bufName = s:NermGetBufName(a:count, a:name)
+	if !bufexists(bufName)
+		
+		if a:splitOrTab == 'tab'
+			execute "tabedit term://" . $SHELL
+		elseif a:splitOrTab == 'split'
+			execute "10split term://" . $SHELL
+		else
+			execute "vsplit term://" . $SHELL
+		endif
+
+		execute "file " . bufName . " | set nobuflisted | let b:NermBuf = 1"
+	else
+		execute "tab drop " . bufName
+	endif
+endfunction
+
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ts :call g:NermCreateOrGoToTerm('split', v:count1, 0)<cr>
