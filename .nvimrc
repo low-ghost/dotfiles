@@ -1,51 +1,51 @@
 set nocompatible
 set shell=/bin/zsh
 
-call plug#begin('~/.vim/plugged')
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'scrooloose/nerdtree'
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+call plug#begin('~/.nvim/plugged')
 Plug 'altercation/vim-colors-solarized'
-Plug 'spf13/vim-colors'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'jiangmiao/auto-pairs'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'matchit.zip'
+	"Plug 'amirh/HTML-AutoCloseTag'
 Plug 'bling/vim-airline'
-Plug 'powerline/fonts'
 Plug 'bling/vim-bufferline'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'flazz/vim-colorschemes'
-Plug 'mbbill/undotree'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'vim-scripts/restore_view.vim'
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-abolish'
-Plug 'osyo-manga/vim-over'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-indent'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-commentary'
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-Plug 'majutsushi/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json'
-Plug 'pangloss/vim-javascript'
-Plug 'amirh/HTML-AutoCloseTag'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-markdown'
-Plug 'spf13/vim-preview'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'hail2u/vim-css3-syntax'
 Plug 'heavenshell/vim-jsdoc'
+Plug 'honza/vim-snippets'
+	"Plug 'jiangmiao/auto-pairs'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-user'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'Lokaltog/vim-easymotion'
+Plug 'majutsushi/tagbar'
+Plug 'matchit.zip'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-signify'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'osyo-manga/vim-over'
+Plug 'pangloss/vim-javascript'
+Plug 'powerline/fonts'
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'SirVer/ultisnips'
+Plug 'spf13/vim-colors'
+Plug 'spf13/vim-preview'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'vim-scripts/restore_view.vim'
 call plug#end()
-
 
 if !exists("g:ycm_semantic_triggers")
 	let g:ycm_semantic_triggers = {}
@@ -58,7 +58,6 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set autowrite                       " Automatically write a file when leaving a modified buffer
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
@@ -92,31 +91,14 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
-color solarized             " Load a colorscheme
+color solarized
 
 set cursorline                  " Highlight current line
 
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Current line number row will have same background color in relative mode
-"highlight clear CursorLineNr    " Remove highlight color from current line number
 
-if has('cmdline_info')
-	set ruler                   " Show the ruler
-	set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-	set showcmd                 " Show partial commands in status line and
-endif
-
-
-if has('statusline')
-	set laststatus=2
-	set statusline=%<%f\                     " Filename
-	set statusline+=%w%h%m%r                 " Options
-	set statusline+=%{fugitive#statusline()} " Git Hotness
-	set statusline+=\ [%{&ff}/%Y]            " Filetype
-	set statusline+=\ [%{getcwd()}]          " Current dir
-	set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-endif
-set noshowmode
+set showcmd                 " Show partial commands in status line and
 
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
@@ -148,24 +130,16 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 " Remove trailing whitespaces and ^M chars
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-"autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
 
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+let mapleader = "\<Space>"
 
-" Workaround vim-commentary for Haskell
-autocmd FileType haskell setlocal commentstring=--\ %s
-" Workaround broken colour highlighting in Haskell
-autocmd FileType haskell,rust setlocal nospell
-
-let mapleader = ','
-
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-L> <C-W>l<C-W>_
-map <C-H> <C-W>h<C-W>_
+map <C-J> <C-w>j
+map <C-K> <C-w>k
+map <C-L> <C-w>l
+map <C-H> <C-w>h
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
@@ -228,7 +202,8 @@ nmap <leader>f7 :set foldlevel=7<CR>
 nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
 
-nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <leader>/ :set invhlsearch<CR>
+nmap <silent> <leader>/ :set invhlsearch<CR>
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -259,6 +234,8 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 " Easier horizontal scrolling
 map zl zL
 map zh zH
+
+nnoremap Y y$
 
 " Easier formatting
 nnoremap <silent> <leader>q gwip
@@ -326,11 +303,11 @@ let g:ctrlp_user_command = {
 let g:ctrlp_extensions = ['funky']
 
 "funky
-nnoremap <Leader>fu :CtrlPFunky<Cr>
+	nnoremap <Leader>fu :CtrlPFunky<Cr>
 "}
 
 " TagBar {
-nnoremap <silent> <leader>tt :TagbarToggle<CR>
+	"nnoremap <silent> <leader>tt :TagbarToggle<CR>
 "}
 
 " Fugitive {
@@ -360,8 +337,7 @@ hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=ligh
 hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
 " Some convenient mappings
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
@@ -386,40 +362,182 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " For snippet_complete marker.
 if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
-" Disable the neosnippet preview candidate window
-" When enabled, there can be too much visual noise
-" especially when splits are used.
-"set completeopt-=preview
-" }
 " UndoTree {
-nnoremap <Leader>u :UndotreeToggle<CR>
-let g:undotree_SetFocusWhenToggle=1
+	nnoremap <Leader>u :UndotreeToggle<CR>
+	let g:undotree_SetFocusWhenToggle=1
+	" }
+	" indent_guides {
+	let g:indent_guides_start_level = 2
+	let g:indent_guides_guide_size = 1
+	let g:indent_guides_enable_on_vim_startup = 1
+	" }
+	" vim-airline {
+	let g:airline_powerline_fonts=1
+	" See `:echo g:airline_theme_map` for some more choices
+	let g:airline_theme = 'solarized'
 " }
-" indent_guides {
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-" }
-" vim-airline {
-let g:airline_powerline_fonts=1
-" See `:echo g:airline_theme_map` for some more choices
-let g:airline_theme = 'solarized'
+" functions {
+    " Initialize directories {
+    function! InitializeDirectories()
+        let parent = $HOME
+        let prefix = 'vim'
+        let dir_list = {
+                    \ 'backup': 'backupdir',
+                    \ 'views': 'viewdir',
+                    \ 'swap': 'directory' }
+
+        if has('persistent_undo')
+            let dir_list['undo'] = 'undodir'
+        endif
+
+        " To specify a different directory in which to place the vimbackup,
+        " vimviews, vimundo, and vimswap files/directories, add the following to
+        " your .vimrc.before.local file:
+        "   let g:spf13_consolidated_directory = <full path to desired directory>
+        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
+        if exists('g:spf13_consolidated_directory')
+            let common_dir = g:spf13_consolidated_directory . prefix
+        else
+            let common_dir = parent . '/.' . prefix
+        endif
+
+        for [dirname, settingname] in items(dir_list)
+            let directory = common_dir . dirname . '/'
+            if exists("*mkdir")
+                if !isdirectory(directory)
+                    call mkdir(directory)
+                endif
+            endif
+            if !isdirectory(directory)
+                echo "Warning: Unable to create backup directory: " . directory
+                echo "Try: mkdir -p " . directory
+            else
+                let directory = substitute(directory, " ", "\\\\ ", "g")
+                exec "set " . settingname . "=" . directory
+            endif
+        endfor
+    endfunction
+    call InitializeDirectories()
+    " }
+
+    " Initialize NERDTree as needed {
+    function! NERDTreeInitAsNeeded()
+        redir => bufoutput
+        buffers!
+        redir END
+        let idx = stridx(bufoutput, "NERD_tree")
+        if idx > -1
+            NERDTreeMirror
+            NERDTreeFind
+            wincmd l
+        endif
+    endfunction
+    " }
+
+    " Strip whitespace {
+    function! StripTrailingWhitespace()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " do the business:
+        %s/\s\+$//e
+        " clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    " }
+
+    " Shell command {
+    function! s:RunShellCommand(cmdline)
+        botright new
+
+        setlocal buftype=nofile
+        setlocal bufhidden=delete
+        setlocal nobuflisted
+        setlocal noswapfile
+        setlocal nowrap
+        setlocal filetype=shell
+        setlocal syntax=shell
+
+        call setline(1, a:cmdline)
+        call setline(2, substitute(a:cmdline, '.', '=', 'g'))
+        execute 'silent $read !' . escape(a:cmdline, '%#')
+        setlocal nomodifiable
+        1
+    endfunction
+
+    command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
+    " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
+    " }
 " }
 
 nnoremap <leader>yt :YcmCompleter GetType<CR>
 nnoremap <leader>yg :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>yd :YcmCompleter GetDoc<CR>
 
-tnoremap <esc> <C-\><C-n>
-tnoremap <C-w> <C-\><C-n><C-w>
+" clean up status line
+let g:bufferline_echo=0
+set noshowmode
 
+nnoremap <leader> :w<CR>
+nnoremap <leader>f :<C-f>i
+
+"delete buffer, keep split
+nmap <silent> <leader>d :bp\|bd #<CR>
+
+nmap ,, <Plug>(easymotion-s)
+
+nmap ,n <Plug>(easymotion-sn)
+nmap ,2 <Plug>(easymotion-s2)
+
+nnoremap <leader>ss :s///g<Left><Left><Left><C-f>i
+nnoremap <leader>sw :s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
+nnoremap <leader>sa :%s///g<Left><Left><Left><C-f>i
+
+inoremap %: <Esc>A;<Esc>
+nnoremap %: A;<Esc>
+
+nnoremap <leader>l :ls<CR>:b<Space>
+
+"nnoremap <Space><Tab> :bnext<cr>
+"nnoremap <Tab><Space> :bprevious<cr>
+
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+
+"comment
+"nnoremap <leader>' ysiw'
+"nnoremap <leader>] ysiw]
+"nnoremap <leader>) ysiw)
+
+"window
+nnoremap <leader>wJ 10<C-w>+
+nnoremap <leader>wj 5<C-w>+
+nnoremap <leader>wK 10<C-w>-
+nnoremap <leader>wk 5<C-w>-
+nnoremap <leader>wH 10<C-w><
+nnoremap <leader>wh 5<C-w><
+nnoremap <leader>wL 10<C-w>>
+nnoremap <leader>wl 5<C-w>>
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+
+"neovim terminal
+tnoremap <esc> <c-\><c-n>
+tnoremap <C-w> <c-\><c-n><C-w>
+autocmd BufWinEnter,WinEnter term://* startinsert
+let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
+
+"nerm
 let s:NermPrefix = "term://" . $SHELL . "_"
 
 function! s:NermGetBufName(count, name)
@@ -434,7 +552,7 @@ endfunction
 
 "strip prefix of buffer name
 "function! s:NermStripPrefix(name)
-	"return substitute(a:name, s:NermPrefix, "", "");
+"return substitute(a:name, s:NermPrefix, "", "");
 "endfunction
 
 "get an array of buffer numbers corresponding to terminals
@@ -445,10 +563,10 @@ endfunction
 "display list of terminals
 function! s:NermDisplayTerms(termNumbers)
 	return "terminals:\n\n" .
-		\ join(
-		\		map(
-		\			a:termNumbers,
-		\			'"[" . v:key . "] " . substitute(bufname(v:val), s:NermPrefix, "", "")'), "\n")
+				\ join(
+				\		map(
+				\			a:termNumbers,
+				\			'"[" . v:key . "] " . substitute(bufname(v:val), s:NermPrefix, "", "")'), "\n")
 endfunction
 
 "like :ls but for terms
@@ -477,27 +595,27 @@ endfunction
 " with value that matches the expression `expr`. Returns list of buffer
 " numbers that meet the criterion.
 function! s:_find_buffers_with_var(varname, expr)
-    let l:results = []
-    for l:bni in range(1, bufnr("$"))
-        if !bufexists(l:bni)
-            continue
-        endif
-        let l:bvar = getbufvar(l:bni, "")
-        if empty(a:varname)
-            call add(l:results, l:bni)
-        elseif has_key(l:bvar, a:varname) && empty(a:expr)
-            call add(l:results, l:bni)
-        elseif has_key(l:bvar, a:varname) && l:bvar[a:varname] =~ a:expr
-            call add(l:results, l:bni)
-        endif
-    endfor
-    return l:results
+	let l:results = []
+	for l:bni in range(1, bufnr("$"))
+		if !bufexists(l:bni)
+			continue
+		endif
+		let l:bvar = getbufvar(l:bni, "")
+		if empty(a:varname)
+			call add(l:results, l:bni)
+		elseif has_key(l:bvar, a:varname) && empty(a:expr)
+			call add(l:results, l:bni)
+		elseif has_key(l:bvar, a:varname) && l:bvar[a:varname] =~ a:expr
+			call add(l:results, l:bni)
+		endif
+	endfor
+	return l:results
 endfunction
 
-function! g:NermCreateOrGoToTerm(splitOrTab, count, name)
-	let bufName = s:NermGetBufName(a:count, a:name)
+function! g:NermCreateOrGoToTerm(splitOrTab, name)
+	let bufName = s:NermGetBufName(v:count1, a:name)
 	if !bufexists(bufName)
-		
+
 		if a:splitOrTab == 'tab'
 			execute "tabedit term://" . $SHELL
 		elseif a:splitOrTab == 'split'
@@ -513,4 +631,12 @@ function! g:NermCreateOrGoToTerm(splitOrTab, count, name)
 endfunction
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>ts :call g:NermCreateOrGoToTerm('split', v:count1, 0)<cr>
+
+nnoremap <leader>ts :call g:NermCreateOrGoToTerm('split', 0)<cr>
+nnoremap <leader>tt :call g:NermCreateOrGoToTerm('tab', 0)<cr>
+nnoremap <leader>tv :call g:NermCreateOrGoToTerm('vsplit', 0)<cr>
+nnoremap <leader>tns :call g:NermCreateOrGoToTerm('split', 1)<cr>
+nnoremap <leader>tnt :call g:NermCreateOrGoToTerm('tab', 1)<cr>
+nnoremap <leader>tnv :call g:NermCreateOrGoToTerm('vsplit', 1)<cr>
+nnoremap <leader>tl :call g:NermListTerms()<cr>
+nnoremap <leader>tlp :call g:NermPrompt()<cr>
