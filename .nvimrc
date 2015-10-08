@@ -531,23 +531,51 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 
+nnoremap <C-t>l :tabnext<cr>
+nnoremap <C-t>h :tabprevious<cr>
+nnoremap <C-t>n :tabnew<cr>
+nnoremap <C-t>i :tabfirst<cr>
+nnoremap <C-t>I :tablast<cr>
+
 "neovim terminal
-tnoremap <esc> <c-\><c-n>
-tnoremap <C-w> <c-\><c-n><C-w>
+tnoremap <C-\> <C-\><C-n>
+tnoremap <C-i> <C-\><C-n>
+tnoremap <C-w>h <C-\><C-n><C-w>h
+tnoremap <C-w>k <C-\><C-n><C-w>k
+tnoremap <C-w>l <C-\><C-n><C-w>l
+tnoremap <C-w>j <C-\><C-n><C-w>j
+tnoremap <C-w>= <C-\><C-n><C-w>=
+tnoremap <C-w>R <C-\><C-n><C-w>R
+tnoremap <C-t>l <C-\><C-n>:tabnext<cr>
+tnoremap <C-t>h <C-\><C-n>:tabprevious<cr>
+tnoremap <C-t>n <C-\><C-n>:tabnew<cr>
+tnoremap <C-t>i <C-\><C-n>:tabfirst<cr>
+tnoremap <C-t>I <C-\><C-n>:tablast<cr>
 autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 "nerm
 let s:NermPrefix = "term://" . $SHELL . "_"
 
-function! s:NermGetBufName(count, name)
-	if a:name==1
+function! s:NermGetBufName(toName, ...)
+	if a:toName==1
 		call inputsave()
 		let name = input('Enter terminal name: ')
 		call inputrestore()
-		return s:NermPrefix . name
+		if a:0
+			return name
+		else
+			return s:NermPrefix . name
+		endif
+
+	else
+		if a:0
+			let l:countBuf = len(g:_find_buffers_with_var("NermBuf", 1)) + 1
+			return s:NermPrefix . l:countBuf
+		else
+			return s:NermPrefix . v:count1
+		endif
 	endif
-	return s:NermPrefix . count
 endfunction
 
 "strip prefix of buffer name
@@ -557,7 +585,7 @@ endfunction
 
 "get an array of buffer numbers corresponding to terminals
 function! s:NermGetTermNumbers()
-	return s:_find_buffers_with_var("NermBuf", 1)
+	return g:_find_buffers_with_var("NermBuf", 1)
 endfunction
 
 "display list of terminals
@@ -576,10 +604,15 @@ endfunction
 
 "show a list of terminals and prompt for the number to which the user wants to
 "travel. Perform a tab drop to get there
-function! g:NermPrompt()
-	call inputsave()
-	let termNumbers = s:NermGetTermNumbers()
+function! g:NermPrompt(...)
+  if a:0 < 1
+		let termNumbers = s:NermGetTermNumbers()
+	else
+		let termNumbers = copy(a:1)
+	endif
+
 	"have to copy termNumbers so it doesn't mutate
+	call inputsave()
 	let choiceNum = input(s:NermDisplayTerms(copy(termNumbers)) . "\n\nEnter terminal name: ")
 	call inputrestore()
 	let choice = get(termNumbers, choiceNum, 'false')
@@ -594,7 +627,7 @@ endfunction
 " Searches for all buffers that have a buffer-scoped variable `varname`
 " with value that matches the expression `expr`. Returns list of buffer
 " numbers that meet the criterion.
-function! s:_find_buffers_with_var(varname, expr)
+function! g:_find_buffers_with_var(varname, expr)
 	let l:results = []
 	for l:bni in range(1, bufnr("$"))
 		if !bufexists(l:bni)
@@ -612,31 +645,46 @@ function! s:_find_buffers_with_var(varname, expr)
 	return l:results
 endfunction
 
-function! g:NermCreateOrGoToTerm(splitOrTab, name)
-	let bufName = s:NermGetBufName(v:count1, a:name)
-	if !bufexists(bufName)
+function! g:NermCreate(splitOrTab, toName)
+	let bufName = s:NermGetBufName(a:toName, 'new')
 
-		if a:splitOrTab == 'tab'
-			execute "tabedit term://" . $SHELL
-		elseif a:splitOrTab == 'split'
-			execute "10split term://" . $SHELL
-		else
-			execute "vsplit term://" . $SHELL
-		endif
-
-		execute "file " . bufName . " | set nobuflisted | let b:NermBuf = 1"
+	if a:splitOrTab == 'tab'
+		execute "tabedit term://" . $SHELL
+	elseif a:splitOrTab == 'split'
+		execute "10split term://" . $SHELL
 	else
-		execute "tab drop " . bufName
+		execute "vsplit term://" . $SHELL
 	endif
+
+	execute "file " . bufName . " | set nobuflisted | let b:NermBuf = 1"
 endfunction
 
-nnoremap <leader>sv :source $MYVIMRC<CR>
+function! g:NermGoTo(toName)
+	let bufName = s:NermGetBufName(a:toName, 'noprefix')
+	let l:termNumbers = s:NermGetTermNumbers()
+	let l:matchingNums = filter(l:termNumbers, 'bufname(v:val) =~ bufName')
+	let l:matchingNames = map(l:matchingNums, 'bufname(v:val)')
 
-nnoremap <leader>ts :call g:NermCreateOrGoToTerm('split', 0)<cr>
-nnoremap <leader>tt :call g:NermCreateOrGoToTerm('tab', 0)<cr>
-nnoremap <leader>tv :call g:NermCreateOrGoToTerm('vsplit', 0)<cr>
-nnoremap <leader>tns :call g:NermCreateOrGoToTerm('split', 1)<cr>
-nnoremap <leader>tnt :call g:NermCreateOrGoToTerm('tab', 1)<cr>
-nnoremap <leader>tnv :call g:NermCreateOrGoToTerm('vsplit', 1)<cr>
+	let l:lenMatch = len(l:matchingNums)
+
+	if l:lenMatch == 1
+		execute "tab drop " . l:matchingNames[0]
+	elseif l:lenMatch == 0
+		echo "No matching terminal buffers"
+	else
+		echo "More than one terminal buffer matches that name"
+		call g:NermPrompt(l:matchingNums)
+	endif
+
+endfunction
+
+nnoremap <leader>tg :<C-U>call g:NermGoTo(0)<cr>
+nnoremap <leader>ts :<C-U>call g:NermCreate('split', 0)<cr>
+nnoremap <leader>tt :<C-U>call g:NermCreate('tab', 0)<cr>
+nnoremap <leader>tv :<C-U>call g:NermCreate('vsplit', 0)<cr>
+nnoremap <leader>tng :call g:NermGoTo(1)<cr>
+nnoremap <leader>tns :call g:NermCreate('split', 1)<cr>
+nnoremap <leader>tnt :call g:NermCreate('tab', 1)<cr>
+nnoremap <leader>tnv :call g:NermCreate('vsplit', 1)<cr>
 nnoremap <leader>tl :call g:NermListTerms()<cr>
 nnoremap <leader>tlp :call g:NermPrompt()<cr>
