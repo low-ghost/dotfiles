@@ -537,9 +537,10 @@ nnoremap <C-t>n :tabnew<cr>
 nnoremap <C-t>i :tabfirst<cr>
 nnoremap <C-t>I :tablast<cr>
 
+nnoremap <leader>k :bd!<cr>
+
 "neovim terminal
-tnoremap <C-\> <C-\><C-n>
-tnoremap <C-i> <C-\><C-n>
+tnoremap <C-o> <C-\><C-n>
 tnoremap <C-w>h <C-\><C-n><C-w>h
 tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>l <C-\><C-n><C-w>l
