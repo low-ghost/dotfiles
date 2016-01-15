@@ -1,0 +1,178 @@
+set noshowmode
+let g:bufferline_echo=0
+let g:jsx_ext_required = 0
+let g:Tsuquyomi_use_dev_node_module=2
+let g:Tsuquyomi_tsserver_path="/home/mbagwell/repo/react-redux-type-pack/node_modules/typescript/bin/tsserver"
+
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+
+" custom vimux bindings
+nnoremap <space>vp :VimuxPromptCommand<CR>
+nnoremap <space>vl :VimuxRunLastCommand<CR>
+nnoremap <space>vi :VimuxInspectRunner<CR>
+nnoremap <space>vz :VimuxZoomRunner<CR>
+nnoremap <space>vq :VimuxCloseRunner<CR>
+
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+
+ " If text is selected, save it in the v buffer and send that buffer it to tmux
+vnoremap <space>vs "vy :call VimuxSlime()<CR>
+
+ " Select current paragraph and send it to tmux
+nnoremap <space>vs vip<LocalLeader>vs<CR>
+
+nnoremap <space>ve= :call VimuxSetEnv()<CR>
+function! VimuxSetEnv()
+    call inputsave()
+    let name = input('code prefix before buffername: ')
+    call inputrestore()
+    let b:VimuxEnv = name
+endfunction
+"function! VimuxMapEnv()
+    "call inputsave()
+    "let key = input('key: ')
+    "call inputrestore()
+    "call inputsave()
+    "let VimuxCommand = input('command: ')
+    "call inputrestore()
+    "return g:mapSting = \"nnoremap <Leader>ve\" . key . \"\"VimuxRunCommand(\"\" . VimuxCommand . \"\")<CR>\"
+"endfunction
+"nnoremap <Leader>vem :call VimuxMapEnv()<CR>
+nnoremap <Leader>ver :call VimuxRunCommand(b:VimuxEnv . " " . bufname("%"))<CR>
+
+inoremap <Esc> <Esc><Esc>
+nnoremap <Space> :w<CR>
+
+nmap ,, <Plug>(easymotion-s)
+nmap ,n <Plug>(easymotion-sn)
+nmap ,2 <Plug>(easymotion-s2)
+
+nnoremap <Space>ss :s///g<Left><Left><Left><C-f>i
+nnoremap <Space>sw :s/\(<C-r><C-w>\)/\1/g<Left><Left>
+nnoremap <Space>sa :%s/\(<C-r><C-w>\)/\1/g<Left><Left>
+
+nnoremap <Space>f :<C-f>i
+inoremap <Leader>; <Esc>A;<Esc>
+nnoremap <Leader>; A;<Esc>
+
+nnoremap <Space>l :ls<CR>:b<Space>
+
+nnoremap <Space><Tab> :bnext<cr>
+nnoremap <Tab><Space> :bprevious<cr>
+
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>evl :e ~/.vimrc.local<CR>
+nnoremap <silent> <leader>sov :so $MYVIMRC<CR>
+nnoremap <c-x> :wall!<CR>:mksession! Session.vim<CR>
+let g:EasyMotion_smartcase = 1
+
+nnoremap <Leader>eneo :NeoSnippetEdit<CR>
+nnoremap <Leader>rneo :NeoSnippetMakeCache<CR>
+
+nnoremap <Leader>d :bd<cr>
+nnoremap <Leader>h :hide<cr>
+
+inoremap <C-e> <Esc>A
+inoremap <C-b> <Esc>i
+inoremap <C-f> <Esc>la
+
+let g:snips_author = 'Michael Bagwell <Michael_Bagwell@excelmicro.com>'
+
+"function! TestFileNameToVar()
+    "let b:origFile = substitute(expand("%:t:r"), "Test", "", "")
+    "" doesn't work
+    "let b:origFileVar = substitute(b:origFile, "(\a)", "\L\1", "g")
+    "let b:stringToMod = "nnoremap <leader>emod :e ../../models/" . b:origFile . ".php<cr>"
+    "exec b:stringToMod
+    "return b:origFile
+"endfunction
+
+"function! Laravel()
+    "let g:LARAROOT = fnamemodify(b:git_dir, ":h")
+    "let stringToCon = "nnoremap <leader>ecn :e " . g:LARAROOT . "/app/config/CSAConsole.php<cr>"
+    "exec stringToCon
+    "let stringToRoute = "nnoremap <leader>ert :e " . g:LARAROOT . "/app/routes.php<cr>"
+    "exec stringToRoute
+    "command! -nargs=+ Laragrep execute 'silent grep! -r --exclude-dir={node_modules,plugins,vendor,git,logs,meta} <args> '.LARAROOT | copen 33
+"endfunction
+
+"nnoremap <Leader>th bi$this-><Esc>
+"nnoremap <Leader>bug yiwovar_dump(<Esc>pa);<Esc>
+
+"nnoremap <Space>re _ceconst/frm€kbomct'= requix€kbre(lxf;i)j_
+
+nnoremap gp `[v`]
+
+" BufOnly.vim  -  Delete all the buffers except the current/named buffer.
+"
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
+"
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+
+command! -nargs=? -complete=buffer -bang Bonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call BufOnly('<args>', '<bang>')
+
+function! BufOnly(buffer, bang)
+	if a:buffer == ''
+		" No buffer provided, use the current buffer.
+		let buffer = bufnr('%')
+	elseif (a:buffer + 0) > 0
+		" A buffer number was provided.
+		let buffer = bufnr(a:buffer + 0)
+	else
+		" A buffer name was provided.
+		let buffer = bufnr(a:buffer)
+	endif
+
+	if buffer == -1
+		echohl ErrorMsg
+		echomsg "No matching buffer for" a:buffer
+		echohl None
+		return
+	endif
+
+	let last_buffer = bufnr('$')
+
+	let delete_count = 0
+	let n = 1
+	while n <= last_buffer
+		if n != buffer && buflisted(n)
+			if a:bang == '' && getbufvar(n, '&modified')
+				echohl ErrorMsg
+				echomsg 'No write since last change for buffer'
+							\ n '(add ! to override)'
+				echohl None
+			else
+				silent exe 'bdel' . a:bang . ' ' . n
+				if ! buflisted(n)
+					let delete_count = delete_count+1
+				endif
+			endif
+		endif
+		let n = n+1
+	endwhile
+
+	if delete_count == 1
+		echomsg delete_count "buffer deleted"
+	elseif delete_count > 1
+		echomsg delete_count "buffers deleted"
+	endif
+
+endfunction
