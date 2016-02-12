@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode zsh-navigation-tools)
 
 # User configuration
 
@@ -83,7 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.nvm/nvm.sh
-nvm use stable > /dev/null
+nvm use latest > /dev/null
 source ~/.aliases
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -91,3 +91,15 @@ bindkey "^S" history-incremental-search-forward
 export PG_HOST_EXM=db-postgres.ccopgocbqoi8.us-east-1.rds.amazonaws.com
 export PG_USER_EXM=mbagwell
 export PG_DB_EXM=exm-development
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+### ZNT's installer added snippet ###
+fpath=( "$fpath[@]" "$HOME/.config/znt/zsh-navigation-tools" )
+autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize
+autoload znt-usetty-wrapper znt-history-widget znt-cd-widget znt-kill-widget
+alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history
+alias nkill=n-kill noptions=n-options npanelize=n-panelize
+zle -N znt-history-widget
+bindkey '^R' znt-history-widget
+setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
+### END ###

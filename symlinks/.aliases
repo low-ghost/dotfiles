@@ -23,7 +23,7 @@ addalias() {
 
 encjson() { ejson encrypt $1 }
 
-decjson() { ejson decrypt secrets/$1.json | tee secrets/t.json && mv secrets/t.json secrets/$1.json }
+decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
 
 dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
 
@@ -56,12 +56,6 @@ compdef _his his
 
 alias eali='vim ~/.aliases'
 alias init= '. ~/.xcaperc'
-alias ..='cd ..'
-compdef _.. ..='cd ..'
-alias ...='cd ../..'
-compdef _... ...='cd ../..'
-alias ....='cd ../../..'
-compdef _.... ....='cd ../../..'
 alias ezsh='vim ~/.zshrc'
 alias dc='docker-compose'
 alias dcs='docker-compose stop'
@@ -74,10 +68,13 @@ alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias noden='node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias nlo='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_'
-alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash-fp\")];" node --es_staging --harmony_destructuring --harmony_default_parameters'
+alias nlo4='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_4'
+alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias ncw='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/cw'
 alias gstai='git stash --keep-index' # stash, but keep files
-alias gstain='git stash --keep-index' # same, but more fun
+alias gstain='git stash --keep-index' # same, but more fun 
+alias -g gic='git update-index --assume-unchanged'
+alias -g ungic='git update-index --no-assume-unchanged'
 
 gun() { git reset HEAD $@ ;}
 _gitunadd_completion() {
@@ -92,6 +89,7 @@ alias apt='sudo apt-get'
 compdef _apt apt='sudo apt-get'
 alias apti='sudo apt-get install'
 compdef _apti apti='sudo apt-get install'
+alias aptu='sudo apt-get update'
 
 gi() { curl -sL https://www.gitignore.io/api/`echo $@ | sed s/" "/,/g` ;}
 _gitignoreio_completion() {
@@ -107,5 +105,22 @@ calc() { echo $1 | bc -l }
 alias pgdevstart='docker run -d -p 5432:5432 postgres'
 alias pgdev='psql -U postgres -h localhost' 
 
-#w/ export dependencies
-alias pgexm='psql -U $PG_USER_EXM -h $PG_HOST_EXM -d $PG_DB_EXM'
+pyserve() {
+  if [ -z "$1" ]
+    then
+      timeout 1h python -m SimpleHTTPServer; notify-send 'python server shutdown'
+    else
+      timeout "$@" python -m SimpleHTTPServer; notify-send 'python server shutdown'
+    fi
+}
+alias rdevstart='docker run -p 6379:6379 -d redis'
+
+pgexm () {
+    if [ $# -eq 0 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM
+    elif [ $# -eq 1 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+    else
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    fi
+}
