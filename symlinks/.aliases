@@ -54,6 +54,7 @@ _his () {
 }
 compdef _his his
 
+alias tmux='tmux -2'
 alias eali='vim ~/.aliases'
 alias init= '. ~/.xcaperc'
 alias ezsh='vim ~/.zshrc'

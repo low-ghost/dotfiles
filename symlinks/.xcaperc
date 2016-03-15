@@ -1,13 +1,4 @@
-xmodmap -e "keycode 77 = Tab"
-xmodmap -e "keycode 23 = Alt_L"
-xmodmap -e "keycode 36 = Control_R"
-xmodmap -e "keycode 105 = Return"
-xmodmap -e "add Control = Control_R"
-#xmodmap -e "remove Shift = Shift_R"
-#xmodmap -e "keycode 62 = Alt_L"
-#xmodmap -e "add Mod1 Alt_L"
 xcape -e '#38=a'
+xcape -e '#48=apostrophe'
 xcape -e '#65=space'
 xcape -e '#66=Escape'
-xcape -e '#23=Tab'
-xcape -e '#36=Return'
