@@ -1,0 +1,91 @@
+default  partial alphanumeric_keys modifier_keys
+// Neo Colemak symbols for xkb on X.Org Server 7.x
+
+partial alphanumeric_keys
+xkb_symbols "neo-colemak" {
+    include "us"
+    name[Group1]= "Neo Colemak";
+    
+
+    // scrap keys for xcaperc
+    key <SCLK> { [            a,            A                                    ] };
+    key <PAUS> { [        space                                                  ] };
+    key <BKSL> { [   apostrophe,     quotedbl                                    ] };
+
+    key <TLDE> { [        grave,   asciitilde                                    ] };
+    key <AE01> { [            1,       exclam                                    ] };
+    key <AE02> { [            2,           at                                    ] };
+    key <AE03> { [            3,   numbersign                                    ] };
+    key <AE04> { [            4,       dollar                                    ] };
+    key <AE05> { [            5,      percent                                    ] };
+    key <AE06> { [            6,  asciicircum                                    ] };
+    key <AE07> { [            7,    ampersand                                    ] };
+    key <AE08> { [            8,     asterisk                                    ] };
+    key <AE09> { [            9,    parenleft                                    ] };
+    key <AE10> { [            0,   parenright                                    ] };
+    key <AE11> { [        minus,   underscore,          endash,           emdash ] };
+    key <AE12> { [        equal,         plus,        multiply,         division ] };
+
+    key <AD01> { [            q,            Q,       backslash                   ] };
+    key <AD02> { [            w,            W,      underscore                   ] };
+    key <AD03> { [            f,            F,     bracketleft                   ] };
+    key <AD04> { [            p,            P,    bracketright                   ] };
+    key <AD05> { [            g,            G,     asciicircum,                G ] };
+    key <AD06> { [            j,            J,          exclam                   ] };
+    key <AD07> { [            l,            L,            less,                7 ] };
+    key <AD08> { [            u,            U,         greater,                8 ] };
+    key <AD09> { [            y,            Y,           equal,                9 ] };
+    key <AD10> { [    semicolon,        colon,       ampersand,            minus ] };
+    key <AD11> { [  bracketleft,    braceleft,              at                   ] };
+    key <AD12> { [ bracketright,   braceright,        ellipsis                   ] };
+
+    // a is level 3 shift
+    key <AC01> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
+    key <AC02> { [            r,            R,           slash                   ] };
+    key <AC03> { [            s,            S,       braceleft                   ] };
+    key <AC04> { [            t,            T,      braceright                   ] };
+    key <AC05> { [            d,            D,        asterisk                   ] };
+    key <AC06> { [            h,            H,        question                   ] };
+    key <AC07> { [            n,            N,       parenleft,                4 ] };
+    key <AC08> { [            e,            E,      parenright,                5 ] };
+    key <AC09> { [            i,            I,           minus,                6 ] };
+    key <AC10> { [            o,            O,           colon                   ] };
+    // apostrophe is level 3 shift
+    key <AC11> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
+
+    key <AB01> { [            z,            Z,      numbersign                   ] };
+    key <AB02> { [            x,            X,          dollar                   ] };
+    key <AB03> { [            c,            C,             bar                   ] };
+    key <AB04> { [            v,            V,      asciitilde                   ] };
+    key <AB05> { [            b,            B,           grave                   ] };
+    key <AB06> { [            k,            K,            plus,                0 ] };
+    key <AB07> { [            m,            M,         percent,                1 ] };
+    key <AB08> { [        comma,         less,           comma,                2 ] };
+    key <AB09> { [       period,      greater,          period,       	       3 ] };
+    key <AB10> { [        slash,     question,           slash,                3 ] };
+
+    key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
+
+    include "level5(modifier_mapping)"
+    include "cu(caps_cntr)"
+    include "cu(rshift_ralt)"
+    include "cu(space_shift)"
+};
+
+partial modifier_keys
+xkb_symbols "caps_cntr" {
+    replace key <CAPS> { [ Control_L, Control_L ] };
+    modifier_map  Control { <CAPS>, <LCTL> };
+};
+
+partial modifier_keys
+xkb_symbols "rshift_ralt" {
+    replace key <RTSH> { [ Alt_L, Alt_L ] };
+    modifier_map Mod1 { <RTSH> };
+};
+
+partial modifier_keys
+xkb_symbols "space_shift" {
+    replace key <SPCE> { [ Shift_L, Shift_L ] };
+    modifier_map Shift { <SPCE> };
+};
