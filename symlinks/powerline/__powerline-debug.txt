@@ -1,0 +1,1706 @@
+2016-03-16 12:25:59,829:ERROR:tmux:segment_generator:Failed to import attr spotify_dbus from module powerrline.segments.common.players: No module named powerrline.segments.common.players
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/__init__.py", line 317, in get_module_attr
+    return getattr(__import__(module, fromlist=(attr,)), attr)
+ImportError: No module named powerrline.segments.common.players
+2016-03-16 12:25:59,830:ERROR:tmux:segment_generator:Failed to generate segment from {u'function': u'powerrline.segments.common.players.spotify_dbus', u'name': u'player'}: Failed to obtain segment function
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 328, in get
+    contents, _contents_func, module, function_name, name = get_segment_info(data, segment)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 69, in get_function
+    raise ImportError('Failed to obtain segment function')
+ImportError: Failed to obtain segment function
+2016-03-16 13:57:55,545:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,545:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,576:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,576:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,577:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/shell/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,577:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/shell/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,577:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,577:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,578:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/solarized.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,578:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/solarized.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,578:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/shell/__main__.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,578:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/shell/__main__.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,579:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,579:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,580:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/shell/__main__.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,580:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/shell/__main__.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,580:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,580:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,581:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/shell/solarized.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,581:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/shell/solarized.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,582:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,582:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,602:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,602:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,603:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,603:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,603:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,603:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,604:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,604:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,604:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,604:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,605:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,605:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,609:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,609:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,610:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,610:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,610:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,610:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,611:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,611:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,611:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,611:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,612:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:57:55,612:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,275:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,275:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,276:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,276:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,277:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,277:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,278:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,278:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,279:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,279:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,281:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,281:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,283:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,283:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,284:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,284:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,286:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,286:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,287:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,287:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,287:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,287:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,289:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,289:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,295:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,295:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,296:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,296:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,297:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,297:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,298:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,298:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,298:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,298:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,299:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:25,299:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,667:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,667:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,668:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,668:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,670:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,670:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,671:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,671:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,672:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,672:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,673:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,673:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,675:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,675:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,676:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,676:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,677:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,677:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,678:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,678:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,679:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,679:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,680:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,680:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,686:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,686:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,687:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,687:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,688:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,688:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,689:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,689:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,690:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,690:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,691:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:35,691:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,418:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,418:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,419:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,419:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,421:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,421:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,422:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,422:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,423:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,423:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,424:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,424:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,427:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,427:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,428:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,428:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,429:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,429:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,430:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,430:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,431:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,431:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,432:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,432:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,440:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,440:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/tmux/custom.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,441:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,441:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/themes/powerline.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,442:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,442:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,443:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,443:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/config.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,444:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,444:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colorschemes/tmux/default.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,445:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory
+2016-03-16 13:58:38,445:ERROR:tmux:config_loader:Error while running watcher for path /home/mbagwell/.config/powerline/colors.json: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/config.py", line 170, in update
+    modified = self.watcher(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 118, in __call__
+    self.watch(path)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/watcher/inotify.py", line 95, in watch
+    self.handle_error()
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
+    raise OSError(eno, self.os.strerror(eno) + str(extra))
+OSError: [Errno 2] No such file or directory

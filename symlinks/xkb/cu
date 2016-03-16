@@ -31,8 +31,12 @@ xkb_symbols "neo-colemak" {
     key <AD03> { [            f,            F,     bracketleft                   ] };
     key <AD04> { [            p,            P,    bracketright                   ] };
     key <AD05> { [            g,            G,     asciicircum,                G ] };
-    key <AD06> { [            j,            J,          exclam                   ] };
-    key <AD07> { [            l,            L,            less,                7 ] };
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AD06> { [            j,            J,          exclam,         NoSymbol,
+                           Down                                                  ] };
+    key <AD07> { [            l,            L,            less,                7,
+                          Right                                                  ] };
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AD08> { [            u,            U,         greater,                8 ] };
     key <AD09> { [            y,            Y,           equal,                9 ] };
     key <AD10> { [    semicolon,        colon,       ampersand,            minus ] };
@@ -45,7 +49,10 @@ xkb_symbols "neo-colemak" {
     key <AC03> { [            s,            S,       braceleft                   ] };
     key <AC04> { [            t,            T,      braceright                   ] };
     key <AC05> { [            d,            D,        asterisk                   ] };
-    key <AC06> { [            h,            H,        question                   ] };
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AC06> { [            h,            H,        question,         NoSymbol,
+                            Left                                                 ] };
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AC07> { [            n,            N,       parenleft,                4 ] };
     key <AC08> { [            e,            E,      parenright,                5 ] };
     key <AC09> { [            i,            I,           minus,                6 ] };
@@ -58,10 +65,13 @@ xkb_symbols "neo-colemak" {
     key <AB03> { [            c,            C,             bar                   ] };
     key <AB04> { [            v,            V,      asciitilde                   ] };
     key <AB05> { [            b,            B,           grave                   ] };
-    key <AB06> { [            k,            K,            plus,                0 ] };
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AB06> { [            k,            K,            plus,                0,
+                             Up                                                  ] };
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AB07> { [            m,            M,         percent,                1 ] };
     key <AB08> { [        comma,         less,           comma,                2 ] };
-    key <AB09> { [       period,      greater,          period,       	       3 ] };
+    key <AB09> { [       period,      greater,          period,                3 ] };
     key <AB10> { [        slash,     question,           slash,                3 ] };
 
     key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
@@ -70,12 +80,19 @@ xkb_symbols "neo-colemak" {
     include "cu(caps_cntr)"
     include "cu(rshift_ralt)"
     include "cu(space_shift)"
+    include "cu(lctl_5)"
 };
 
 partial modifier_keys
 xkb_symbols "caps_cntr" {
     replace key <CAPS> { [ Control_L, Control_L ] };
     modifier_map  Control { <CAPS>, <LCTL> };
+};
+
+partial modifier_keys
+xkb_symbols "lctl_5" {
+    replace key <LCTL> { [ ISO_Level5_Lock, ISO_Level5_Lock ] };
+    modifier_map  Mod3 { <LCTL> };
 };
 
 partial modifier_keys

@@ -1,3 +1,32 @@
+# keyboard {
+
+alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
+alias initx= '. ~/.xcaperc'
+
+# }
+# configs {
+
+alias eali='vim ~/.aliases'
+alias ezsh='vim ~/.zshrc'
+
+# }
+# alias {
+
+addali() {
+  echo "Enter a description for the alias:"
+  read comment
+  echo "# $comment" >> ~/.aliases
+  echo "alias $1='`fc -ln -1`'" >> ~/.aliases
+}
+
+# }
+# ejson {
+
+encjson() { ejson encrypt $1.json }
+decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
+
+# }
+
 countdown() {
    date1=$((`date +%s` + $1)); 
    while [ "$date1" -ne `date +%s` ]; do 
@@ -6,26 +35,8 @@ countdown() {
    done
    notify-send 'countdown finished'
 }
-
-dstopall() { docker stop $(docker ps -a -q) }
-drmall() { docker rm $(docker ps -a -q) }
-
-dbuild() {
-  dir=${PWD##*/}
-  docker build -t ${1-$dir} .
-}
-
 whatsonport() { sudo netstat -tulnap | grep :$1 }
 
-addalias() {
-  fc -ln -l >> ~/.aliases && vim -c 'startinsert' + ~/.aliases
-}
-
-encjson() { ejson encrypt $1 }
-
-decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
-
-dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
 
 clip() { "$1" | xclip -sel clip }
 
@@ -54,15 +65,25 @@ _his () {
 }
 compdef _his his
 
-alias tmux='tmux -2'
-alias eali='vim ~/.aliases'
-alias init= '. ~/.xcaperc'
-alias ezsh='vim ~/.zshrc'
+# docker {
+
 alias dc='docker-compose'
 alias dcs='docker-compose stop'
 alias ds='docker stop'
 compdef _ds ds='docker stop'
 alias dps='docker ps'
+
+dstopall() { docker stop $(docker ps -a -q) }
+drmall() { docker rm $(docker ps -a -q) }
+dbuild() {
+  dir=${PWD##*/}
+  docker build -t ${1-$dir} .
+}
+dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
+
+# }
+# nvm {
+
 alias nvmc='nvm current'
 alias nvmu='nvm use'
 alias nvma='nvm alias'
@@ -72,11 +93,20 @@ alias nlo='nvm exec new node --es_staging --harmony_destructuring --harmony_defa
 alias nlo4='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_4'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias ncw='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/cw'
-alias gstai='git stash --keep-index' # stash, but keep files
-alias gstain='git stash --keep-index' # same, but more fun 
+
+# }
+# git {
+
+# stash, but keep files
+alias -g gstai='git stash --keep-index'
+# same, but more fun
+alias -g gstain='git stash --keep-index'
+# ignore file in git
 alias -g gic='git update-index --assume-unchanged'
+# restore watching file in git
 alias -g ungic='git update-index --no-assume-unchanged'
 
+# git unadd: remove file from
 gun() { git reset HEAD $@ ;}
 _gitunadd_completion() {
   git diff --cached --name-only --diff-filter=A
@@ -86,12 +116,7 @@ _gitunadd () {
 }
 compdef _gitunadd gun
 
-alias apt='sudo apt-get'
-compdef _apt apt='sudo apt-get'
-alias apti='sudo apt-get install'
-compdef _apti apti='sudo apt-get install'
-alias aptu='sudo apt-get update'
-
+# generate git ignore from gitignore.io
 gi() { curl -sL https://www.gitignore.io/api/`echo $@ | sed s/" "/,/g` ;}
 _gitignoreio_completion() {
   curl -sL https://www.gitignore.io/api/list | tr "," "\n"
@@ -101,6 +126,24 @@ _gitignoreio () {
   compadd -S '' `_gitignoreio_completion`
 }
 compdef _gitignoreio gi
+
+# clone from the excel micro repo
+gclex() {
+  git clone git@bitbucket.org:excelmicro/$1.git ~/repo/$1
+}
+
+# }
+# apt {
+
+alias apt='sudo apt-get'
+compdef _apt apt='sudo apt-get'
+alias apti='sudo apt-get install'
+compdef _apti apti='sudo apt-get install'
+alias aptu='sudo apt-get update'
+
+# }
+
+# simple calculations
 calc() { echo $1 | bc -l }
 
 alias pgdevstart='docker run -d -p 5432:5432 postgres'
@@ -125,3 +168,5 @@ pgexm () {
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
+
+# recently added {
