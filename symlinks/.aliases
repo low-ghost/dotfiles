@@ -1,7 +1,8 @@
 # keyboard {
 
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
-alias initx= '. ~/.xcaperc'
+# does not work?
+alias xkbinit= '. ~/.xcaperc'
 
 # }
 # configs {
@@ -82,7 +83,7 @@ dbuild() {
 dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
 
 # }
-# nvm {
+# node {
 
 alias nvmc='nvm current'
 alias nvmu='nvm use'
@@ -93,6 +94,9 @@ alias nlo='nvm exec new node --es_staging --harmony_destructuring --harmony_defa
 alias nlo4='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_4'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias ncw='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/cw'
+alias npml='npm link'
+compdef _npml npml='cd '
+
 
 # }
 # git {

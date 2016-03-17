@@ -1,3 +1,4 @@
+pkill xcape
 xcape -e '#38=a'
 xcape -e '#48=apostrophe'
 xcape -e '#65=space'

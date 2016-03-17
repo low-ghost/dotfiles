@@ -79,8 +79,18 @@ xkb_symbols "neo-colemak" {
     include "level5(modifier_mapping)"
     include "cu(caps_cntr)"
     include "cu(rshift_ralt)"
+    include "cu(lshift_5_shift)"
+    include "cu(lctl_5_lock)"
     include "cu(space_shift)"
-    include "cu(lctl_5)"
+    include "cu(noop_arrows)"
+};
+
+partial modifier_keys
+xkb_symbols "noop_arrows" {
+    key <UP>   { [ NoSymbol ] };
+    key <LEFT> { [ NoSymbol ] };
+    key <DOWN> { [ NoSymbol ] };
+    key <RGHT> { [ NoSymbol ] };
 };
 
 partial modifier_keys
@@ -90,9 +100,15 @@ xkb_symbols "caps_cntr" {
 };
 
 partial modifier_keys
-xkb_symbols "lctl_5" {
+xkb_symbols "lctl_5_lock" {
     replace key <LCTL> { [ ISO_Level5_Lock, ISO_Level5_Lock ] };
     modifier_map  Mod3 { <LCTL> };
+};
+
+partial modifier_keys
+xkb_symbols "lshift_5_shift" {
+    replace key <LFSH> { [ ISO_Level5_Shift, ISO_Level5_Shift ] };
+    modifier_map  Mod3 { <LFSH> };
 };
 
 partial modifier_keys

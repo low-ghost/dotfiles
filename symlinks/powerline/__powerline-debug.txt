@@ -1704,3 +1704,5 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/dist-packages/powerline/lib/inotify.py", line 138, in handle_error
     raise OSError(eno, self.os.strerror(eno) + str(extra))
 OSError: [Errno 2] No such file or directory
+2016-03-16 18:17:48,188:ERROR:tmux:WeatherSegment:Failed to get response
+2016-03-16 18:17:48,188:ERROR:tmux:WeatherSegment:Failed to get response
