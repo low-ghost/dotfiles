@@ -109,6 +109,12 @@ alias -g gstain='git stash --keep-index'
 alias -g gic='git update-index --assume-unchanged'
 # restore watching file in git
 alias -g ungic='git update-index --no-assume-unchanged'
+alias -g gcan='git commit -a -n -m'
+gpan() {
+  echo "Enter a message"
+  read message
+  `git commit -a -n -m $message; ggpush`
+}
 
 # git unadd: remove file from
 gun() { git reset HEAD $@ ;}

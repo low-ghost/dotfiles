@@ -31,13 +31,16 @@ xkb_symbols "neo-colemak" {
     key <AD03> { [            f,            F,     bracketleft                   ] };
     key <AD04> { [            p,            P,    bracketright                   ] };
     key <AD05> { [            g,            G,     asciicircum,                G ] };
+
     key.type[Group1] = "EIGHT_LEVEL";
     key <AD06> { [            j,            J,          exclam,         NoSymbol,
                            Down                                                  ] };
     key <AD07> { [            l,            L,            less,                7,
                           Right                                                  ] };
+    key <AD08> { [            u,            U,         greater,                8,
+                          Prior                                                  ] };
+
     key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
-    key <AD08> { [            u,            U,         greater,                8 ] };
     key <AD09> { [            y,            Y,           equal,                9 ] };
     key <AD10> { [    semicolon,        colon,       ampersand,            minus ] };
     key <AD11> { [  bracketleft,    braceleft,              at                   ] };
@@ -48,26 +51,43 @@ xkb_symbols "neo-colemak" {
     key <AC02> { [            r,            R,           slash                   ] };
     key <AC03> { [            s,            S,       braceleft                   ] };
     key <AC04> { [            t,            T,      braceright                   ] };
-    key <AC05> { [            d,            D,        asterisk                   ] };
+
     key.type[Group1] = "EIGHT_LEVEL";
+    key <AC05> { [            d,            D,        asterisk,         NoSymbol,
+                           Next                                                 ] };
     key <AC06> { [            h,            H,        question,         NoSymbol,
-                            Left                                                 ] };
+                           Left                                                  ] };
+
     key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AC07> { [            n,            N,       parenleft,                4 ] };
-    key <AC08> { [            e,            E,      parenright,                5 ] };
-    key <AC09> { [            i,            I,           minus,                6 ] };
-    key <AC10> { [            o,            O,           colon                   ] };
+
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AC08> { [            e,            E,      parenright,                5,
+                            End                                                  ] };
+    key <AC09> { [            i,            I,           minus,                6,
+                           Home                                                  ] };
+    key <AC10> { [            o,            O,           colon,        NoSymbol,
+                         Return                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     // apostrophe is level 3 shift
     key <AC11> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
 
-    key <AB01> { [            z,            Z,      numbersign                   ] };
-    key <AB02> { [            x,            X,          dollar                   ] };
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AB01> { [            z,            Z,      numbersign,        NoSymbol,
+                       XF86Save                                                  ] };
+    key <AB02> { [            x,            X,          dollar,        NoSymbol,
+                         Delete                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AB03> { [            c,            C,             bar                   ] };
     key <AB04> { [            v,            V,      asciitilde                   ] };
     key <AB05> { [            b,            B,           grave                   ] };
+
     key.type[Group1] = "EIGHT_LEVEL";
     key <AB06> { [            k,            K,            plus,                0,
                              Up                                                  ] };
+
     key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AB07> { [            m,            M,         percent,                1 ] };
     key <AB08> { [        comma,         less,           comma,                2 ] };
@@ -82,15 +102,6 @@ xkb_symbols "neo-colemak" {
     include "cu(lshift_5_shift)"
     include "cu(lctl_5_lock)"
     include "cu(space_shift)"
-    include "cu(noop_arrows)"
-};
-
-partial modifier_keys
-xkb_symbols "noop_arrows" {
-    key <UP>   { [ NoSymbol ] };
-    key <LEFT> { [ NoSymbol ] };
-    key <DOWN> { [ NoSymbol ] };
-    key <RGHT> { [ NoSymbol ] };
 };
 
 partial modifier_keys
