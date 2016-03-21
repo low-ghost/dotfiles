@@ -77,20 +77,23 @@ xkb_symbols "neo-colemak" {
     key <AB01> { [            z,            Z,      numbersign,        NoSymbol,
                        XF86Save                                                  ] };
     key <AB02> { [            x,            X,          dollar,        NoSymbol,
+                      BackSpace                                                  ] };
+    key <AB03> { [            c,            C,             bar,        NoSymbol,
                          Delete                                                  ] };
 
     key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
-    key <AB03> { [            c,            C,             bar                   ] };
     key <AB04> { [            v,            V,      asciitilde                   ] };
     key <AB05> { [            b,            B,           grave                   ] };
 
     key.type[Group1] = "EIGHT_LEVEL";
     key <AB06> { [            k,            K,            plus,                0,
                              Up                                                  ] };
+    key <AB07> { [            m,            M,         percent,                1,
+                      BackSpace                                                  ] };
+    key <AB08> { [        comma,         less,           comma,                2,
+                         Delete                                                  ] };
 
     key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
-    key <AB07> { [            m,            M,         percent,                1 ] };
-    key <AB08> { [        comma,         less,           comma,                2 ] };
     key <AB09> { [       period,      greater,          period,                3 ] };
     key <AB10> { [        slash,     question,           slash,                3 ] };
 
