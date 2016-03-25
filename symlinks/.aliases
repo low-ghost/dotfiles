@@ -169,13 +169,23 @@ pyserve() {
 }
 alias rdevstart='docker run -p 6379:6379 -d redis'
 
-pgexm () {
+pgexm() {
     if [ $# -eq 0 ]; then
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM
     elif [ $# -eq 1 ]; then
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
     else
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    fi
+}
+
+pgloc() {
+    if [ $# -eq 0 ]; then
+        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC
+    elif [ $# -eq 1 ]; then
+        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+    else
+        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
 
