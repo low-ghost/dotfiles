@@ -51,6 +51,9 @@ Plug 'wellle/targets.vim'
 Plug 'mxw/vim-jsx'
 Plug 'low-ghost/vimax'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 let g:Completion_YouCompleteMe = 1
