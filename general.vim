@@ -180,6 +180,8 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 " Workaround broken colour highlighting in Haskell
 autocmd FileType haskell,rust setlocal nospell
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+"add .ts to typescript file path
+autocmd FileType typescript set suffixesadd+=.ts
 " }
 
 " Shortcuts {

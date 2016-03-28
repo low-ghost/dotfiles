@@ -210,9 +210,9 @@ nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
 nnoremap <silent> <Space>sw :s/\(<C-r><C-w>\)//g<Left><Left>
 nnoremap <silent> <Space>sfw :s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
 nnoremap <silent> <Space>sas :%s///g<Left><Left><Left>
-nnoremap <silent> <Space>safs :%s///g<Left><Left><Left><C-f>i
+nnoremap <silent> <Space>sfas :%s///g<Left><Left><Left><C-f>i
 nnoremap <silent> <Space>saw :%s/\(<C-r><C-w>\)//g<Left><Left>
-nnoremap <silent> <Space>safw :%s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
+nnoremap <silent> <Space>sfaw :%s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
 " Easy motion {
 map ,, <Plug>(easymotion-prefix)
 map <space>, <Plug>(easymotion-prefix)
@@ -287,3 +287,18 @@ if exists('g:Make_neomake')
   nnoremap <silent> <Space>m :Neomake<CR>
 endif
 
+" Vimax {
+nmap <Space>va <Plug>VimaxList
+nmap <Space>vc <Plug>VimaxClearAddressHistory
+nmap <Space>vd <Plug>VimaxRunCommandInDir
+nmap <Space>vg <Plug>VimaxGoToAddress
+nmap <Space>vh <Plug>VimaxHistory
+nmap <Space>vi <Plug>VimaxInspectAddress
+nmap <Space>vj <Plug>VimaxScrollDownInspect
+nmap <Space>vk <Plug>VimaxScrollUpInspect
+nmap <Space>vl <Plug>VimaxRunLastCommand
+nmap <Space>vp <Plug>VimaxPromptCommand
+nmap <Space>vq <Plug>VimaxCloseAddress
+nmap <Space>vx <Plug>VimaxInterruptAddress
+nmap <Space>vz <Plug>VimaxZoomAddress
+" }
