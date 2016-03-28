@@ -1,4 +1,0 @@
-xcape -e '#48=apostrophe'
-xcape -e '#38=a'
-xcape -e '#65=space'
-xcape -e '#133=Escape'

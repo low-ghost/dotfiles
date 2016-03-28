@@ -85,9 +85,17 @@ source $ZSH/oh-my-zsh.sh
 source ~/.nvm/nvm.sh
 nvm use latest > /dev/null
 source ~/.aliases
+source ~/.secrets
 bindkey -v
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 export HISTTIMEFORMAT="%d/%m/%y %T "
+
 NVIM_TUI_ENABLE_TRUE_COLOR=1
 TERM=xterm-256color
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+powerline-daemon -q
+. /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh
+
+source "$HOME/.nvim/plugged/gruvbox/gruvbox_256palette.sh"

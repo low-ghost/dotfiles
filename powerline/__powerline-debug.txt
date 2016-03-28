@@ -3336,3 +3336,51 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
     condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
 KeyError: u'rss'
+2016-03-28 09:46:48,527:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T13:46:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 09:46:48,527:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T13:46:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 09:46:48,550:ERROR:tmux:player:Exception while computing segment: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VhQhsOsMvl: Connection refused
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 173, in process_segment
+    contents = segment['contents_func'](pl, segment_info)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 414, in <lambda>
+    contents_func = lambda pl, segment_info: _contents_func(pl=pl, **args)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 46, in __call__
+    func_stats = self.get_player_status(**kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 304, in get_player_status
+    iface_player='org.freedesktop.MediaPlayer2',
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 243, in _get_dbus_player_status
+    bus = dbus.SessionBus()
+  File "/usr/local/lib/python2.7/dist-packages/dbus/_dbus.py", line 211, in __new__
+    mainloop=mainloop)
+  File "/usr/local/lib/python2.7/dist-packages/dbus/_dbus.py", line 100, in __new__
+    bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+  File "/usr/local/lib/python2.7/dist-packages/dbus/bus.py", line 122, in __new__
+    bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+DBusException: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VhQhsOsMvl: Connection refused
+2016-03-28 09:46:48,550:ERROR:tmux:player:Exception while computing segment: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VhQhsOsMvl: Connection refused
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 173, in process_segment
+    contents = segment['contents_func'](pl, segment_info)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segment.py", line 414, in <lambda>
+    contents_func = lambda pl, segment_info: _contents_func(pl=pl, **args)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 46, in __call__
+    func_stats = self.get_player_status(**kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 304, in get_player_status
+    iface_player='org.freedesktop.MediaPlayer2',
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/players.py", line 243, in _get_dbus_player_status
+    bus = dbus.SessionBus()
+  File "/usr/local/lib/python2.7/dist-packages/dbus/_dbus.py", line 211, in __new__
+    mainloop=mainloop)
+  File "/usr/local/lib/python2.7/dist-packages/dbus/_dbus.py", line 100, in __new__
+    bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+  File "/usr/local/lib/python2.7/dist-packages/dbus/bus.py", line 122, in __new__
+    bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+DBusException: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VhQhsOsMvl: Connection refused
