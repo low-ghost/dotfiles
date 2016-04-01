@@ -59,14 +59,12 @@ call plug#end()
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 
+let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+
 source ~/.config/vim/general.vim
 source ~/.config/vim/plugins.vim
 source ~/.config/vim/functions.vim
 
-
-nnoremap <space>yt :YcmCompleter GetType<CR>
-nnoremap <space>yg :YcmCompleter GoToDefinition<CR>
-nnoremap <space>yd :YcmCompleter GetDoc<CR>
 
 let mapleader = ","
 
@@ -97,18 +95,30 @@ let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 " Windows {
 nnoremap <silent> <Space>wd :hide<cr>;
+"move
 nnoremap <silent> <Space>wj <C-W>j;
-nnoremap <silent> <Space>wJ 10<C-w>+
 nnoremap <silent> <Space>wk <C-W>k;
-nnoremap <silent> <Space>wK 10<C-w>-
 nnoremap <silent> <Space>wh <C-W>h;
-nnoremap <silent> <Space>wH 10<C-w><
 nnoremap <silent> <Space>wl <C-W>l;
+"resize
+nnoremap <silent> <Space>wJ 10<C-w>+
+nnoremap <silent> <Space>wK 10<C-w>-
+nnoremap <silent> <Space>wH 10<C-w><
 nnoremap <silent> <Space>wL 10<C-w>>
-nnoremap <silent> <Space>ws <C-W>s;
-nnoremap <silent> <Space>wv <C-W>v;
-nnoremap <silent> <Space>w= <C-W>=;
-nnoremap <silent> <Space>wO :only<CR>
+nnoremap <silent> <Space>w= <C-W>=
+"split
+nnoremap <silent> <Space>ws <C-W>s
+nnoremap <silent> <Space>wv <C-W>v
+"only
+nnoremap <silent> <Space>wo :only<CR>
+"rotate
+nnoremap <silent> <Space>wrk <C-w>K
+nnoremap <silent> <Space>wrh <C-w>H
+nnoremap <silent> <Space>wrl <C-w>L
+nnoremap <silent> <Space>wrj <C-w>J
+"rotate all
+nnoremap <silent> <Space>wrak :windo wincmd K<CR>
+nnoremap <silent> <Space>wrah :windo wincmd H<CR>
 " }
 
 " Plugins {
@@ -116,6 +126,7 @@ nnoremap <silent> <Space>wO :only<CR>
 nnoremap <silent> <Space>pi :PlugInstall<CR>
 nnoremap <silent> <Space>pc :PlugClean<CR>
 nnoremap <silent> <Space>pu :PlugUpdate<CR>
+nnoremap <silent> <Space>ps :PlugStatus<CR>
 " }
 
 " Commands {
@@ -141,17 +152,32 @@ nnoremap <silent> <Space>bY gg"+yG<CR>
 "TODO accept register
 nnoremap <silent> <Space>bP gg"_dGp<CR>
 nnoremap <silent> <Space>br :e! %<CR>
+"go to buffer
+nnoremap <silent> <Space>b1 :b1<CR>
+nnoremap <silent> <Space>b2 :b2<CR>
+nnoremap <silent> <Space>b3 :b3<CR>
+nnoremap <silent> <Space>b4 :b4<CR>
+nnoremap <silent> <Space>b5 :b5<CR>
+nnoremap <silent> <Space>b6 :b6<CR>
+nnoremap <silent> <Space>b7 :b7<CR>
+nnoremap <silent> <Space>b8 :b8<CR>
+nnoremap <silent> <Space>b9 :b9<CR>
 " }
 
 " QuickFix and Location {
-nnoremap <silent> <Space>cl :cclose<CR>
+" for now, close both quickfix and location on close map
+nnoremap <silent> <Space>cc :cclose<CR>:lclose<CR>
 nnoremap <silent> <Space>co :copen<CR>
 nnoremap <silent> <Space>cn :cnext<CR>
 nnoremap <silent> <Space>cp :cprev<CR>
-nnoremap <silent> <Space>lc :lclose<CR>
+nnoremap <silent> <Space>cl :cnewer<CR>
+nnoremap <silent> <Space>ch :colder<CR>
+nnoremap <silent> <Space>lc :lclose<CR>:cclose<CR>
 nnoremap <silent> <Space>lo :lopen<CR>
 nnoremap <silent> <Space>ln :lnext<CR>
 nnoremap <silent> <Space>lp :lprev<CR>
+nnoremap <silent> <Space>ll :lnewer<CR>
+nnoremap <silent> <Space>lh :lolder<CR>
 " }
 
 " File {
@@ -179,15 +205,16 @@ nnoremap <silent> <Space>qs :wqa!<CR>
 " Toggle {
 nnoremap <silent> <Space>tn :set nu!<CR>
 nnoremap <silent> <Space>tN :set relativenumber!<CR>
-nnoremap <silent> <Space>tse :set invhlsearch<CR>
-nnoremap <silent> <Space>/ :set invhlsearch<CR>
+nnoremap <silent> <Space>t/ :set invhlsearch<CR>
 nnoremap <silent> <Space>tsp :set spell!<CR>
 nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
 nnoremap <silent> <Space>thl :set cursorline!<CR>
+nnoremap <silent> <Space>thc :set cursorcolumn!<CR>
+nnoremap <silent> <Space>thp :call TogglePosition()<CR>
 nnoremap <silent> <Space>tb :call ToggleBG()<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
 "show syntax info for character under cursor
-nnoremap <space>thc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap <space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " }
@@ -196,6 +223,7 @@ nnoremap <space>thc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") 
 nnoremap <silent> <space>ij :<C-U>call AppendLine()<CR>
 "nnoremap <space>io :<C-U>call AppendLine()<CR>i
 nnoremap <silent> <Space>ik :<C-U>call PrependLine()<CR>
+nnoremap <silent> <Space>ib :<C-U>call AppendAndPrependLine()<CR>
 "nnoremap <space>iO :<C-U>call PrependLine()<CR>i
 " }
 
@@ -204,7 +232,7 @@ nnoremap <silent> <Space>au :UndotreeToggle<CR>
 nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 " }
 
-" Search {
+" Substitute {
 nnoremap <silent> <Space>ss :s///g<Left><Left><Left>
 nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
 nnoremap <silent> <Space>sw :s/\(<C-r><C-w>\)//g<Left><Left>
@@ -213,18 +241,15 @@ nnoremap <silent> <Space>sas :%s///g<Left><Left><Left>
 nnoremap <silent> <Space>sfas :%s///g<Left><Left><Left><C-f>i
 nnoremap <silent> <Space>saw :%s/\(<C-r><C-w>\)//g<Left><Left>
 nnoremap <silent> <Space>sfaw :%s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
-" Easy motion {
-map ,, <Plug>(easymotion-prefix)
-map <space>, <Plug>(easymotion-prefix)
-map <space>sc <Plug>(easymotion-s)
-map ,,s <Plug>(easymotion-s)
-map <space>sn <Plug>(easymotion-sn)
-map ,n <Plug>(easymotion-sn)
-map <space>st <Plug>(easymotion-s2)
-map ,2 <Plug>(easymotion-s2)
 " }
+
+" Search {
+map <space>/ <Plug>(easymotion-prefix)
+map <space>// <Plug>(easymotion-s)
+map <space>/n <Plug>(easymotion-sn)
+map <space>/2 <Plug>(easymotion-s2)
 " List matching words and go to one
-nnoremap <silent> <Space>sg [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <silent> <Space>/g [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " }
 
 " Alignment {
@@ -301,4 +326,11 @@ nmap <Space>vp <Plug>VimaxPromptCommand
 nmap <Space>vq <Plug>VimaxCloseAddress
 nmap <Space>vx <Plug>VimaxInterruptAddress
 nmap <Space>vz <Plug>VimaxZoomAddress
+" }
+
+" Repl and typing {
+nnoremap <silent> <space>yt :YcmCompleter GetType<CR>
+nnoremap <silent> <space>yg :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <space>yd :YcmCompleter GetDoc<CR>
+nnoremap <silent> <space>yr :YcmCompleter GoToReferences<CR>
 " }

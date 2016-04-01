@@ -170,5 +170,9 @@ let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
 
 " rainbowpairs {
  let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
- let g:rainbow#blacklist = [239, 240, 244, 245]
+ let g:rainbow#blacklist = [239, 240, 244, 245, 248, 250, 223, 229, 224]
+" }
+
+" jsDoc {
+let g:jsdoc_enable_es6 = 1
 " }

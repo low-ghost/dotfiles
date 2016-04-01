@@ -3384,3 +3384,203 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/dist-packages/dbus/bus.py", line 122, in __new__
     bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
 DBusException: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VhQhsOsMvl: Connection refused
+2016-03-28 10:06:48,665:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:06:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:06:48,665:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:06:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:16:48,868:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:18:00Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:16:48,868:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:18:00Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:26:48,595:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:26:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:26:48,595:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:26:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:36:48,791:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:36:19Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:36:48,791:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:36:19Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:46:48,456:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:46:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:46:48,456:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:46:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:56:50,645:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:56:50Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 10:56:50,645:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T14:56:50Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:06:48,643:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:06:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:06:48,643:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:06:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:16:48,491:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:17:39Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:16:48,491:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:17:39Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:26:53,570:ERROR:tmux:WeatherSegment:Exception while computing state for u'philadelphia, pennsylvania': 'NoneType' object has no attribute '__getitem__'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/threaded.py", line 221, in update_one
+    updates[key] = (monotonic(), self.compute_state(key))
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+TypeError: 'NoneType' object has no attribute '__getitem__'
+2016-03-28 11:26:53,570:ERROR:tmux:WeatherSegment:Exception while computing state for u'philadelphia, pennsylvania': 'NoneType' object has no attribute '__getitem__'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/threaded.py", line 221, in update_one
+    updates[key] = (monotonic(), self.compute_state(key))
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+TypeError: 'NoneType' object has no attribute '__getitem__'
+2016-03-28 11:36:48,836:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:36:14Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:36:48,836:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:36:14Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:56:48,565:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:56:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 11:56:48,565:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T15:56:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:06:48,477:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:07:52Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:06:48,477:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:07:52Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:16:48,446:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:15:55Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:16:48,446:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:15:55Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:26:48,442:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:27:25Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:26:48,442:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:27:25Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:36:49,537:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:36:10Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:36:49,537:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:36:10Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:46:49,348:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:46:51Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:46:49,348:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:46:51Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:56:48,511:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:56:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 12:56:48,511:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T16:56:48Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 13:06:49,475:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T17:05:56Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 13:06:49,475:ERROR:tmux:WeatherSegment:Yahoo returned malformed or unexpected response: u'{"query":{"count":1,"created":"2016-03-28T17:05:56Z","lang":"en-US","results":{"weather":{"xmlns":"http://where.yahooapis.com/v1/schema.rng","error":{"lang":"en-US","yahoo":"http://www.yahooapis.com/v1/base.rng","uri":"http://yahoo.com","description":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\"","detail":"Please provide valid credentials. OAuth oauth_problem=\\"OST_OAUTH_PARAMETER_ABSENT_ERROR\\", realm=\\"yahooapis.com\\""}}}}}'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+KeyError: u'rss'
+2016-03-28 13:16:53,420:ERROR:tmux:WeatherSegment:Exception while computing state for u'philadelphia, pennsylvania': 'NoneType' object has no attribute '__getitem__'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/threaded.py", line 221, in update_one
+    updates[key] = (monotonic(), self.compute_state(key))
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+TypeError: 'NoneType' object has no attribute '__getitem__'
+2016-03-28 13:16:53,420:ERROR:tmux:WeatherSegment:Exception while computing state for u'philadelphia, pennsylvania': 'NoneType' object has no attribute '__getitem__'
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/powerline/lib/threaded.py", line 221, in update_one
+    updates[key] = (monotonic(), self.compute_state(key))
+  File "/usr/local/lib/python2.7/dist-packages/powerline/segments/common/wthr.py", line 146, in compute_state
+    condition = response['query']['results']['weather']['rss']['channel']['item']['condition']
+TypeError: 'NoneType' object has no attribute '__getitem__'
+2016-03-28 13:32:48,077:WARNING:shell:branch:Failed to watch path: /home/mbagwell/repo/eslint-plugin-excel-micro with error: The directory /home/mbagwell/repo/eslint-plugin-excel-micro is too large to monitor. Try increasing the value in /proc/sys/fs/inotify/max_user_watches
+2016-03-28 13:32:48,077:WARNING:shell:branch:Failed to watch path: /home/mbagwell/repo/eslint-plugin-excel-micro with error: The directory /home/mbagwell/repo/eslint-plugin-excel-micro is too large to monitor. Try increasing the value in /proc/sys/fs/inotify/max_user_watches

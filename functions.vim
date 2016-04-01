@@ -97,9 +97,9 @@ command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 
 " Insert functions {
 function! AppendLine()
-  let c = v:count
+  let c = v:count > 0 ? v:count : 1
   let i = 0
-  while i <= c
+  while i < c
     call append(line("."), "")
     let i += 1
   endwhile
@@ -109,9 +109,9 @@ function! PrependLine()
   let l:scrolloffsave = &scrolloff
   " Avoid jerky scrolling with ^E at top of window
   set scrolloff=0
-  let c = v:count
+  let c = v:count > 0 ? v:count : 1
   let i = 0
-  while i <= c
+  while i < c
     call append(line(".") - 1, "")
     let i += 1
   endwhile
@@ -119,6 +119,11 @@ function! PrependLine()
     silent normal! <C-e>
   end
   let &scrolloff = l:scrolloffsave
+endfunction
+
+function! AppendAndPrependLine()
+  call AppendLine()
+  call PrependLine()
 endfunction
 " }
 
@@ -218,5 +223,43 @@ function! ToggleSyntax()
     syntax on
   endif
 endfunction
+
+"TODO redir => hi_cursor_line
+"hi CursorLine
+"redir END
+"grep to get values and execute in else
+let s:position_toggle = "off"
+function! TogglePosition()
+  if s:position_toggle == "off"
+    let s:position_toggle = "on"
+    set cursorcolumn
+    hi CursorLine cterm=reverse ctermbg=241 gui=reverse guibg=#665c54
+  else
+    let s:position_toggle = "off"
+    set cursorcolumn!
+    hi CursorLine cterm=NONE ctermbg=237 gui=NONE guibg=#3c3836
+  endif
+endfunction
 " }
+" }
+
+" Save/Load Macro {
+let g:macro_dir = '/home/mbagwell/.nvim/macros'
+
+function! s:save_macro(name, file)
+  let content = eval('@'.a:name)
+  if !empty(content)
+    call writefile(split(content, "\n"), g:macro_dir.'/'.&ft.'/'.a:file)
+    echom len(content) . " bytes save to ". a:file
+  endif
+endfunction
+
+function! s:load_macro(file, name)
+  let data = join(readfile(g:macro_dir.'/'.&ft.'/'.a:file), "\n")
+  call setreg(a:name, data, 'c')
+  echom "Macro loaded to @". a:name
+endfunction
+
+command! -nargs=* SaveMacro call <SID>save_macro(<f-args>)
+command! -nargs=* LoadMacro call <SID>load_macro(<f-args>)
 " }

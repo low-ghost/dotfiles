@@ -86,9 +86,14 @@ source ~/.nvm/nvm.sh
 nvm use latest > /dev/null
 source ~/.aliases
 source ~/.secrets
+
 bindkey -v
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
+bindkey '\ea' insert-last-word
+[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward
+
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 NVIM_TUI_ENABLE_TRUE_COLOR=1
