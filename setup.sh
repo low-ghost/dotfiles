@@ -8,9 +8,12 @@ while getopts ':i:lr' opt; do
       do
         case $arg in
           basic)
-            echo 'curl, git, xsel, zsh'
-            sudo apt-get install -y curl git xsel zsh
+            echo 'curl, git, xsel, zsh, cmake, ag'
+            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag
             chsh -s $(which zsh)
+            sudo add-apt-repository ppa:george-edison55/cmake-3.x
+            sudo apt-get update
+            sudo apt-get install -y cmake
             ;;
           omz)
             echo 'oh-my-zsh'
@@ -18,17 +21,19 @@ while getopts ':i:lr' opt; do
             ;;
           tmux)
             echo 'tmux (from repo)'
+            cd ~/repo
             git clone https://github.com/tmux/tmux.git
             cd tmux
             sudo apt-get install ncurses-dev libevent-dev
+            sh autogen.sh
             sudo ./configure && sudo make
             sudo make install
+            sudo cp tmux /usr/bin
             ;;
           neovim)
             echo 'neovim'
             mkdir -p ~/.config/nvim
             mkdir -p ~/.config/vim
-            sudo apt-get install -y software-properties-common
             sudo add-apt-repository ppa:neovim-ppa/unstable
             sudo apt-get update
             sudo apt-get install -y neovim python-dev python-pip python3-dev python3-pip
@@ -60,6 +65,26 @@ while getopts ':i:lr' opt; do
               /usr/local/lib/libvte-2.91.so.0.4200.4 /usr/lib
             sudo mkdir -p /lib/terminfo/x
             sudo ln -fs /usr/local/share/terminfo/x/xterm-termite /lib/terminfo/x/xterm-termite
+            ;;
+          nvm)
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+            source ~/.zshrc
+            nvm install v5
+            nvm alias latest v5
+            ;;
+          chrome)
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+            sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get install google-chrome-stable
+            ;;
+          :)
+            echo "Invalid option"
+            exit 1
+            ;;
+          \?)
+            echo "Invalid option"
+            exit 1
             ;;
         esac
       done

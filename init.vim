@@ -9,7 +9,6 @@ Plug 'benekastah/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -37,7 +36,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'spf13/vim-colors'
 Plug 'spf13/vim-preview'
-Plug 'tacahiroy/ctrlp-funky'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -54,17 +52,18 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/fzf.vim'
+Plug 'tomtom/tlib_vim'
 call plug#end()
-
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 
+let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 
 source ~/.config/vim/general.vim
 source ~/.config/vim/plugins.vim
 source ~/.config/vim/functions.vim
-
 
 let mapleader = ","
 
@@ -126,6 +125,7 @@ nnoremap <silent> <Space>wrah :windo wincmd H<CR>
 nnoremap <silent> <Space>pi :PlugInstall<CR>
 nnoremap <silent> <Space>pc :PlugClean<CR>
 nnoremap <silent> <Space>pu :PlugUpdate<CR>
+nnoremap <silent> <Space>pU :PlugUpgrade<CR>
 nnoremap <silent> <Space>ps :PlugStatus<CR>
 " }
 
@@ -139,7 +139,7 @@ nnoremap <silent> <Space>bd :bp\|bd #<CR>
 nnoremap <silent> <Space>bD :bp\|bd! #<CR>
 "BOnly will not kill buffers w/ unsaved content
 nnoremap <silent> <Space>bo :BOnly<CR>
-nnoremap <silent> <Space>bb :CtrlPBuffer<CR>
+nnoremap <silent> <Space>bb :FzfBuffers<CR>
 "bp/h and bn/l accept count
 nnoremap <silent> <Space>bp :bprev<CR>
 nnoremap <silent> <Space>bh :bprev<CR>
@@ -188,9 +188,8 @@ nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fe :NERDTreeTabsToggle<CR>
-nnoremap <silent> <Space>ff :CtrlP<CR>
-nnoremap <silent> <Space>fr :CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>fu :CtrlPFunky<Cr>
+nnoremap <silent> <Space>ff :FzfGitFiles<CR>
+nnoremap <silent> <Space>fr :FzfHistory<CR>
 nnoremap <silent> <Space>fve :e $MYVIMRC<CR>
 nnoremap <silent> <Space>fvr :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fte :e ~/.tmux.conf<CR>
@@ -213,6 +212,7 @@ nnoremap <silent> <Space>thc :set cursorcolumn!<CR>
 nnoremap <silent> <Space>thp :call TogglePosition()<CR>
 nnoremap <silent> <Space>tb :call ToggleBG()<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
+nnoremap <silent> <Space>tc :FzfColors<CR>
 "show syntax info for character under cursor
 nnoremap <space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -248,7 +248,7 @@ map <space>/ <Plug>(easymotion-prefix)
 map <space>// <Plug>(easymotion-s)
 map <space>/n <Plug>(easymotion-sn)
 map <space>/2 <Plug>(easymotion-s2)
-" List matching words and go to one
+" List matching words and go to one. TODO: fzf-ize
 nnoremap <silent> <Space>/g [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " }
 
@@ -312,25 +312,33 @@ if exists('g:Make_neomake')
   nnoremap <silent> <Space>m :Neomake<CR>
 endif
 
+" Marks {
+nnoremap <silent> <Space>' :FzfMarks<CR>
+" }
+
 " Vimax {
-nmap <Space>va <Plug>VimaxList
-nmap <Space>vc <Plug>VimaxClearAddressHistory
-nmap <Space>vd <Plug>VimaxRunCommandInDir
-nmap <Space>vg <Plug>VimaxGoToAddress
-nmap <Space>vh <Plug>VimaxHistory
-nmap <Space>vi <Plug>VimaxInspectAddress
-nmap <Space>vj <Plug>VimaxScrollDownInspect
-nmap <Space>vk <Plug>VimaxScrollUpInspect
-nmap <Space>vl <Plug>VimaxRunLastCommand
-nmap <Space>vp <Plug>VimaxPromptCommand
-nmap <Space>vq <Plug>VimaxCloseAddress
-nmap <Space>vx <Plug>VimaxInterruptAddress
-nmap <Space>vz <Plug>VimaxZoomAddress
+nmap <silent> <Space>va <Plug>VimaxList
+nmap <silent> <Space>vc <Plug>VimaxClearAddressHistory
+nmap <silent> <Space>vd <Plug>VimaxRunCommandInDir
+nmap <silent> <Space>vg <Plug>VimaxGoToAddress
+nmap <silent> <Space>vh <Plug>VimaxHistory
+nmap <silent> <Space>vi <Plug>VimaxInspectAddress
+nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
+nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
+nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
+nmap <silent> <Space>vp <Plug>VimaxPromptCommand
+nmap <silent> <Space>vq <Plug>VimaxCloseAddress
+nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
+nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }
 
 " Repl and typing {
-nnoremap <silent> <space>yt :YcmCompleter GetType<CR>
-nnoremap <silent> <space>yg :YcmCompleter GoToDefinition<CR>
-nnoremap <silent> <space>yd :YcmCompleter GetDoc<CR>
-nnoremap <silent> <space>yr :YcmCompleter GoToReferences<CR>
+nnoremap <silent> <Space>yt :YcmCompleter GetType<CR>
+nnoremap <silent> <Space>yg :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <Space>yd :YcmCompleter GetDoc<CR>
+nnoremap <silent> <Space>yr :YcmCompleter GoToReferences<CR>
+" }
+
+" Mappings helper {
+nnoremap <silent> <Space><Space><Space> :FzfMaps<CR>
 " }
