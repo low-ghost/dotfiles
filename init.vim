@@ -152,6 +152,8 @@ nnoremap <silent> <Space>bY gg"+yG<CR>
 "TODO accept register
 nnoremap <silent> <Space>bP gg"_dGp<CR>
 nnoremap <silent> <Space>br :e! %<CR>
+"TODO get to work
+nnoremap <silent> <Space>bR :bufdo execute "normal! e! %"<CR>
 "go to buffer
 nnoremap <silent> <Space>b1 :b1<CR>
 nnoremap <silent> <Space>b2 :b2<CR>
@@ -227,9 +229,11 @@ nnoremap <silent> <Space>ib :<C-U>call AppendAndPrependLine()<CR>
 "nnoremap <space>iO :<C-U>call PrependLine()<CR>i
 " }
 
-" Applications {
-nnoremap <silent> <Space>au :UndotreeToggle<CR>
+" Applications (a is also alignment, watch for conflicts) {
 nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+nnoremap <silent> <Space>au :UndotreeToggle<CR>
+"TODO normal mode accepting range
+vnoremap <silent> <Space>as :sort<CR>
 " }
 
 " Substitute {
@@ -275,6 +279,8 @@ nnoremap <silent> <Space>a= :Tabularize /^[^=]*\zs=<CR>
 vnoremap <silent> <Space>a= :Tabularize /^[^=]*\zs=<CR>
 nnoremap <silent> <Space>a<Bar> :Tabularize /<Bar><CR>
 vnoremap <silent> <Space>a<Bar> :Tabularize /<Bar><CR>
+nnoremap <silent> <Space>ac :Tabularize /
+vnoremap <silent> <Space>ac :Tabularize /
 " }
 
 " Folding {
@@ -328,6 +334,7 @@ nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
 nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
 nmap <silent> <Space>vp <Plug>VimaxPromptCommand
 nmap <silent> <Space>vq <Plug>VimaxCloseAddress
+nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
 nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
 nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }

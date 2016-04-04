@@ -19,6 +19,9 @@ addali() {
   echo "# $comment" >> ~/.aliases
   echo "alias $1='`fc -ln -1`'" >> ~/.aliases
 }
+ali() {
+  print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
+}
 
 # }
 # ejson {
@@ -89,6 +92,7 @@ alias nvmc='nvm current'
 alias nvmu='nvm use'
 alias nvma='nvm alias'
 alias nvmi='nvm install'
+alias nvml='nvm ls'
 alias noden='node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias nlo='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_'
 alias nlo4='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_4'
@@ -190,3 +194,5 @@ pgloc() {
 }
 
 # recently added {
+# fuzzy search alias and add text to command line
+
