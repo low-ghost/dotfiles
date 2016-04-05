@@ -335,6 +335,8 @@ nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
 nmap <silent> <Space>vp <Plug>VimaxPromptCommand
 nmap <silent> <Space>vq <Plug>VimaxCloseAddress
 nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
+nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
+nmap <silent> <Space>vs <Plug>VimaxMotion
 nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
 nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }
