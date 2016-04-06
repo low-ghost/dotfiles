@@ -1,34 +1,47 @@
 # keyboard {
-
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
 alias xkbinit= '. ~/.xcaperc'
-
 # }
 # configs {
-
 alias eali='vim ~/.aliases'
 alias ezsh='vim ~/.zshrc'
-
+alias e='vim'
+# }
+# bookmarks {
+bm() {
+  echo $1' - '$PWD >> ~/.bookmarks
+}
+cbm() {
+  if [ $# -eq 1 ]; then
+    cd $(cat ~/.bookmarks | fzf --query $1 --select-1| sed 's/^.*\ -\ //g')
+  else
+    cd $(cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g')
+  fi
+}
+ebm() {
+  if [ $# -eq 1 ]; then
+    vim +/$1 ~/.bookmarks
+  else
+    vim ~/.bookmarks
+  fi
+}
 # }
 # alias {
-
 addali() {
   echo "Enter a description for the alias:"
   read comment
   echo "# $comment" >> ~/.aliases
   echo "alias $1='`fc -ln -1`'" >> ~/.aliases
 }
+# fuzzy search alias and add text to command line
 ali() {
   print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
 }
-
 # }
 # ejson {
-
 encjson() { ejson encrypt $1.json }
 decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
-
 # }
 
 countdown() {
@@ -94,10 +107,10 @@ alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias nvml='nvm ls'
 alias noden='node --es_staging --harmony_destructuring --harmony_default_parameters'
-alias nlo='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_'
-alias nlo4='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/_4'
+alias nlo='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/_'
+alias nlo4='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/_4'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
-alias ncw='nvm exec new node --es_staging --harmony_destructuring --harmony_default_parameters ~/js/cw'
+alias ncw='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/cw'
 alias npml='npm link'
 compdef _npml npml='cd '
 
@@ -194,5 +207,4 @@ pgloc() {
 }
 
 # recently added {
-# fuzzy search alias and add text to command line
 

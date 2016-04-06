@@ -151,6 +151,17 @@ let g:airline#extensions#tabline#tab_min_count = 2
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+"noImplicitAny: true,
+let g:neomake_typescript_tsc_maker = {
+  \ 'args': [
+      \  '-t', 'es5', '-m', 'commonjs', '--noEmit',
+  \ ],
+  \ 'errorformat':
+      \ '%E%f %#(%l\,%c): error %m,' .
+      \ '%E%f %#(%l\,%c): %m,' .
+      \ '%Eerror %m,' .
+      \ '%C%\s%\+%m'
+  \ }
 let g:neomake_typescript_eslint_maker = {
   \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
   \ 'args': ['-f', 'compact'],

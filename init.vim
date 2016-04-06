@@ -95,10 +95,10 @@ let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 " Windows {
 nnoremap <silent> <Space>wd :hide<cr>;
 "move
-nnoremap <silent> <Space>wj <C-W>j;
-nnoremap <silent> <Space>wk <C-W>k;
-nnoremap <silent> <Space>wh <C-W>h;
-nnoremap <silent> <Space>wl <C-W>l;
+nnoremap <silent> <Space>wj <C-W>j
+nnoremap <silent> <Space>wk <C-W>k
+nnoremap <silent> <Space>wh <C-W>h
+nnoremap <silent> <Space>wl <C-W>l
 "resize
 nnoremap <silent> <Space>wJ 10<C-w>+
 nnoremap <silent> <Space>wK 10<C-w>-
@@ -106,8 +106,8 @@ nnoremap <silent> <Space>wH 10<C-w><
 nnoremap <silent> <Space>wL 10<C-w>>
 nnoremap <silent> <Space>w= <C-W>=
 "split
-nnoremap <silent> <Space>ws <C-W>s
-nnoremap <silent> <Space>wv <C-W>v
+nnoremap <silent> <Space>ws <C-W>s:bn<CR>
+nnoremap <silent> <Space>wv <C-W>v:bn<CR>
 "only
 nnoremap <silent> <Space>wo :only<CR>
 "rotate
@@ -137,6 +137,9 @@ nnoremap <silent> <Space>x q:
 "both delete accept count to specify buffer
 nnoremap <silent> <Space>bd :bp\|bd #<CR>
 nnoremap <silent> <Space>bD :bp\|bd! #<CR>
+"delete or keep buffers matching a string
+nnoremap <silent> <Space>bmd :call BufferByMatch(1)<CR>
+nnoremap <silent> <Space>bmo :call BufferByMatch(0)<CR>
 "BOnly will not kill buffers w/ unsaved content
 nnoremap <silent> <Space>bo :BOnly<CR>
 nnoremap <silent> <Space>bb :FzfBuffers<CR>
@@ -190,6 +193,8 @@ nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fe :NERDTreeTabsToggle<CR>
+"TODO add potential for file type specific ignoring
+nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 nnoremap <silent> <Space>ff :FzfGitFiles<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
 nnoremap <silent> <Space>fve :e $MYVIMRC<CR>
@@ -204,21 +209,23 @@ nnoremap <silent> <Space>qs :wqa!<CR>
 " }
 
 " Toggle {
+nnoremap <silent> <Space>t/ :set invhlsearch<CR>
+nnoremap <silent> <Space>tb :call ToggleBG()<CR>
+nnoremap <silent> <Space>tc :FzfColors<CR>
+nnoremap <silent> <Space>tg :SignifyToggle<CR>
+nnoremap <silent> <Space>the :call ToggleEndColumn()<CR>
+nnoremap <silent> <Space>thc :set cursorcolumn!<CR>
+"show syntax info for character under cursor
+nnoremap <silent> <Space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap <silent> <Space>thl :set cursorline!<CR>
+nnoremap <silent> <Space>thp :call TogglePosition()<CR>
 nnoremap <silent> <Space>tn :set nu!<CR>
 nnoremap <silent> <Space>tN :set relativenumber!<CR>
-nnoremap <silent> <Space>t/ :set invhlsearch<CR>
+nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
 nnoremap <silent> <Space>tsp :set spell!<CR>
 nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
-nnoremap <silent> <Space>thl :set cursorline!<CR>
-nnoremap <silent> <Space>thc :set cursorcolumn!<CR>
-nnoremap <silent> <Space>thp :call TogglePosition()<CR>
-nnoremap <silent> <Space>tb :call ToggleBG()<CR>
-nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
-nnoremap <silent> <Space>tc :FzfColors<CR>
-"show syntax info for character under cursor
-nnoremap <space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " }
 
 " Insert {
@@ -283,6 +290,13 @@ nnoremap <silent> <Space>ac :Tabularize /
 vnoremap <silent> <Space>ac :Tabularize /
 " }
 
+" Moving text {
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <Down> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+vnoremap <Up> :m '<-2<CR>gv=gv
+" }
+
 " Folding {
 nnoremap <silent> <Space>f0 :set foldlevel=0<CR>
 nnoremap <silent> <Space>f1 :set foldlevel=1<CR>
@@ -297,21 +311,21 @@ nnoremap <silent> <Space>f9 :set foldlevel=9<CR>
 " }
 
 " Git (fugitive) {
-nnoremap <silent> <Space>gm :Gmerge<CR>
-nnoremap <silent> <Space>gs :Gstatus<CR>
-nnoremap <silent> <Space>gd :Gdiff<CR>
-nnoremap <silent> <Space>gc :Gcommit<CR>
+" Find merge conflict markers
+nnoremap <silent> <Space>gW :Gwrite!<CR>
 nnoremap <silent> <Space>gb :Gblame<CR>
+nnoremap <silent> <Space>gc :Gcommit<CR>
+nnoremap <silent> <Space>gd :Gdiff<CR>
+nnoremap <silent> <Space>gg :Ggrep<Space>
+nnoremap <silent> <Space>ge :Gedit<CR>
+nnoremap <silent> <Space>gf /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <silent> <Space>gi :Git add -p %<CR>
 nnoremap <silent> <Space>gl :Glog<CR>
+nnoremap <silent> <Space>gm :Gmerge<CR>
 nnoremap <silent> <Space>gp :Git push<CR>
 nnoremap <silent> <Space>gr :Gread<CR>
+nnoremap <silent> <Space>gs :Gstatus<CR>
 nnoremap <silent> <Space>gw :Gwrite<CR>
-nnoremap <silent> <Space>gW :Gwrite!<CR>
-nnoremap <silent> <Space>ge :Gedit<CR>
-nnoremap <silent> <Space>gi :Git add -p %<CR>
-nnoremap <silent> <Space>gg :SignifyToggle<CR>
-" Find merge conflict markers
-nnoremap <silent> <Space>gf /\v^[<\|=>]{7}( .*\|$)<CR>
 " }
 
 if exists('g:Make_neomake')
@@ -332,11 +346,13 @@ nmap <silent> <Space>vi <Plug>VimaxInspectAddress
 nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
 nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
 nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
+nmap <silent> <Space>v<CR> <Plug>VimaxExitInspect
 nmap <silent> <Space>vp <Plug>VimaxPromptCommand
 nmap <silent> <Space>vq <Plug>VimaxCloseAddress
 nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
 nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
 nmap <silent> <Space>vs <Plug>VimaxMotion
+vmap <silent> <Space>vs <Plug>VimaxMotion
 nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
 nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }

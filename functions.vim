@@ -127,6 +127,22 @@ function! AppendAndPrependLine()
 endfunction
 " }
 
+function! BufferByMatch(delete)
+   let bufNr = bufnr("$")
+   let str = a:delete
+     \ ? input('Delete buffers matching> ')
+     \ : input('Keep only buffers matching> ')
+   while bufNr > 0
+     let bname = bufname(bufNr)
+     if buflisted(bufNr)
+       \ && (a:delete ? bname =~ str : bname !~ str)
+       \ && getbufvar(bufNr, '&modified') == 0
+       exe "bd ".bufNr
+     endif
+     let bufNr = bufNr-1
+   endwhile
+endfunction
+
 " BufOnly.vim {
 "
 " Delete all the buffers except the current/named buffer.
@@ -238,6 +254,17 @@ function! TogglePosition()
     let s:position_toggle = "off"
     set cursorcolumn!
     hi CursorLine cterm=NONE ctermbg=237 gui=NONE guibg=#3c3836
+  endif
+endfunction
+
+let s:end_column_toggle = "off"
+function! ToggleEndColumn()
+  if s:end_column_toggle == "off"
+    let s:end_column_toggle = input('end col. num> ', 100)
+    exe 'set colorcolumn='.s:end_column_toggle
+  else
+    let s:end_column_toggle = "off"
+    set colorcolumn=
   endif
 endfunction
 " }

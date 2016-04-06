@@ -91,7 +91,7 @@ while getopts ':i:lr' opt; do
       ;;
     l)
       echo 'linking...'
-      cd ~/repo/dotfiles
+      cd ~/dotfiles
       #nvim
       ln -f init.vim ~/.config/nvim/init.vim
       ln -f general.vim ~/.config/vim/general.vim
