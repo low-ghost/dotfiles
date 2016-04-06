@@ -14,7 +14,7 @@ bm() {
 }
 cbm() {
   if [ $# -eq 1 ]; then
-    cd $(cat ~/.bookmarks | fzf --query $1 --select-1| sed 's/^.*\ -\ //g')
+    cd $(cat ~/.bookmarks | fzf --query \'$1 --select-1 | sed 's/^.*\ -\ //g')
   else
     cd $(cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g')
   fi
