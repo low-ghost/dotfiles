@@ -9,24 +9,45 @@ alias ezsh='vim ~/.zshrc'
 alias e='vim'
 # }
 # bookmarks {
-bm() {
-  echo $1' - '$PWD >> ~/.bookmarks
-}
-cbm() {
+b() {
   if [ $# -eq 1 ]; then
-    cd $(cat ~/.bookmarks | fzf --query \'$1 --select-1 | sed 's/^.*\ -\ //g')
+    echo $1' - '$PWD >> ~/.bookmarks
   else
-    cd $(cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g')
+    echo "Enter a name for the bookmark> "
+    read name
+    echo $name' - '$PWD >> ~/.bookmarks
   fi
 }
-ebm() {
+cb() {
+  if [ $# -eq 1 ]; then
+    chosen=`cat ~/.bookmarks | fzf --query \'$1 --select-1 | sed 's/^.*\ -\ //g'`
+  else
+    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+  fi
+  if [ -n "$chosen" ]; then
+    cd $chosen
+  fi
+}
+eb() {
   if [ $# -eq 1 ]; then
     vim +/$1 ~/.bookmarks
   else
     vim ~/.bookmarks
   fi
 }
+db() {
+  if [ $# -eq 1 ]; then
+    chosen=`cat ~/.bookmarks | fzf --query \'$1 --select-1`
+  else
+    chosen=`cat ~/.bookmarks | fzf`
+  fi
+  if [ -n "$chosen" ]; then
+    #echo "/$chosen/!p"
+    sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
+  fi
+}
 # }
+
 # alias {
 addali() {
   echo "Enter a description for the alias:"

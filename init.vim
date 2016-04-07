@@ -186,21 +186,24 @@ nnoremap <silent> <Space>lh :lolder<CR>
 " }
 
 " File {
-nnoremap <silent> <Space><CR> :w<CR>
-nnoremap <silent> <Space>fs :w<CR>
-nnoremap <silent> <Space>fS :wa<CR>
-nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 map <C-e> <plug>NERDTreeTabsToggle<CR>
-nnoremap <silent> <Space>fn :NERDTreeFind<CR>
-nnoremap <silent> <Space>fe :NERDTreeTabsToggle<CR>
-"TODO add potential for file type specific ignoring
-nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
+nnoremap <silent> <Space><CR> :w<CR>
+nnoremap <silent> <Space>fS :wa<CR>
+nnoremap <silent> <Space>fea :e ~/.aliases<CR>
+nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
+nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
+nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugin.vim<CR>
+nnoremap <silent> <Space>fev :e $MYVIMRC<CR>
+nnoremap <silent> <Space>fez :e ~/.zsh<CR>
 nnoremap <silent> <Space>ff :FzfGitFiles<CR>
+nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
-nnoremap <silent> <Space>fve :e $MYVIMRC<CR>
-nnoremap <silent> <Space>fvr :source $MYVIMRC<CR>
+nnoremap <silent> <Space>fs :w<CR>
 nnoremap <silent> <Space>fte :e ~/.tmux.conf<CR>
 nnoremap <silent> <Space>ftr :call system("tmux source-file ~/.tmux.conf")<CR>
+nnoremap <silent> <Space>fvr :source $MYVIMRC<CR>
+nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
+nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 " }
 " Quit {
 nnoremap <silent> <Space>qq :qa<CR>
