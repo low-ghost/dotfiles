@@ -271,12 +271,14 @@ endfunction
 " }
 
 " Save/Load Macro {
-let g:macro_dir = '/home/mbagwell/.nvim/macros'
+let g:macro_dir = '/home/lowghost/.nvim/macros'
+let g:loaded_macros = {}
 
 function! s:save_macro(name, file)
   let content = eval('@'.a:name)
   if !empty(content)
     call writefile(split(content, "\n"), g:macro_dir.'/'.&ft.'/'.a:file)
+    let g:loaded_macros[a:name] = a:file
     echom len(content) . " bytes save to ". a:file
   endif
 endfunction
@@ -284,9 +286,46 @@ endfunction
 function! s:load_macro(file, name)
   let data = join(readfile(g:macro_dir.'/'.&ft.'/'.a:file), "\n")
   call setreg(a:name, data, 'c')
+  let g:loaded_macros[a:name] = a:file
   echom "Macro loaded to @". a:name
+endfunction
+
+function! ListMacrosSink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+
+  let [ key, item; rest ] = a:lines
+  if key == 'ctrl-h'
+    echo "\nMacro Manager Help\nctrl-e - edit\n"
+  elseif key == 'ctrl-e'
+    exe "e ".item
+  else
+    let register = input('Register> ')
+    return s:load_macro(fnamemodify(item, ':t'), register)
+  endif
+endfunction
+
+"all for now
+function! s:list_loaded_macros()
+  echo g:loaded_macros
+endfunction
+
+function! s:list_macros()
+  let layout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
+  let files = split(globpath(g:macro_dir.'/'.&ft, '*'), '\n')
+  return fzf#run(extend({
+    \ 'source': files,
+    \ 'sink*': function('ListMacrosSink'),
+    \ 'options': '+m --ansi --prompt="Macro> "'.
+      \ ' --expect=ctrl-e,ctrl-l,ctrl-h'.
+      \ ' --tiebreak=index',
+    \ }, layout))
 endfunction
 
 command! -nargs=* SaveMacro call <SID>save_macro(<f-args>)
 command! -nargs=* LoadMacro call <SID>load_macro(<f-args>)
+command! -nargs=* ListMacros call <SID>list_macros(<f-args>)
+command! -nargs=* ListLoadedMacros call <SID>list_loaded_macros(<f-args>)
+
 " }
