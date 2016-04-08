@@ -300,6 +300,8 @@ function! ListMacrosSink(lines)
     echo "\nMacro Manager Help\nctrl-e - edit\n"
   elseif key == 'ctrl-e'
     exe "e ".item
+  elseif key == 'ctrl-u'
+    call s:macro_directory()
   else
     let register = input('Register> ')
     return s:load_macro(fnamemodify(item, ':t'), register)
@@ -311,6 +313,18 @@ function! s:list_loaded_macros()
   echo g:loaded_macros
 endfunction
 
+let g:MacroManagerLayout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
+
+function! s:macro_directory()
+  let files = filter(split(globpath(g:macro_dir, '*'), '\n'), 'isdirectory(v:val)')
+  return fzf#run(extend({
+    \ 'source': files,
+    \ 'sink*': function('ListMacrosSink'),
+    \ 'options': '--ansi --prompt="Change Macro Dir> "'.
+      \ ' --tiebreak=index',
+    \ }, g:MacroManagerLayout))
+endfunction
+
 function! s:list_macros()
   let layout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
   let files = split(globpath(g:macro_dir.'/'.&ft, '*'), '\n')
@@ -318,9 +332,9 @@ function! s:list_macros()
     \ 'source': files,
     \ 'sink*': function('ListMacrosSink'),
     \ 'options': '+m --ansi --prompt="Macro> "'.
-      \ ' --expect=ctrl-e,ctrl-l,ctrl-h'.
+      \ ' --expect=ctrl-e,ctrl-l,ctrl-h,ctrl-u'.
       \ ' --tiebreak=index',
-    \ }, layout))
+    \ }, g:MacroManagerLayout))
 endfunction
 
 command! -nargs=* SaveMacro call <SID>save_macro(<f-args>)
