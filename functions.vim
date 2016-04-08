@@ -95,6 +95,7 @@ command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
 " }
 
+"TODO visual block
 " Insert functions {
 function! AppendLine()
   let c = v:count > 0 ? v:count : 1
@@ -271,13 +272,15 @@ endfunction
 " }
 
 " Save/Load Macro {
-let g:macro_dir = '/home/lowghost/.nvim/macros'
+let g:macro_dir = $HOME.'/.nvim/macros'
 let g:loaded_macros = {}
 
 function! s:save_macro(name, file)
   let content = eval('@'.a:name)
   if !empty(content)
-    call writefile(split(content, "\n"), g:macro_dir.'/'.&ft.'/'.a:file)
+    let file_macro_dir = g:macro_dir.'/'.&ft
+    call system('mkdir -p '.file_macro_dir)
+    call writefile(split(content, "\n"), file_macro_dir.a:file)
     let g:loaded_macros[a:name] = a:file
     echom len(content) . " bytes save to ". a:file
   endif
@@ -288,6 +291,18 @@ function! s:load_macro(file, name)
   call setreg(a:name, data, 'c')
   let g:loaded_macros[a:name] = a:file
   echom "Macro loaded to @". a:name
+endfunction
+
+function! s:neovim_fix()
+  if has('nvim')
+    call feedkeys('A')
+  endif
+endfunction
+
+function! MacroDirectorySink(lines)
+  let [ dir; rest ] = a:lines
+  call s:list_macros(dir)
+  call s:neovim_fix()
 endfunction
 
 function! ListMacrosSink(lines)
@@ -306,6 +321,7 @@ function! ListMacrosSink(lines)
     let register = input('Register> ')
     return s:load_macro(fnamemodify(item, ':t'), register)
   endif
+  call s:neovim_fix()
 endfunction
 
 "all for now
@@ -319,15 +335,17 @@ function! s:macro_directory()
   let files = filter(split(globpath(g:macro_dir, '*'), '\n'), 'isdirectory(v:val)')
   return fzf#run(extend({
     \ 'source': files,
-    \ 'sink*': function('ListMacrosSink'),
+    \ 'sink*': function('MacroDirectorySink'),
     \ 'options': '--ansi --prompt="Change Macro Dir> "'.
       \ ' --tiebreak=index',
     \ }, g:MacroManagerLayout))
 endfunction
 
-function! s:list_macros()
+function! s:list_macros(...)
+  let dir = exists('a:1') ? a:1 : g:macro_dir.'/'.&ft
   let layout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
-  let files = split(globpath(g:macro_dir.'/'.&ft, '*'), '\n')
+  let files = split(globpath(dir, '*'), '\n')
+
   return fzf#run(extend({
     \ 'source': files,
     \ 'sink*': function('ListMacrosSink'),
@@ -341,5 +359,90 @@ command! -nargs=* SaveMacro call <SID>save_macro(<f-args>)
 command! -nargs=* LoadMacro call <SID>load_macro(<f-args>)
 command! -nargs=* ListMacros call <SID>list_macros(<f-args>)
 command! -nargs=* ListLoadedMacros call <SID>list_loaded_macros(<f-args>)
+" }
 
+" Additional Motions {
+if !exists('g:additional_motions')
+
+  "pasted/yanked
+  call textobj#user#plugin('pasted', {
+        \      '-': {
+        \        '*sfile*': expand('<sfile>:p'),
+        \        'select-a': 'agp', '*select-a-function*': 's:pasted_select_a',
+        \        'select-i': 'igp', '*select-i-function*': 's:pasted_select_i',
+        \   },
+        \ })
+
+  function! s:pasted_select_i()
+    normal `]
+    let end_pos = getpos('.')
+    normal `[
+    let start_pos = getpos('.')
+    return ['v', end_pos, start_pos]
+  endfunction
+
+  function! s:pasted_select_a()
+    normal ']$
+    let end_pos = getpos('.')
+    normal '[0
+    let start_pos = getpos('.')
+    return ['v', end_pos, start_pos]
+  endfunction
+
+  "selected
+  call textobj#user#plugin('selected', {
+        \      '-': {
+        \        '*sfile*': expand('<sfile>:p'),
+        \        'select-a': 'agp', '*select-a-function*': 's:selected_select_a',
+        \        'select-i': 'igp', '*select-i-function*': 's:selected_select_i',
+        \   },
+        \ })
+
+  function! s:selected_select_i()
+    normal `>
+    let end_pos = getpos('.')
+    normal `<
+    let start_pos = getpos('.')
+    return ['v', end_pos, start_pos]
+  endfunction
+
+  function! s:selected_select_a()
+    normal '>$
+    let end_pos = getpos('.')
+    normal '<0
+    let start_pos = getpos('.')
+    return ['v', end_pos, start_pos]
+  endfunction
+
+  "line
+  call textobj#user#plugin('line', {
+        \      '-': {
+        \        '*sfile*': expand('<sfile>:p'),
+        \         'select-a': 'al', '*select-a-function*': 's:line_select_a',
+        \         'select-i': 'il', '*select-i-function*': 's:line_select_i',
+        \  },
+        \ })
+
+  function! s:line_select_a()
+    normal! 0
+    let head_pos = getpos('.')
+    normal! $
+    let tail_pos = getpos('.')
+    return ['v', head_pos, tail_pos]
+  endfunction
+
+  function! s:line_select_i()
+    normal! ^
+    let head_pos = getpos('.')
+    normal! g_
+    let tail_pos = getpos('.')
+    let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
+    return
+          \ non_blank_char_exists_p
+          \ ? ['v', head_pos, tail_pos]
+          \ : 0
+  endfunction
+
+  let g:additional_motions = 1
+endif
 " }

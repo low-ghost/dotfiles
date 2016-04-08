@@ -4,8 +4,16 @@ alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 alias xkbinit= '. ~/.xcaperc'
 # }
 # configs {
+alias ea='vim ~/.aliases'
 alias eali='vim ~/.aliases'
+alias ef='vim ~/repo/dotfiles/functions.vim'
+alias eg='vim ~/repo/dotfiles/general.vim'
+alias ep='vim ~/repo/dotfiles/plugin.vim'
+alias ev='vim ~/.config/nvim/init.vim'
+alias evim='vim ~/.config/nvim/init.vim'
+alias ez='vim ~/.zshrc'
 alias ezsh='vim ~/.zshrc'
+alias et='vim ~/.tmux.conf'
 alias e='vim'
 # }
 # bookmarks {
@@ -18,9 +26,10 @@ b() {
     echo $name' - '$PWD >> ~/.bookmarks
   fi
 }
+#TODO: completion
 cb() {
   if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \'$1 -1 -0 | sed 's/^.*\ -\ //g'`
+    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
   else
     chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
   fi
@@ -40,13 +49,15 @@ eb() {
 }
 db() {
   if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \'$1 --select-1`
+    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
   else
     chosen=`cat ~/.bookmarks | fzf`
   fi
   if [ -n "$chosen" ]; then
-    #echo "/$chosen/!p"
     sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
+  else
+    echo 'Aborted or no such bookmark'
+    exit 1
   fi
 }
 # }

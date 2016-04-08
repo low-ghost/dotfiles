@@ -118,16 +118,11 @@ nnoremap <silent> <Space>wrj <C-w>J
 "rotate all
 nnoremap <silent> <Space>wrak :windo wincmd K<CR>
 nnoremap <silent> <Space>wrah :windo wincmd H<CR>
+"close all extraneous windows
+nnoremap <silent> <Space>wc :lclose<CR>:cclose<CR>:pclose<CR>
+nnoremap <silent> <Space>wC :windo lclose<CR>:windo cclose<CR>:windo pclose<CR>
 " }
 
-" Plugins {
-" TODO: generic functions
-nnoremap <silent> <Space>pi :PlugInstall<CR>
-nnoremap <silent> <Space>pc :PlugClean<CR>
-nnoremap <silent> <Space>pu :PlugUpdate<CR>
-nnoremap <silent> <Space>pU :PlugUpgrade<CR>
-nnoremap <silent> <Space>ps :PlugStatus<CR>
-" }
 
 " Commands {
 nnoremap <silent> <Space>x q:
@@ -171,13 +166,15 @@ nnoremap <silent> <Space>b9 :b9<CR>
 
 " QuickFix and Location {
 " for now, close both quickfix and location on close map
-nnoremap <silent> <Space>cc :cclose<CR>:lclose<CR>
+nnoremap <silent> <Space>cc :cclose<CR>
+nnoremap <silent> <Space>cC :windo cclose<CR>
 nnoremap <silent> <Space>co :copen<CR>
 nnoremap <silent> <Space>cn :cnext<CR>
 nnoremap <silent> <Space>cp :cprev<CR>
 nnoremap <silent> <Space>cl :cnewer<CR>
 nnoremap <silent> <Space>ch :colder<CR>
-nnoremap <silent> <Space>lc :lclose<CR>:cclose<CR>
+nnoremap <silent> <Space>lc :lclose<CR>
+nnoremap <silent> <Space>lC :windo lclose<CR>
 nnoremap <silent> <Space>lo :lopen<CR>
 nnoremap <silent> <Space>ln :lnext<CR>
 nnoremap <silent> <Space>lp :lprev<CR>
@@ -194,21 +191,21 @@ nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
 nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
 nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugin.vim<CR>
 nnoremap <silent> <Space>fev :e $MYVIMRC<CR>
-nnoremap <silent> <Space>fez :e ~/.zsh<CR>
+nnoremap <silent> <Space>fez :e ~/.zshrc<CR>
+nnoremap <silent> <Space>fet :e ~/.tmux.conf<CR>
 nnoremap <silent> <Space>ff :FzfGitFiles<CR>
+nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
+nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
 nnoremap <silent> <Space>fs :w<CR>
-nnoremap <silent> <Space>fte :e ~/.tmux.conf<CR>
-nnoremap <silent> <Space>ftr :call system("tmux source-file ~/.tmux.conf")<CR>
-nnoremap <silent> <Space>fvr :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 " }
 " Quit {
-nnoremap <silent> <Space>qq :qa<CR>
-nnoremap <silent> <Space>Q :qa!<CR>
-nnoremap <silent> <Space>qs :wqa!<CR>
+nnoremap <silent> <Space>za :qa<CR>
+nnoremap <silent> <Space>zf :qa!<CR>
+nnoremap <silent> <Space>zwa :wqa!<CR>
 " }
 
 " Toggle {
@@ -244,6 +241,14 @@ nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=js
 nnoremap <silent> <Space>au :UndotreeToggle<CR>
 "TODO normal mode accepting range
 vnoremap <silent> <Space>as :sort<CR>
+" Plugins {
+" TODO: generic functions
+nnoremap <silent> <Space>api :PlugInstall<CR>
+nnoremap <silent> <Space>apc :PlugClean<CR>
+nnoremap <silent> <Space>apu :PlugUpdate<CR>
+nnoremap <silent> <Space>apU :PlugUpgrade<CR>
+nnoremap <silent> <Space>aps :PlugStatus<CR>
+" }
 " }
 
 " Substitute {
@@ -370,3 +375,14 @@ nnoremap <silent> <Space>yr :YcmCompleter GoToReferences<CR>
 " Mappings helper {
 nnoremap <silent> <Space><Space><Space> :FzfMaps<CR>
 " }
+
+"TODO text-object-user
+"targets delete word
+nnoremap dilw 2bdiw
+nnoremap dalw 2bdaw
+nnoremap daLw _daw
+nnoremap diLw _diw
+nnoremap dinw wdiw
+nnoremap danw wdaw
+nnoremap daNw $bdaw
+nnoremap diNw $bdiw
