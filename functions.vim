@@ -271,100 +271,10 @@ endfunction
 " }
 " }
 
-" Save/Load Macro {
-let g:macro_dir = $HOME.'/.nvim/macros'
-let g:loaded_macros = {}
-
-function! s:save_macro(name, file)
-  let content = eval('@'.a:name)
-  if !empty(content)
-    let file_macro_dir = g:macro_dir.'/'.&ft
-    call system('mkdir -p '.file_macro_dir)
-    call writefile(split(content, "\n"), file_macro_dir.a:file)
-    let g:loaded_macros[a:name] = a:file
-    echom len(content) . " bytes save to ". a:file
-  endif
-endfunction
-
-function! s:load_macro(file, name)
-  let data = join(readfile(g:macro_dir.'/'.&ft.'/'.a:file), "\n")
-  call setreg(a:name, data, 'c')
-  let g:loaded_macros[a:name] = a:file
-  echom "Macro loaded to @". a:name
-endfunction
-
-function! s:neovim_fix()
-  if has('nvim')
-    call feedkeys('A')
-  endif
-endfunction
-
-function! MacroDirectorySink(lines)
-  let [ dir; rest ] = a:lines
-  call s:list_macros(dir)
-  call s:neovim_fix()
-endfunction
-
-function! ListMacrosSink(lines)
-  if len(a:lines) < 2
-    return
-  endif
-
-  let [ key, item; rest ] = a:lines
-  if key == 'ctrl-h'
-    echo "\nMacro Manager Help\nctrl-e - edit\n"
-  elseif key == 'ctrl-e'
-    exe "e ".item
-  elseif key == 'ctrl-u'
-    call s:macro_directory()
-  else
-    let register = input('Register> ')
-    return s:load_macro(fnamemodify(item, ':t'), register)
-  endif
-  call s:neovim_fix()
-endfunction
-
-"all for now
-function! s:list_loaded_macros()
-  echo g:loaded_macros
-endfunction
-
-let g:MacroManagerLayout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
-
-function! s:macro_directory()
-  let files = filter(split(globpath(g:macro_dir, '*'), '\n'), 'isdirectory(v:val)')
-  return fzf#run(extend({
-    \ 'source': files,
-    \ 'sink*': function('MacroDirectorySink'),
-    \ 'options': '--ansi --prompt="Change Macro Dir> "'.
-      \ ' --tiebreak=index',
-    \ }, g:MacroManagerLayout))
-endfunction
-
-function! s:list_macros(...)
-  let dir = exists('a:1') ? a:1 : g:macro_dir.'/'.&ft
-  let layout = exists('g:fzf_layout') ? g:fzf_layout : { 'down': '~40%' }
-  let files = split(globpath(dir, '*'), '\n')
-
-  return fzf#run(extend({
-    \ 'source': files,
-    \ 'sink*': function('ListMacrosSink'),
-    \ 'options': '+m --ansi --prompt="Macro> "'.
-      \ ' --expect=ctrl-e,ctrl-l,ctrl-h,ctrl-u'.
-      \ ' --tiebreak=index',
-    \ }, g:MacroManagerLayout))
-endfunction
-
-command! -nargs=* SaveMacro call <SID>save_macro(<f-args>)
-command! -nargs=* LoadMacro call <SID>load_macro(<f-args>)
-command! -nargs=* ListMacros call <SID>list_macros(<f-args>)
-command! -nargs=* ListLoadedMacros call <SID>list_loaded_macros(<f-args>)
-" }
-
 " Additional Motions {
 if !exists('g:additional_motions')
 
-  "pasted/yanked
+ "pasted/yanked
   call textobj#user#plugin('pasted', {
         \      '-': {
         \        '*sfile*': expand('<sfile>:p'),
