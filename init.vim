@@ -245,6 +245,10 @@ vnoremap <silent> <Space>as :sort<CR>
 "t for template
 nnoremap <silent> <Space>ate :UltiSnipsEdit<CR>
 nnoremap <silent> <Space>atl :FzfSnippets<CR>
+"m for macro
+nmap <silent> <Space>amm <Plug>MMList
+nmap <silent> <Space>ama <Plug>MMListAll
+nmap <silent> <Space>aml <Plug>MMListLoaded
 " Plugins {
 " TODO: generic functions
 nnoremap <silent> <Space>api :PlugInstall<CR>
