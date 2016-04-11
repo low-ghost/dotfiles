@@ -124,9 +124,9 @@ nnoremap <silent> <Space>wc :lclose<CR>:cclose<CR>:pclose<CR>
 nnoremap <silent> <Space>wC :windo lclose<CR>:windo cclose<CR>:windo pclose<CR>
 " }
 
-
 " Commands {
 nnoremap <silent> <Space>x q:
+nnoremap <silent> <Space>/x :FzfHistory :<CR>
 " }
 
 " Buffers {
@@ -190,7 +190,7 @@ nnoremap <silent> <Space>fS :wa<CR>
 nnoremap <silent> <Space>fea :e ~/.aliases<CR>
 nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
 nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
-nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugin.vim<CR>
+nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugins.vim<CR>
 nnoremap <silent> <Space>fev :e $MYVIMRC<CR>
 nnoremap <silent> <Space>fez :e ~/.zshrc<CR>
 nnoremap <silent> <Space>fet :e ~/.tmux.conf<CR>
@@ -242,6 +242,9 @@ nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=js
 nnoremap <silent> <Space>au :UndotreeToggle<CR>
 "TODO normal mode accepting range
 vnoremap <silent> <Space>as :sort<CR>
+"t for template
+nnoremap <silent> <Space>ate :UltiSnipsEdit<CR>
+nnoremap <silent> <Space>atl :FzfSnippets<CR>
 " Plugins {
 " TODO: generic functions
 nnoremap <silent> <Space>api :PlugInstall<CR>
@@ -325,9 +328,10 @@ nnoremap <silent> <Space>gW :Gwrite!<CR>
 nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gc :Gcommit<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
-nnoremap <silent> <Space>gg :Ggrep<Space>
+nnoremap <silent> <Space>gdp :diffput<CR>
 nnoremap <silent> <Space>ge :Gedit<CR>
 nnoremap <silent> <Space>gf /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <silent> <Space>gg :Ggrep<Space>
 nnoremap <silent> <Space>gi :Git add -p %<CR>
 nnoremap <silent> <Space>gl :Glog<CR>
 nnoremap <silent> <Space>gm :Gmerge<CR>

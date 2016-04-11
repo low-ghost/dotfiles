@@ -154,7 +154,7 @@ autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescrip
 "noImplicitAny: true,
 let g:neomake_typescript_tsc_maker = {
   \ 'args': [
-      \  '-t', 'es5', '-m', 'commonjs', '--noEmit',
+      \  '-t', 'es5', '-m', 'commonjs', '--noEmit', '--noImplicitAny',
   \ ],
   \ 'errorformat':
       \ '%E%f %#(%l\,%c): error %m,' .

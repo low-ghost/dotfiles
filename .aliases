@@ -37,7 +37,6 @@ cb() {
     cd $chosen
   else
     echo 'Aborted or no such bookmark'
-    exit 1
   fi
 }
 eb() {
@@ -57,7 +56,6 @@ db() {
     sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
   else
     echo 'Aborted or no such bookmark'
-    exit 1
   fi
 }
 # }
@@ -243,3 +241,5 @@ pgloc() {
 
 # recently added {
 
+# refresh cache font
+alias refont='sudo fc-cache -f -v'
