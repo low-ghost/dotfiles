@@ -243,3 +243,5 @@ pgloc() {
 
 # refresh cache font
 alias refont='sudo fc-cache -f -v'
+# less watch file
+alias lf='less +F'

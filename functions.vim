@@ -128,6 +128,28 @@ function! AppendAndPrependLine()
 endfunction
 " }
 
+function! s:getchar()
+  let c = getchar()
+  if c =~ '^\d\+$'
+    let c = nr2char(c)
+  endif
+  return c
+endfunction
+
+function! ExecuteMacroOnSelection(...)
+  if !exists('a:1') || !exists('s:last_execute_register')
+    echo 'register>'
+    let s:last_execute_register= s:getchar()
+  endif
+  exe "'<,'>normal @".s:last_execute_register
+endfunction
+
+function! RefreshAllBuffers()
+  set noconfirm
+  bufdo e!
+  set confirm
+endfunction
+
 function! BufferByMatch(delete)
    let bufNr = bufnr("$")
    let str = a:delete

@@ -151,7 +151,8 @@ let g:airline#extensions#tabline#tab_min_count = 2
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-"noImplicitAny: true,
+autocmd FileType javascript autocmd BufWritePre <buffer> let b:neomake_javascript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
 let g:neomake_typescript_tsc_maker = {
   \ 'args': [
       \  '-t', 'es5', '-m', 'commonjs', '--noEmit', '--noImplicitAny',
@@ -162,12 +163,36 @@ let g:neomake_typescript_tsc_maker = {
       \ '%Eerror %m,' .
       \ '%C%\s%\+%m'
   \ }
+let g:neomake_typescript_tsca_maker = {
+  \ 'exe': 'tsc',
+  \ 'args': ['-p', '.'],
+  \ 'append_file': 0,
+  \ 'errorformat':
+      \ '%E%f %#(%l\,%c): error %m,' .
+      \ '%E%f %#(%l\,%c): %m,' .
+      \ '%Eerror %m,' .
+      \ '%C%\s%\+%m'
+  \ }
 let g:neomake_typescript_eslint_maker = {
   \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
   \ 'args': ['-f', 'compact'],
   \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-  \ '%W%f: line %l\, col %c\, Warning - %m'
+    \ '%W%f: line %l\, col %c\, Warning - %m'
   \ }
+let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
+let g:neomake_javascript_eslint_maker = {
+  \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
+  \ 'args': ['-f', 'compact'],
+  \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    \ '%W%f: line %l\, col %c\, Warning - %m'
+  \ }
+let g:neomake_javascript_eslintf_maker = {
+  \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
+  \ 'args': ['-f', 'compact', '--fix'],
+  \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    \ '%W%f: line %l\, col %c\, Warning - %m',
+  \ }
+let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_warning_sign = {
   \ 'text': '>',
   \ 'texthl': 'WarningMsg',
@@ -176,8 +201,23 @@ let g:neomake_error_sign = {
   \ 'text': '>>',
   \ 'texthl': 'ErrorMsg',
   \ }
-let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
 " }
+
+function! Tsc()
+  let original_path = getcwd()
+  let path = systemlist('git rev-parse --show-toplevel')[0]
+  if v:shell_error
+    return s:warn('Not in git repo')
+  endif
+  exe 'cd' path
+  exe 'Neomake tsca'
+endfunction
+command! Tsc call Tsc()
+
+function! Esfix()
+  exe 'Neomake eslintf'
+endfunction
+command! Esfix call Esfix()
 
 " rainbowpairs {
  let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]

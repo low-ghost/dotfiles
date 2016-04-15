@@ -49,6 +49,7 @@ Plug 'wellle/targets.vim'
 Plug 'mxw/vim-jsx'
 Plug 'low-ghost/vimax'
 Plug 'low-ghost/vim-macro-manager'
+Plug 'low-ghost/toggle-words.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -126,7 +127,7 @@ nnoremap <silent> <Space>wC :windo lclose<CR>:windo cclose<CR>:windo pclose<CR>
 
 " Commands {
 nnoremap <silent> <Space>x q:
-nnoremap <silent> <Space>/x :FzfHistory :<CR>
+nnoremap <silent> <Space>x/ :FzfHistory :<CR>
 " }
 
 " Buffers {
@@ -152,7 +153,7 @@ nnoremap <silent> <Space>bY gg"+yG<CR>
 nnoremap <silent> <Space>bP gg"_dGp<CR>
 nnoremap <silent> <Space>br :e! %<CR>
 "TODO get to work
-nnoremap <silent> <Space>bR :bufdo execute "normal! e! %"<CR>
+nnoremap <silent> <Space>bR :call RefreshAllBuffers()<CR>
 "go to buffer
 nnoremap <silent> <Space>b1 :b1<CR>
 nnoremap <silent> <Space>b2 :b2<CR>
@@ -227,6 +228,8 @@ nnoremap <silent> <Space>tN :set relativenumber!<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
 nnoremap <silent> <Space>tsp :set spell!<CR>
 nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
+nmap <silent> <Space>tw :ToggleWord<CR>
+nmap <silent> <Space>tW :ToggleWordReverse<CR>
 " }
 
 " Insert {
@@ -244,11 +247,7 @@ nnoremap <silent> <Space>au :UndotreeToggle<CR>
 vnoremap <silent> <Space>as :sort<CR>
 "t for template
 nnoremap <silent> <Space>ate :UltiSnipsEdit<CR>
-nnoremap <silent> <Space>atl :FzfSnippets<CR>
-"m for macro
-nmap <silent> <Space>amm <Plug>MMList
-nmap <silent> <Space>ama <Plug>MMListAll
-nmap <silent> <Space>aml <Plug>MMListLoaded
+nnoremap <silent> <Space>at/ :FzfSnippets<CR>
 " Plugins {
 " TODO: generic functions
 nnoremap <silent> <Space>api :PlugInstall<CR>
@@ -257,17 +256,29 @@ nnoremap <silent> <Space>apu :PlugUpdate<CR>
 nnoremap <silent> <Space>apU :PlugUpgrade<CR>
 nnoremap <silent> <Space>aps :PlugStatus<CR>
 " }
+nnoremap <silent> <Space>am :Neomake<CR>
 " }
 
 " Substitute {
+" s - standard | a - all | f - in cntr-f mode
+" Standard {
 nnoremap <silent> <Space>ss :s///g<Left><Left><Left>
-nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
-nnoremap <silent> <Space>sw :s/\(<C-r><C-w>\)//g<Left><Left>
-nnoremap <silent> <Space>sfw :s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
 nnoremap <silent> <Space>sas :%s///g<Left><Left><Left>
+nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
 nnoremap <silent> <Space>sfas :%s///g<Left><Left><Left><C-f>i
+" }
+" Word {
+nnoremap <silent> <Space>sw :s/\(<C-r><C-w>\)//g<Left><Left>
 nnoremap <silent> <Space>saw :%s/\(<C-r><C-w>\)//g<Left><Left>
+nnoremap <silent> <Space>sfw :s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
 nnoremap <silent> <Space>sfaw :%s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
+" }
+" Search {
+nnoremap <silent> <Space>s/ :s/\(<C-r>/\)//g<Left><Left>
+nnoremap <silent> <Space>sa/ :%s/\(<C-r>/\)//g<Left><Left>
+nnoremap <silent> <Space>sf/ :s/\(<C-r>/\)//g<Left><Left><C-f>i
+nnoremap <silent> <Space>sfa/ :%s/\(<C-r>/\)//g<Left><Left><C-f>i
+" }
 " }
 
 " Search {
@@ -275,7 +286,14 @@ map <space>/ <Plug>(easymotion-prefix)
 map <space>// <Plug>(easymotion-s)
 map <space>/n <Plug>(easymotion-sn)
 map <space>/2 <Plug>(easymotion-s2)
-" List matching words and go to one. TODO: fzf-ize
+" List matching words and go to one. TODO: fzf-ize. Looks like:
+" function ListInstances()
+  " redir => lines
+  " silent exe "normal! [I"
+  " redir END
+  " fzf lines
+" endfunction
+" possibly do silent bufdo
 nnoremap <silent> <Space>/g [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " }
 
@@ -333,6 +351,7 @@ nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gc :Gcommit<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gdp :diffput<CR>
+nnoremap <silent> <Space>gdb :Gdiff<Space>
 nnoremap <silent> <Space>ge :Gedit<CR>
 nnoremap <silent> <Space>gf /\v^[<\|=>]{7}( .*\|$)<CR>
 nnoremap <silent> <Space>gg :Ggrep<Space>
@@ -345,9 +364,11 @@ nnoremap <silent> <Space>gs :Gstatus<CR>
 nnoremap <silent> <Space>gw :Gwrite<CR>
 " }
 
-if exists('g:Make_neomake')
-  nnoremap <silent> <Space>m :Neomake<CR>
-endif
+nmap <silent> <Space>m/ <Plug>MMList
+nmap <silent> <Space>ma <Plug>MMListAll
+nmap <silent> <Space>ml <Plug>MMListLoaded
+xmap <silent> <Space>m :<C-U>call ExecuteMacroOnSelection()<CR>
+xmap <silent> <Space>m. :<C-U>call ExecuteMacroOnSelection('.')<CR>
 
 " Marks {
 nnoremap <silent> <Space>' :FzfMarks<CR>
@@ -382,7 +403,10 @@ nnoremap <silent> <Space>yr :YcmCompleter GoToReferences<CR>
 " }
 
 " Mappings helper {
-nnoremap <silent> <Space><Space><Space> :FzfMaps<CR>
+nnoremap <silent> <Space><Space>/ :FzfMaps<CR>
+nnoremap <silent> <Space><Space><Space> :FzfMaps<CR>'space>
+nnoremap <silent> <Space><Space><leader> :FzfMaps<CR>^<leader>
+nnoremap <silent> <Space><Space>l :FzfMaps<CR>^<leader>
 " }
 
 "TODO text-object-user
