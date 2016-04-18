@@ -227,3 +227,14 @@ command! Esfix call Esfix()
 " jsDoc {
 let g:jsdoc_enable_es6 = 1
 " }
+
+" toggle-words {
+"switches ' and ' to ' or '
+let g:toggle_words_dict = {
+\   "python": [
+\     [['\(^\|\A\)and\(\A\|$\)', '\1and\2'], ['\(^\|\A\)or\(\A\|$\)', '\1or\2']]
+\   ]
+\ }
+" }
+
+

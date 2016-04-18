@@ -56,6 +56,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tlib_vim'
+Plug 'klen/python-mode'
 call plug#end()
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1

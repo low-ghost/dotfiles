@@ -16,8 +16,8 @@ set virtualedit=onemore                         " allow for cursor beyond last c
 set history=2000                                " a ton of history
 set spell                                       " spell checking on
 set hidden                                      " allow switching buffer w/o saving
-set iskeyword-=.                                " '.' is an end of word designator
-set iskeyword-=#                                " '#' is an end of word designator
+"set iskeyword-=.                                " '.' is an end of word designator
+"set iskeyword-=#                                " '#' is an end of word designator
 set iskeyword-=-                                " '-' is an end of word designator
 " }
 
