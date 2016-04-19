@@ -56,36 +56,6 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let g:vim_json_syntax_conceal = 0
 " }
 
-" ctrlp {
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-  \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-if executable('ag')
-  let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-elseif executable('ack-grep')
-  let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-  let s:ctrlp_fallback = 'ack %s --nocolor -f'
-else
-  let s:ctrlp_fallback = 'find %s -type f'
-endif
-if exists("g:ctrlp_user_command")
-  unlet g:ctrlp_user_command
-endif
-let g:ctrlp_user_command = {
-  \ 'types': {
-  \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-  \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-  \ },
-  \ 'fallback': s:ctrlp_fallback
-  \ }
-
-let g:ctrlp_extensions = ['funky']
-
-" }
-
 " TagBar {
 	"nnoremap <silent> <leader>tt :TagbarToggle<CR>
 "}
@@ -204,7 +174,6 @@ let g:neomake_error_sign = {
 " }
 
 function! Tsc()
-  let original_path = getcwd()
   let path = systemlist('git rev-parse --show-toplevel')[0]
   if v:shell_error
     return s:warn('Not in git repo')
@@ -214,10 +183,32 @@ function! Tsc()
 endfunction
 command! Tsc call Tsc()
 
+function! NeoAg(search, ...)
+  "Takes a search parameter as first arg and all additional args
+  "to perform ag query at git root
+  let path = systemlist('git rev-parse --show-toplevel')[0]
+  if v:shell_error
+    return s:warn('Not in git repo')
+  endif
+  let base_args = ['--column', '--nogroup', a:search ] + a:000
+  call neomake#Make(0, [{
+    \ 'name': 'Ag',
+    \ 'exe': 'ag',
+    \ 'cwd': path,
+    \ 'args': base_args,
+    \ 'errorformat': '%I%f:%l:%c:%m'
+    \ }])
+  let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
+  call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
+endfunction
+command! -nargs=* Ag call NeoAg(<f-args>)
+
 function! Esfix()
   exe 'Neomake eslintf'
 endfunction
 command! Esfix call Esfix()
+" }
+
 
 " rainbowpairs {
  let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
@@ -232,9 +223,29 @@ let g:jsdoc_enable_es6 = 1
 "switches ' and ' to ' or '
 let g:toggle_words_dict = {
 \   "python": [
-\     [['\(^\|\A\)and\(\A\|$\)', '\1and\2'], ['\(^\|\A\)or\(\A\|$\)', '\1or\2']]
-\   ]
+\     [toggle_words#word('and'), toggle_words#word('or')],
+\   ],
+\   "javascript": [
+\      ['if (', 'else if (', 'else '],
+\      ['import', 'export'],
+\      [['\.to\.\(not\)\@!', '\.to\.'], ['\.to\.not\.', '\.to\.not\.']],
+\      ['&&', '||'],
+\   ],
 \ }
 " }
 
-
+" Fugitive {
+function! GeditBranchFile(split, ...)	
+  let branch = exists('a:1') ? a:1 : 'master'
+  if a:split == 'v'
+    exe 'Gvsplit '.branch.':%'
+  elseif a:split == 'h'
+    exe 'Gsplit '.branch.':%'
+  else
+    exe 'Gedit '.branch.':%'
+  endif
+endfunction
+command! -nargs=? GeditBF call GeditBranchFile(0, <f-args>)
+command! -nargs=? GvsplitBF call GeditBranchFile('v', <f-args>)
+command! -nargs=? GsplitBF call GeditBranchFile('h', <f-args>)
+" }
