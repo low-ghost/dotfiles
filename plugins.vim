@@ -234,6 +234,46 @@ let g:toggle_words_dict = {
 \ }
 " }
 
+function! Fzf_base(prompt, source, sink, ...)
+
+  let restOptions = exists('a:1') ? ' '.a:1 : ''
+
+  return fzf#run(extend({
+    \ 'source': a:source,
+    \ 'sink*': function(a:sink),
+    \ 'options': '--ansi --prompt="'.a:prompt.'> "'.
+      \ ' --tiebreak=index'.restOptions,
+    \ }, { 'down': '~40%' }))
+
+endfunction
+
+function! s:ansi(str, col, bold)
+  return printf("\x1b[%s%sm%s\x1b[m", a:col, a:bold ? ';1' : '', a:str)
+endfunction
+
+for [s:c, s:a] in items({'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36})
+  execute "function! s:".s:c."(str, ...)\n"
+        \ "  return s:ansi(a:str, ".s:a.", get(a:, 1, 0))\n"
+        \ "endfunction"
+endfor
+
+function! s:fzf_qf_sink(lines)
+  let g:last_qf = a:lines[0]
+  let ccnum = matchstr(a:lines[0], '\d\+\ ')
+  exe 'cc '.ccnum
+endfunction
+
+function! FzfQf()
+  redir => clist_lines
+  silent exe 'clist'
+  redir END
+  exe 'cclose'
+  let clist_split = split(clist_lines, "\n")
+  let source = map(clist_split, 'printf("%s %s", s:yellow(v:key + 1), v:val)')
+  call Fzf_base('qf', source, 's:fzf_qf_sink')
+endfunction
+command! FzfQf call FzfQf()
+
 " Fugitive {
 function! GeditBranchFile(split, ...)	
   let branch = exists('a:1') ? a:1 : 'master'
