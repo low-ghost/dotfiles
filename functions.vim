@@ -293,6 +293,30 @@ endfunction
 " }
 " }
 
+" Miscellaneous {
+function! IncrementVisualNumbers()
+  "increment all visually selected nums in order (only in col)
+  "TODO, make work on none-line breaked
+  let a = line('.') - line("'<")
+  let c = virtcol("'<")
+  if a > 0
+    execute 'normal! '.c.'|'.a."\<C-a>"
+  endif
+  normal `<
+endfunction
+vnoremap <C-a> :call IncrementVisualNumbers()<CR>
+
+function! CountCommand(command, ...)
+  let lcount = exists('a:1') && v:count == 0 ? a:1 : v:count1
+  "execute a command like b or ll w/ a count
+  if exists('a:2')
+    exe ''.a:command.''.lcount
+  else
+    exe a:command lcount
+  endif
+endfunction
+"}
+
 " Additional Motions {
 if !exists('g:additional_motions')
 

@@ -230,9 +230,11 @@ let g:toggle_words_dict = {
 \      ['import', 'export'],
 \      [['\.to\.\(not\)\@!', '\.to\.'], ['\.to\.not\.', '\.to\.not\.']],
 \      ['&&', '||'],
+\      ['const', 'let'],
 \   ],
 \ }
 " }
+let g:toggle_words_dict['typescript'] = g:toggle_words_dict['javascript']
 
 function! Fzf_base(prompt, source, sink, ...)
 
@@ -258,21 +260,27 @@ for [s:c, s:a] in items({'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blu
 endfor
 
 function! s:fzf_qf_sink(lines)
-  let g:last_qf = a:lines[0]
-  let ccnum = matchstr(a:lines[0], '\d\+\ ')
-  exe 'cc '.ccnum
+  let list_and_num = matchstr(a:lines[0], '\w\d\+\ ')
+  if list_and_num[0] == 'c'
+    call input('exe cc'.list_and_num[1:])
+    exe 'cc '.list_and_num[2:]
+  else
+    exe 'll '.list_and_num[2:]
+  endif
 endfunction
 
-function! FzfQf()
+function! FzfQf(location_or_quickfix)
   redir => clist_lines
-  silent exe 'clist'
+  silent exe a:location_or_quickfix.'list'
   redir END
-  exe 'cclose'
+  exe a:location_or_quickfix.'close'
   let clist_split = split(clist_lines, "\n")
-  let source = map(clist_split, 'printf("%s %s", s:yellow(v:key + 1), v:val)')
+  let source = map(clist_split, 'printf("'.a:location_or_quickfix.':%s %s", s:yellow(v:key + 1), v:val)')
   call Fzf_base('qf', source, 's:fzf_qf_sink')
 endfunction
-command! FzfQf call FzfQf()
+
+command! FzfQf call FzfQf('c')
+command! FzfLl call FzfQf('l')
 
 " Fugitive {
 function! GeditBranchFile(split, ...)	
@@ -289,3 +297,7 @@ command! -nargs=? GeditBF call GeditBranchFile(0, <f-args>)
 command! -nargs=? GvsplitBF call GeditBranchFile('v', <f-args>)
 command! -nargs=? GsplitBF call GeditBranchFile('h', <f-args>)
 " }
+
+command! -nargs=1 Node echo system('cd ~/repo/js; node --print '.
+  \ '"try { const lo = require(\"lodash\"); const fp = require(\"lodash/fp\");} '.
+  \ 'catch (e) {}'.<f-args>.'"')

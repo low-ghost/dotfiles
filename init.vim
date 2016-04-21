@@ -2,6 +2,8 @@
 set nocompatible
 set shell=/bin/zsh
 
+"TODO: figure out why cursor doesn't show in history edit
+
 call plug#begin('~/.nvim/plugged')
 Plug 'altercation/vim-colors-solarized'
 	"Plug 'amirh/HTML-AutoCloseTag'
@@ -57,7 +59,6 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tlib_vim'
 Plug 'klen/python-mode'
-Plug 'mileszs/ack.vim'
 call plug#end()
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
@@ -98,16 +99,11 @@ let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 " Windows {
 nnoremap <silent> <Space>wd :hide<cr>;
-"move
-nnoremap <silent> <Space>wj <C-W>j
-nnoremap <silent> <Space>wk <C-W>k
-nnoremap <silent> <Space>wh <C-W>h
-nnoremap <silent> <Space>wl <C-W>l
 "resize
-nnoremap <silent> <Space>wJ 10<C-w>+
-nnoremap <silent> <Space>wK 10<C-w>-
-nnoremap <silent> <Space>wH 10<C-w><
-nnoremap <silent> <Space>wL 10<C-w>>
+nnoremap <silent> <Space>wJ :<C-U>call CountCommand('resize +', 10, 1)<CR>
+nnoremap <silent> <Space>wK :<C-U>call CountCommand('resize -', 10, 1)<CR>
+nnoremap <silent> <Space>wH :<C-U>call CountCommand('vertical resize +', 10, 1)<CR>
+nnoremap <silent> <Space>wL :<C-U>call CountCommand('vertical resize -', 10, 1)<CR>
 nnoremap <silent> <Space>w= <C-W>=
 "split
 nnoremap <silent> <Space>ws <C-W>s:bn<CR>
@@ -141,12 +137,13 @@ nnoremap <silent> <Space>bmd :call BufferByMatch(1)<CR>
 nnoremap <silent> <Space>bmo :call BufferByMatch(0)<CR>
 "BOnly will not kill buffers w/ unsaved content
 nnoremap <silent> <Space>bo :BOnly<CR>
+"TODO filter current
 nnoremap <silent> <Space>bb :FzfBuffers<CR>
 "bp/h and bn/l accept count
-nnoremap <silent> <Space>bp :bprev<CR>
-nnoremap <silent> <Space>bh :bprev<CR>
-nnoremap <silent> <Space>bn :bnext<CR>
-nnoremap <silent> <Space>bl :bnext<CR>
+nnoremap <silent> <Space>bp :<C-U> call CountCommand('bprev')<CR>
+nnoremap <silent> <Space>bh :<C-U> call CountCommand('bprev')<CR>
+nnoremap <silent> <Space>bn :<C-U> call CountCommand('bnext')<CR>
+nnoremap <silent> <Space>bl :<C-U> call CountCommand('bnext')<CR>
 "copy entire buffer
 nnoremap <silent> <Space>by gg"+yG<CR>
 nnoremap <silent> <Space>bY gg"+yG<CR>
@@ -157,39 +154,35 @@ nnoremap <silent> <Space>br :e! %<CR>
 "TODO get to work
 nnoremap <silent> <Space>bR :call RefreshAllBuffers()<CR>
 "go to buffer
-nnoremap <silent> <Space>b1 :b1<CR>
-nnoremap <silent> <Space>b2 :b2<CR>
-nnoremap <silent> <Space>b3 :b3<CR>
-nnoremap <silent> <Space>b4 :b4<CR>
-nnoremap <silent> <Space>b5 :b5<CR>
-nnoremap <silent> <Space>b6 :b6<CR>
-nnoremap <silent> <Space>b7 :b7<CR>
-nnoremap <silent> <Space>b8 :b8<CR>
-nnoremap <silent> <Space>b9 :b9<CR>
+nnoremap <silent> <Space>bg :<C-U>call CountCommand('b')<CR>
 " }
 
 " QuickFix and Location {
 " for now, close both quickfix and location on close map
 nnoremap <silent> <Space>cc :cclose<CR>
 nnoremap <silent> <Space>cC :windo cclose<CR>
-nnoremap <silent> <Space>co :copen<CR>
-nnoremap <silent> <Space>cn :cnext<CR>
-nnoremap <silent> <Space>cp :cprev<CR>
-nnoremap <silent> <Space>cl :cnewer<CR>
-nnoremap <silent> <Space>ch :colder<CR>
+nnoremap <silent> <Space>co :<C-U>call CountCommand('copen', 7)<CR>
+nnoremap <silent> <Space>cn :<C-U>call CountCommand('cnext')<CR>
+nnoremap <silent> <Space>cp :<C-U>call CountCommand('cprev')<CR>
+nnoremap <silent> <Space>cl :<C-U>cacl CountCommand('cnewer')<CR>
+nnoremap <silent> <Space>ch :<C-U>call CountCommand('colder')<CR>
+nnoremap <silent> <Space>c/ :FzfQf<CR>
+nnoremap <silent> <Space>cg :<C-U>call CountCommand('cc')<CR>
 nnoremap <silent> <Space>lc :lclose<CR>
 nnoremap <silent> <Space>lC :windo lclose<CR>
-nnoremap <silent> <Space>lo :lopen<CR>
-nnoremap <silent> <Space>ln :lnext<CR>
-nnoremap <silent> <Space>lp :lprev<CR>
-nnoremap <silent> <Space>ll :lnewer<CR>
-nnoremap <silent> <Space>lh :lolder<CR>
+nnoremap <silent> <Space>lo :<C-U>call CountCommand('lopen', 7)<CR>
+nnoremap <silent> <Space>ln :<C-U>call CountCommand('lnext')<CR>
+nnoremap <silent> <Space>lp :<C-U>call CountCommand('lprev')<CR>
+nnoremap <silent> <Space>ll :<C-U>call CountCommand('lnewer')<CR>
+nnoremap <silent> <Space>lh :<C-U>call CountCommand('lolder')<CR>
+nnoremap <silent> <Space>l/ :FzfLl<CR>
+nnoremap <silent> <Space>lg :<C-U>call CountCommand('ll')<CR>
 " }
 
 " File {
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space><CR> :w<CR>
-nnoremap <silent> <Space>fS :wa<CR>
+nnoremap <silent> <Space>fs :wa<CR>
 nnoremap <silent> <Space>fea :e ~/.aliases<CR>
 nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
 nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
@@ -202,7 +195,6 @@ nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
-nnoremap <silent> <Space>fs :w<CR>
 nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 " }
@@ -235,6 +227,7 @@ nmap <silent> <Space>tW :ToggleWordReverse<CR>
 " }
 
 " Insert {
+" TODO: visual support
 nnoremap <silent> <space>ij :<C-U>call AppendLine()<CR>
 "nnoremap <space>io :<C-U>call AppendLine()<CR>i
 nnoremap <silent> <Space>ik :<C-U>call PrependLine()<CR>
@@ -400,6 +393,7 @@ nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " Repl and typing {
 nnoremap <silent> <Space>yt :YcmCompleter GetType<CR>
 nnoremap <silent> <Space>yg :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <Space>yv :YcmCompleter GoToDefinition<CR><C-W>v<C-W>h:bp<CR><C-W>l
 nnoremap <silent> <Space>yd :YcmCompleter GetDoc<CR>
 nnoremap <silent> <Space>yr :YcmCompleter GoToReferences<CR>
 " }

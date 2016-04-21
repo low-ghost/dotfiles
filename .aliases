@@ -1,7 +1,7 @@
 # keyboard {
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
-alias xkbinit= '. ~/.xcaperc'
+alias xkbinit='. ~/.xcaperc'
 # }
 # configs {
 alias ea='vim ~/.aliases'
