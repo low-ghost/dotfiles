@@ -102,12 +102,16 @@ while getopts ':i:lr' opt; do
       #zsh and aliases
       ln -f .zshrc ~/.zshrc
       ln -f .aliases ~/.aliases
+      ln -f .shellaliases ~/.shellaliases
+      ln -f .compdef ~/.compdef
       ln -f .inputrc ~/.inputrc
       #tmux
       ln -f .tmux.conf ~/.tmux.conf
       #xcape
       ln -f .xcaperc ~/.xcaperc
       sudo ln -f xkb/cu /usr/share/X11/xkb/symbols/cu
+      #pg
+      ln -f .pgsqlrc ~/.pgsqlrc
       ;;
     r)
       echo 'removing links...'

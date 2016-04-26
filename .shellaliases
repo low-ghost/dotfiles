@@ -1,0 +1,109 @@
+# vim:set et sw=2 ft=zsh ts=2:
+# keyboard {
+alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
+# does not work?
+alias xkbinit='. ~/.xcaperc'
+# }
+# configs {
+alias ea='vim ~/.aliases'
+alias eas='vim ~/.shellaliases'
+alias eali='vim ~/.aliases'
+alias ef='vim ~/repo/dotfiles/functions.vim'
+alias eg='vim ~/repo/dotfiles/general.vim'
+alias ep='vim ~/repo/dotfiles/plugins.vim'
+alias ev='vim ~/.config/nvim/init.vim'
+alias evim='vim ~/.config/nvim/init.vim'
+alias ez='vim ~/.zshrc'
+alias ezsh='vim ~/.zshrc'
+alias et='vim ~/.tmux.conf'
+alias e='vim'
+# }
+
+# refresh cache font
+alias refont='sudo fc-cache -f -v'
+# less watch file
+alias lf='less +F'
+
+# bookmarks {
+b() {
+  if [ $# -eq 1 ]; then
+    echo $1' - '$PWD >> ~/.bookmarks
+  else
+    echo "Enter a name for the bookmark> "
+    read name
+    echo $name' - '$PWD >> ~/.bookmarks
+  fi
+}
+#TODO: completion
+cb() {
+  if [ $# -eq 1 ]; then
+    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+  else
+    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+  fi
+  if [ -n "$chosen" ]; then
+    cd $chosen
+  else
+    echo 'Aborted or no such bookmark'
+  fi
+}
+cbr() {
+  if [ $# -eq 1 ]; then
+    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+  else
+    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+  fi
+  if [ -n "$chosen" ]; then
+    print -z $chosen
+  fi
+}
+eb() {
+  if [ $# -eq 1 ]; then
+    vim +/$1 ~/.bookmarks
+  else
+    vim ~/.bookmarks
+  fi
+}
+db() {
+  if [ $# -eq 1 ]; then
+    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
+  else
+    chosen=`cat ~/.bookmarks | fzf`
+  fi
+  if [ -n "$chosen" ]; then
+    sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
+  else
+    echo 'Aborted or no such bookmark'
+  fi
+}
+# }
+
+# alias {
+addali() {
+  echo "Enter a description for the alias:"
+  read comment
+  echo "\n# $comment" >> ~/.aliases
+  echo "alias $1='`fc -ln -1`'" >> ~/.aliases
+}
+# fuzzy search alias and add text to command line
+ali() {
+  print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
+}
+# }
+
+countdown() {
+   date1=$((`date +%s` + $1)); 
+   while [ "$date1" -ne `date +%s` ]; do 
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+   notify-send 'countdown finished'
+}
+
+tmuxa() { tmux -2 attach -t `echo $1 | cut -d ":" -f 1` }
+_tmuxa_completion() {
+  tmux ls | awk '{print $1$2"-"$3":"$5"-"$6"-"$7}'
+}
+_tmuxa () {
+  compadd -S '' `_tmuxa_completion`
+}

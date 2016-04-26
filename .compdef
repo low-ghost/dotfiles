@@ -1,0 +1,8 @@
+compdef _tmuxa tmuxa
+compdef _his his
+compdef _ds ds='docker stop'
+compdef _npml npml='cd '
+compdef _gitunadd gun
+compdef _gitignoreio gi
+compdef _apt apt='sudo apt-get'
+compdef _apti apti='sudo apt-get install'

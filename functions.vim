@@ -1,6 +1,13 @@
 " vim: foldmarker={,} foldmethod=marker spell:
 " Helpful Functions
 
+function! ResCur()
+  if match(bufname("%"), "term://") == -1 && line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
 " Initialize directories {
 function! InitializeDirectories()
   let parent = $HOME

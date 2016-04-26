@@ -43,7 +43,7 @@ endif
 
 " NerdTree {
 let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeIgnore=['\.py[cd]$', '\.map\.*', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=1
 let NERDTreeMouseMode=2
@@ -187,6 +187,7 @@ function! NeoAg(search, ...)
   "Takes a search parameter as first arg and all additional args
   "to perform ag query at git root
   let path = systemlist('git rev-parse --show-toplevel')[0]
+  exe 'cd' path
   if v:shell_error
     return s:warn('Not in git repo')
   endif
@@ -301,3 +302,5 @@ command! -nargs=? GsplitBF call GeditBranchFile('h', <f-args>)
 command! -nargs=1 Node echo system('cd ~/repo/js; node --print '.
   \ '"try { const lo = require(\"lodash\"); const fp = require(\"lodash/fp\");} '.
   \ 'catch (e) {}'.<f-args>.'"')
+
+let g:EasyMotion_keys = 'qywuflpmvkbhdoairesnt'

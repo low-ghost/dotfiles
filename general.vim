@@ -127,11 +127,6 @@ command! -bang Qa qa<bang>
 cmap Tabe tabe
 " }
 
-" Quickfix {
-"autocmd qf BufEnter <buffer> if winnr('$') < 2 | q | endif " quit if qf is the last buffer
-autocmd FileType qf set nobuflisted " don't put the qf window in buffer list
-" }
-
 " General {
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
@@ -160,19 +155,13 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " always go to first line of git commit messages
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 " restore cursor from prev edit {
-function! ResCur()
-  if match(bufname("%"), "term://") == -1 && line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
 augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
 " }
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,go,php,javascript,typescript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+autocmd FileType c,cpp,java,go,php,javascript,typescript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " Workaround vim-commentary for Haskell
@@ -181,6 +170,18 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 autocmd FileType haskell,rust setlocal nospell
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 " }
+
+augroup qf
+    autocmd!
+
+    " automatically open the location/quickfix window after :make, :grep,
+    " :lvimgrep and friends if there are valid locations/errors
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+
+    " automatically close corresponding loclist when quitting a window
+    autocmd QuitPre * if &filetype != 'qf' | silent! lclose | endif
+augroup END
 
 " Shortcuts {
 " Change Working Directory to that of the current file

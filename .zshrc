@@ -85,7 +85,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.nvm/nvm.sh
 nvm use latest > /dev/null
+source ~/.shellaliases
 source ~/.aliases
+source ~/.compdef
 source ~/.secrets
 
 bindkey -v

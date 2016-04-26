@@ -69,7 +69,6 @@ let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 source ~/.config/vim/general.vim
 source ~/.config/vim/plugins.vim
 source ~/.config/vim/functions.vim
-
 let mapleader = ","
 
 nnoremap <C-t>l :tabnext<cr>
@@ -77,6 +76,7 @@ nnoremap <C-t>h :tabprevious<cr>
 nnoremap <C-t>n :tabnew<cr>
 nnoremap <C-t>i :tabfirst<cr>
 nnoremap <C-t>I :tablast<cr>
+nnoremap <C-t>x :tabclose<cr>
 
 "neovim terminal
 tnoremap <C-o> <C-\><C-n>
@@ -91,9 +91,9 @@ tnoremap <C-t>h <C-\><C-n>:tabprevious<cr>
 tnoremap <C-t>n <C-\><C-n>:tabnew<cr>
 tnoremap <C-t>i <C-\><C-n>:tabfirst<cr>
 tnoremap <C-t>I <C-\><C-n>:tablast<cr>
+tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
 autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
-
 
 "Spacemacs style keys {
 
@@ -119,26 +119,26 @@ nnoremap <silent> <Space>wrj <C-w>J
 nnoremap <silent> <Space>wrak :windo wincmd K<CR>
 nnoremap <silent> <Space>wrah :windo wincmd H<CR>
 "close all extraneous windows
-nnoremap <silent> <Space>wc :lclose<CR>:cclose<CR>:pclose<CR>
-nnoremap <silent> <Space>wC :windo lclose<CR>:windo cclose<CR>:windo pclose<CR>
+nnoremap <silent> <Space>wc :lclose\|cclose\|pclose\|helpclose\|NERDTreeClose<CR>
+nnoremap <silent> <Space>wC :windo lclose\|windo cclose\|windo pclose\|helpclose\|NERDTreeClose<CR>
 " }
 
 " Commands {
-nnoremap <silent> <Space>x q:
+nnoremap <silent> <Space>x q:i
 nnoremap <silent> <Space>x/ :FzfHistory :<CR>
 " }
 
 " Buffers {
 "both delete accept count to specify buffer
-nnoremap <silent> <Space>bd :bp\|bd #<CR>
-nnoremap <silent> <Space>bD :bp\|bd! #<CR>
+nnoremap <silent> <Space>bd :lclose\|cclose\|pclose<CR>:bp\|bd #<CR>
+nnoremap <silent> <Space>bD :lclose\|cclose\|pclose<CR>:bp\|bd! #<CR>
 "delete or keep buffers matching a string
 nnoremap <silent> <Space>bmd :call BufferByMatch(1)<CR>
 nnoremap <silent> <Space>bmo :call BufferByMatch(0)<CR>
 "BOnly will not kill buffers w/ unsaved content
 nnoremap <silent> <Space>bo :BOnly<CR>
 "TODO filter current
-nnoremap <silent> <Space>bb :FzfBuffers<CR>
+nnoremap <silent> <Space>b/ :FzfBuffers<CR>
 "bp/h and bn/l accept count
 nnoremap <silent> <Space>bp :<C-U> call CountCommand('bprev')<CR>
 nnoremap <silent> <Space>bh :<C-U> call CountCommand('bprev')<CR>
@@ -155,6 +155,10 @@ nnoremap <silent> <Space>br :e! %<CR>
 nnoremap <silent> <Space>bR :call RefreshAllBuffers()<CR>
 "go to buffer
 nnoremap <silent> <Space>bg :<C-U>call CountCommand('b')<CR>
+"buffer toggle
+nnoremap <silent> <Space>bt :b#<CR>
+nnoremap <silent> <Space>bf :bfirst<CR>
+nnoremap <silent> <Space>be :blast<CR>
 " }
 
 " QuickFix and Location {
@@ -182,19 +186,19 @@ nnoremap <silent> <Space>lg :<C-U>call CountCommand('ll')<CR>
 " File {
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space><CR> :w<CR>
-nnoremap <silent> <Space>fs :wa<CR>
+nnoremap <silent> <Space>f/ :FzfGitFiles<CR>
 nnoremap <silent> <Space>fea :e ~/.aliases<CR>
 nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
 nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
 nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugins.vim<CR>
+nnoremap <silent> <Space>fet :e ~/.tmux.conf<CR>
 nnoremap <silent> <Space>fev :e $MYVIMRC<CR>
 nnoremap <silent> <Space>fez :e ~/.zshrc<CR>
-nnoremap <silent> <Space>fet :e ~/.tmux.conf<CR>
-nnoremap <silent> <Space>ff :FzfGitFiles<CR>
 nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
+nnoremap <silent> <Space>fs :wa<CR>
 nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 " }
@@ -281,6 +285,11 @@ map <space>/ <Plug>(easymotion-prefix)
 map <space>// <Plug>(easymotion-s)
 map <space>/n <Plug>(easymotion-sn)
 map <space>/2 <Plug>(easymotion-s2)
+omap z <Plug>(easymotion-t)
+omap Z <Plug>(easymotion-T)
+omap x <Plug>(easymotion-f)
+omap X <Plug>(easymotion-F)
+omap <space>/ <Plug>(easymotion-prefix)
 " List matching words and go to one. TODO: fzf-ize. Looks like:
 " function ListInstances()
   " redir => lines
@@ -405,6 +414,8 @@ nnoremap <silent> <Space><Space><leader> :FzfMaps<CR>^<leader>
 nnoremap <silent> <Space><Space>l :FzfMaps<CR>^<leader>
 " }
 
+vnoremap <Space>r c<C-O>:set ri<CR><C-R>"<Esc>:set nori<CR>
+
 "TODO text-object-user
 "targets delete word
 nnoremap dilw 2bdiw
@@ -415,3 +426,7 @@ nnoremap dinw wdiw
 nnoremap danw wdaw
 nnoremap daNw $bdaw
 nnoremap diNw $bdiw
+
+" }
+
+let &runtimepath.=','.string('~/repo/dotfiles/')

@@ -2,3 +2,5 @@ set hintchars=ntesiroadhmvkb
 highlight Hint -append background-color:black; font-size:16px;
 noremap j 3j
 noremap k 3k
+noremap <C-L> gt
+noremap <C-H> gT

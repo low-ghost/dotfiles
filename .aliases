@@ -1,103 +1,14 @@
-# keyboard {
-alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
-# does not work?
-alias xkbinit='. ~/.xcaperc'
-# }
-# configs {
-alias ea='vim ~/.aliases'
-alias eali='vim ~/.aliases'
-alias ef='vim ~/repo/dotfiles/functions.vim'
-alias eg='vim ~/repo/dotfiles/general.vim'
-alias ep='vim ~/repo/dotfiles/plugins.vim'
-alias ev='vim ~/.config/nvim/init.vim'
-alias evim='vim ~/.config/nvim/init.vim'
-alias ez='vim ~/.zshrc'
-alias ezsh='vim ~/.zshrc'
-alias et='vim ~/.tmux.conf'
-alias e='vim'
-# }
-# bookmarks {
-b() {
-  if [ $# -eq 1 ]; then
-    echo $1' - '$PWD >> ~/.bookmarks
-  else
-    echo "Enter a name for the bookmark> "
-    read name
-    echo $name' - '$PWD >> ~/.bookmarks
-  fi
-}
-#TODO: completion
-cb() {
-  if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
-  else
-    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
-  fi
-  if [ -n "$chosen" ]; then
-    cd $chosen
-  else
-    echo 'Aborted or no such bookmark'
-  fi
-}
-eb() {
-  if [ $# -eq 1 ]; then
-    vim +/$1 ~/.bookmarks
-  else
-    vim ~/.bookmarks
-  fi
-}
-db() {
-  if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
-  else
-    chosen=`cat ~/.bookmarks | fzf`
-  fi
-  if [ -n "$chosen" ]; then
-    sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
-  else
-    echo 'Aborted or no such bookmark'
-  fi
-}
-# }
+#!/bin/zsh
 
-# alias {
-addali() {
-  echo "Enter a description for the alias:"
-  read comment
-  echo "# $comment" >> ~/.aliases
-  echo "alias $1='`fc -ln -1`'" >> ~/.aliases
-}
-# fuzzy search alias and add text to command line
-ali() {
-  print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
-}
-# }
 # ejson {
+# TODO: if has .json
 encjson() { ejson encrypt $1.json }
 decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
 # }
 
-countdown() {
-   date1=$((`date +%s` + $1)); 
-   while [ "$date1" -ne `date +%s` ]; do 
-     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-     sleep 0.1
-   done
-   notify-send 'countdown finished'
-}
 whatsonport() { sudo netstat -tulnap | grep :$1 }
 
-
 clip() { "$1" | xclip -sel clip }
-
-tmuxa() { tmux -2 attach -t `echo $1 | cut -d ":" -f 1` }
-_tmuxa_completion() {
-  tmux ls | awk '{print $1$2"-"$3":"$5"-"$6"-"$7}'
-}
-_tmuxa () {
-  compadd -S '' `_tmuxa_completion`
-}
-compdef _tmuxa tmuxa
 
 his() {
   if [ -z "$1" ]
@@ -113,14 +24,12 @@ _his_completion () {
 _his () {
   compadd -S '' `_his_completion`
 }
-compdef _his his
 
 # docker {
 
 alias dc='docker-compose'
 alias dcs='docker-compose stop'
 alias ds='docker stop'
-compdef _ds ds='docker stop'
 alias dps='docker ps'
 
 dstopall() { docker stop $(docker ps -a -q) }
@@ -144,8 +53,8 @@ alias nlo='nvm exec latest node --es_staging --harmony_destructuring --harmony_d
 alias nlo4='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/_4'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
 alias ncw='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/cw'
+alias ncwp='APP_ENV=production nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/cw'
 alias npml='npm link'
-compdef _npml npml='cd '
 
 
 # }
@@ -174,7 +83,6 @@ _gitunadd_completion() {
 _gitunadd () {
   compadd -S '' `_gitunadd_completion`
 }
-compdef _gitunadd gun
 
 # generate git ignore from gitignore.io
 gi() { curl -sL https://www.gitignore.io/api/`echo $@ | sed s/" "/,/g` ;}
@@ -185,7 +93,6 @@ _gitignoreio () {
   compset -P '*,'
   compadd -S '' `_gitignoreio_completion`
 }
-compdef _gitignoreio gi
 
 # clone from the excel micro repo
 gclex() {
@@ -196,9 +103,7 @@ gclex() {
 # apt {
 
 alias apt='sudo apt-get'
-compdef _apt apt='sudo apt-get'
 alias apti='sudo apt-get install'
-compdef _apti apti='sudo apt-get install'
 alias aptu='sudo apt-get update'
 
 # }
@@ -239,9 +144,15 @@ pgloc() {
     fi
 }
 
-# recently added {
+pgjacob() {
+    if [ $# -eq 0 ]; then
+        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM
+    elif [ $# -eq 1 ]; then
+        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+    else
+        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    fi
+}
 
-# refresh cache font
-alias refont='sudo fc-cache -f -v'
-# less watch file
-alias lf='less +F'
+# change dir to git root
+alias cdg='cd `git rev-parse --show-toplevel`'
