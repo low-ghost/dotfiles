@@ -59,6 +59,7 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tlib_vim'
 Plug 'klen/python-mode'
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
