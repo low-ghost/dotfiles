@@ -61,9 +61,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'klen/python-mode'
 Plug 'edkolev/tmuxline.vim'
 call plug#end()
+let g:airline#extensions#tmuxline#enabled = 0
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
-
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 
@@ -282,10 +282,15 @@ nnoremap <silent> <Space>sfa/ :%s/\(<C-r>/\)//g<Left><Left><C-f>i
 " }
 
 " Search {
-map <space>/ <Plug>(easymotion-prefix)
 map <space>// <Plug>(easymotion-s)
-map <space>/n <Plug>(easymotion-sn)
 map <space>/2 <Plug>(easymotion-s2)
+map <space>/F <Plug>(easymotion-F)
+map <space>/T <Plug>(easymotion-T)
+map <space>/f <Plug>(easymotion-f)
+map <space>/j <Plug>(easymotion-j)
+map <space>/k <Plug>(easymotion-k)
+map <space>/n <Plug>(easymotion-sn)
+map <space>/t <Plug>(easymotion-t)
 omap z <Plug>(easymotion-t)
 omap Z <Plug>(easymotion-T)
 omap x <Plug>(easymotion-f)
@@ -300,6 +305,7 @@ omap <space>/ <Plug>(easymotion-prefix)
 " endfunction
 " possibly do silent bufdo
 nnoremap <silent> <Space>/g [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <silent> <Space>/a :Ag <C-r><C-w><CR>
 " }
 
 " Alignment {
@@ -429,5 +435,19 @@ nnoremap daNw $bdaw
 nnoremap diNw $bdiw
 
 " }
+
+" autoclose for multiline only {
+inoremap [<CR> [<CR>]<Esc>ko
+inoremap [; [<CR>];<Esc>ko
+inoremap [, [<CR>],<Esc>ko
+inoremap {<CR> {<CR>}<Esc>ko
+inoremap {; {<CR>};<Esc>ko
+inoremap {, {<CR>},<Esc>ko
+inoremap {)<CR> {<CR>});<Esc>ko
+inoremap ({<CR> ({<CR>})<Esc>ko
+inoremap ({; ({<CR>});<Esc>ko
+inoremap ([<CR> ([<CR>])<Esc>ko
+inoremap ([; ([<CR>]);<Esc>ko
+"}
 
 let &runtimepath.=','.string('~/repo/dotfiles/')

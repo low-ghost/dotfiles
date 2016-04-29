@@ -287,7 +287,7 @@ function! TogglePosition()
   endif
 endfunction
 
-let s:end_column_toggle = "off"
+let s:end_column_toggle = "on"
 function! ToggleEndColumn()
   if s:end_column_toggle == "off"
     let s:end_column_toggle = input('end col. num> ', 100)

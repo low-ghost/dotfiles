@@ -4,5 +4,7 @@ compdef _ds ds='docker stop'
 compdef _npml npml='cd '
 compdef _gitunadd gun
 compdef _gitignoreio gi
+compdef _gclex gclex
+compdef _cdr cdr
 compdef _apt apt='sudo apt-get'
 compdef _apti apti='sudo apt-get install'

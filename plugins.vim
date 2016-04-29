@@ -303,4 +303,4 @@ command! -nargs=1 Node echo system('cd ~/repo/js; node --print '.
   \ '"try { const lo = require(\"lodash\"); const fp = require(\"lodash/fp\");} '.
   \ 'catch (e) {}'.<f-args>.'"')
 
-let g:EasyMotion_keys = 'qywuflpmvkbhdoairesnt'
+let g:EasyMotion_keys = 'tnseriaodhbkvmplfuwyqsent'

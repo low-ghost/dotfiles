@@ -11,12 +11,11 @@ whatsonport() { sudo netstat -tulnap | grep :$1 }
 clip() { "$1" | xclip -sel clip }
 
 his() {
-  if [ -z "$1" ]
-    then
-        history
-    else
-        history | grep "$@"
-    fi
+  if [ -z "$1" ]; then
+      history
+  else
+      history | grep "$@"
+  fi
 }
 _his_completion () {
   grep --help
@@ -33,7 +32,7 @@ alias ds='docker stop'
 alias dps='docker ps'
 
 dstopall() { docker stop $(docker ps -a -q) }
-drmall() { docker rm $(docker ps -a -q) }
+alias drmall='docker rm $(docker ps -a -q)'
 dbuild() {
   dir=${PWD##*/}
   docker build -t ${1-$dir} .
@@ -48,12 +47,11 @@ alias nvmu='nvm use'
 alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias nvml='nvm ls'
-alias noden='node --es_staging --harmony_destructuring --harmony_default_parameters'
-alias nlo='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/_'
-alias nlo4='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/_4'
-alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node --es_staging --harmony_destructuring --harmony_default_parameters'
-alias ncw='nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/cw'
-alias ncwp='APP_ENV=production nvm exec latest node --es_staging --harmony_destructuring --harmony_default_parameters ~/repo/js/cw'
+alias nlo='nvm exec latest node ~/repo/js/_'
+alias nlo4='nvm exec latest node ~/repo/js/_4'
+alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node'
+alias ncw='nvm exec latest node ~/repo/js/cw'
+alias ncwp='APP_ENV=production nvm exec latest node ~/repo/js/cw'
 alias npml='npm link'
 
 
@@ -96,7 +94,23 @@ _gitignoreio () {
 
 # clone from the excel micro repo
 gclex() {
-  git clone git@bitbucket.org:excelmicro/$1.git ~/repo/$1
+  if [ -z "$1" ]; then
+    repo=`_gclex_completion | fzf`
+    if [ -z "$repo" ]; then
+      echo 'no repo chosen'
+      return
+    fi
+  else
+    repo=$1
+  fi
+  git clone git@bitbucket.org:excelmicro/$repo.git ~/repo/$repo
+}
+_gclex_completion() {
+  cat ~/repo/.temp_list | jq '.values | .[].full_name' | sed 's:"excelmicro/\(.*\)":\1:g'
+}
+_gclex () {
+  compset -P '*,'
+  compadd -S '' `_gclex_completion`
 }
 
 # }
@@ -112,15 +126,13 @@ alias aptu='sudo apt-get update'
 calc() { echo $1 | bc -l }
 
 alias pgdevstart='docker run -d -p 5432:5432 postgres'
-alias pgdev='psql -U postgres -h localhost' 
 
 pyserve() {
-  if [ -z "$1" ]
-    then
-      timeout 1h python -m SimpleHTTPServer; notify-send 'python server shutdown'
-    else
-      timeout "$@" python -m SimpleHTTPServer; notify-send 'python server shutdown'
-    fi
+  if [ -z "$1" ]; then
+    timeout 1h python -m SimpleHTTPServer; notify-send 'python server shutdown'
+  else
+    timeout "$@" python -m SimpleHTTPServer; notify-send 'python server shutdown'
+  fi
 }
 alias rdevstart='docker run -p 6379:6379 -d redis'
 
@@ -156,3 +168,28 @@ pgjacob() {
 
 # change dir to git root
 alias cdg='cd `git rev-parse --show-toplevel`'
+cdr() {
+  if [ -z "$1" ]; then
+    repo=`_cdr_completion | fzf`
+    if [ -z "$repo" ]; then
+      echo 'no repo chosen'
+      return
+    fi
+  else
+    repo=$1
+  fi
+  cd ~/repo/$repo
+}
+_cdr_completion() {
+  ls ~/repo
+}
+_cdr() {
+  compset -P '*,'
+  compadd -S '' `_cdr_completion`
+}
+
+# start a test environment
+alias testenv='env $(ejson decrypt test.json | python ./env.py) docker-compose -f pg-redis.yml up'
+
+# master git
+alias gcom='git checkout master'
