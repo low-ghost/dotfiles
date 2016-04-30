@@ -103,7 +103,28 @@ NVIM_TUI_ENABLE_TRUE_COLOR=1
 TERM=xterm-256color
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-powerline-daemon -q
-. /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh
 
 source "$HOME/.nvim/plugged/gruvbox/gruvbox_256palette.sh"
+
+vim_ins_mode="INSERT"
+vim_cmd_mode="NORMAL"
+vim_mode=$vim_ins_mode
+
+function zle-keymap-select {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  __promptline
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
+function TRAPINT() {
+  vim_mode=$vim_ins_mode
+  return $(( 128 + $1 ))
+}
+
+source ~/.promptline_dark

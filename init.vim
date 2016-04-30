@@ -60,12 +60,18 @@ Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tlib_vim'
 Plug 'klen/python-mode'
 Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/promptline.vim'
 call plug#end()
-let g:airline#extensions#tmuxline#enabled = 0
+let g:tmuxline_preset = 'nightly_line'
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+let g:promptline_preset = {
+  \ 'a' : [ '$vim_mode' ],
+  \ 'b' : [ promptline#slices#cwd() ],
+  \ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
+  \ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
 
 source ~/.config/vim/general.vim
 source ~/.config/vim/plugins.vim
@@ -401,6 +407,7 @@ nmap <silent> <Space>vq <Plug>VimaxCloseAddress
 nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
 nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
 nmap <silent> <Space>vs <Plug>VimaxMotion
+nmap <silent> <Space>vs. <Plug>VimaxMotionSendLastRegion
 vmap <silent> <Space>vs <Plug>VimaxMotion
 nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
 nmap <silent> <Space>vz <Plug>VimaxZoomAddress

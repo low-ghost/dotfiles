@@ -112,6 +112,9 @@ while getopts ':i:lr' opt; do
       sudo ln -f xkb/cu /usr/share/X11/xkb/symbols/cu
       #pg
       ln -f .pgsqlrc ~/.pgsqlrc
+      #statuslines
+      ln -f statuslines/.tmuxline_light ~/.tmuxline_light
+      ln -f statuslines/.tmuxline_dark ~/.tmuxline_dark
       ;;
     r)
       echo 'removing links...'
