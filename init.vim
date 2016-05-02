@@ -67,6 +67,7 @@ let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+let g:airline#extensions#tmuxline#enabled = 0
 let g:promptline_preset = {
   \ 'a' : [ '$vim_mode' ],
   \ 'b' : [ promptline#slices#cwd() ],

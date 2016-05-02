@@ -127,4 +127,4 @@ function TRAPINT() {
   return $(( 128 + $1 ))
 }
 
-source ~/.promptline_dark
+source ~/.promptline_light

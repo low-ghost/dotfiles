@@ -3,7 +3,7 @@
 
 " General Settings {
 " Basic {
-set background=dark                             " dark background
+set background=light                             " dark background
 filetype plugin indent on                       " Automatically detect file types
 syntax on                                       " Syntax
 set mouse=a                                     " Mouse support
