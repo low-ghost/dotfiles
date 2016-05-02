@@ -115,6 +115,8 @@ while getopts ':i:lr' opt; do
       #statuslines
       ln -f statuslines/.tmuxline_light ~/.tmuxline_light
       ln -f statuslines/.tmuxline_dark ~/.tmuxline_dark
+      ln -f statuslines/.promptline_light ~/.promptline_light
+      ln -f statuslines/.promptline_dark ~/.promptline_dark
       ;;
     r)
       echo 'removing links...'

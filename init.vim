@@ -59,20 +59,20 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf.vim'
 Plug 'tomtom/tlib_vim'
 Plug 'klen/python-mode'
-Plug 'edkolev/tmuxline.vim'
-Plug 'edkolev/promptline.vim'
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'edkolev/promptline.vim'
 call plug#end()
-let g:tmuxline_preset = 'nightly_line'
+"let g:tmuxline_preset = 'nightly_line'
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 let g:airline#extensions#tmuxline#enabled = 0
-let g:promptline_preset = {
-  \ 'a' : [ '$vim_mode' ],
-  \ 'b' : [ promptline#slices#cwd() ],
-  \ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
-  \ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
+"let g:promptline_preset = {
+  "\ 'a' : [ '$vim_mode' ],
+  "\ 'b' : [ promptline#slices#cwd() ],
+  "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
+  "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
 
 source ~/.config/vim/general.vim
 source ~/.config/vim/plugins.vim

@@ -193,3 +193,15 @@ alias testenv='env $(ejson decrypt test.json | python ./env.py) docker-compose -
 
 # master git
 alias gcom='git checkout master'
+
+# npm view
+alias npmv='npm view'
+
+function npmvv() {
+  npm view $1 versions
+}
+
+# npm install
+alias npmi='npm i'
+alias npmis='npm i -S'
+alias npmid='npm i -D'
