@@ -129,3 +129,13 @@ function TRAPINT() {
 source ~/.promptline_dark
 
 nvm use latest > /dev/null
+
+# Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+
+# Add java path
+export JAVA_HOME=/opt/java/jdk1.8.0_102
+export JRE_HOME=/opt/java/jdk1.8.0._102/jre
+export PATH=$PATH:/opt/java/jdk1.8.0_102/bin:/opt/java/jdk1.8.0_102/jre/bin
+export PATH=/opt/apache-maven-3.3.9/bin:$PATH

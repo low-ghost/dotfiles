@@ -8,12 +8,14 @@ while getopts ':i:lr' opt; do
       do
         case $arg in
           basic)
-            echo 'curl, git, xsel, zsh, cmake, ag'
-            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag
+            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts'
+            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update
             sudo apt-get install -y cmake
+            git clone https://github.com/powerline/fonts ~/repo/fonts
+            cd ~/repo/fonts && ./install.sh
             ;;
           omz)
             echo 'oh-my-zsh'
@@ -24,7 +26,7 @@ while getopts ':i:lr' opt; do
             cd ~/repo
             git clone https://github.com/tmux/tmux.git
             cd tmux
-            sudo apt-get install ncurses-dev libevent-dev
+            sudo apt-get install ncurses-dev libevent-dev autotools-dev automake
             sh autogen.sh
             sudo ./configure && sudo make
             sudo make install
@@ -37,8 +39,8 @@ while getopts ':i:lr' opt; do
             sudo add-apt-repository ppa:neovim-ppa/unstable
             sudo apt-get update
             sudo apt-get install -y neovim python-dev python-pip python3-dev python3-pip
-            pip install neovim
-            pip3 install neovim
+            sudo pip install neovim
+            sudo pip3 install neovim
             sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
             sudo update-alternatives --config vi
             sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -48,29 +50,46 @@ while getopts ':i:lr' opt; do
             curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             ;;
-          termite)
-            echo 'termite'
-            mkdir -p ~/repo
-            cd ~/repo
-            git clone --recursive https://github.com/thestinger/termite.git
-            git clone https://github.com/thestinger/vte-ng.git
-            sudo apt-get install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac
-            sudo apt-get install -y libglib3.0-cil-dev libgnutls28-dev libgirepository1.0-dev
-            sudo apt-get install -y libxml2-utils gperf
-            cd vte-ng && ./autogen.sh && make && sudo make install
-            cd ../termite && make && sudo make install
-            sudo desktop-file-install termite.desktop
-            sudo cp /usr/local/lib/libvte-2.91.a /usr/local/lib/libvte-2.91.la \
-              /usr/local/lib/libvte-2.91.so /usr/local/lib/libvte-2.91.so.0 \
-              /usr/local/lib/libvte-2.91.so.0.4200.4 /usr/lib
-            sudo mkdir -p /lib/terminfo/x
-            sudo ln -fs /usr/local/share/terminfo/x/xterm-termite /lib/terminfo/x/xterm-termite
-            ;;
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
             source ~/.zshrc
-            nvm install v5
-            nvm alias latest v5
+            nvm install v6
+            nvm alias latest v6
+            ;;
+          npm)
+            echo 'installing lodash, typescript...'
+            npm install -g lodash typescript
+            ;;
+          rvm)
+            gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+            \curl -sSL https://get.rvm.io | bash -s stable --ruby
+            ;;
+          # check latest download url first, change version in zshrc if necessary and download maven manually
+          java)
+            sudo mkdir -p /opt/java && cd /opt/java
+            sudo wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-linux-x64.tar.gz
+            sudo tar -zxvf jdk-8u102-linux-x64.tar.gz	
+            cd jdk1.8.0_102/
+            sudo update-alternatives --install /usr/bin/java java /opt/java/jdk1.8.0_102/bin/java 100  
+            sudo update-alternatives --config java
+            sudo update-alternatives --install /usr/bin/javac javac /opt/java/jdk1.8.0_102/bin/javac 100
+            sudo update-alternatives --config javac
+            sudo update-alternatives --install /usr/bin/jar jar /opt/java/jdk1.8.0_102/bin/jar 100
+            sudo update-alternatives --config jar
+            sudo update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /opt/java/jdk1.8.0_102/jre/lib/amd64/libnpjp2.so 20000
+            cd ~/Downloads
+            tar xzvf apache-maven-3.3.9-bin.tar.gz
+            sudo mv {,/opt/}apache-maven-3.3.9
+            ;;
+          # Needs java and mvn
+          em)
+            echo 'installing ejson, hipchat, dbeaver'
+            sudo mkdir -p /opt/ejson
+            gem install ejson
+            sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
+            wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
+            sudo apt-get update
+            sudo apt-get install hipchat4
             ;;
           chrome)
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
