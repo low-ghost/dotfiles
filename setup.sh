@@ -21,6 +21,13 @@ while getopts ':i:lr' opt; do
             echo 'oh-my-zsh'
             sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
             ;;
+          xcape)
+            sudo apt-get install -y gcc pkg-config libx11-dev libxtst-dev libxi-dev
+            git clone https://github.com/alols/xcape.git ~/repo/xcape
+            cd ~/repo/xcape
+            make
+            sudo make install
+            ;;
           tmux)
             echo 'tmux (from repo)'
             cd ~/repo

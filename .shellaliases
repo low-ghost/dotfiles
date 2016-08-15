@@ -3,10 +3,12 @@
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
 alias xkbinit='. ~/.xcaperc'
+alias xkb='setxkbmap -layout cu; . ~/.xcaperc'
 # }
 # configs {
 alias ea='vim ~/.aliases'
 alias eas='vim ~/.shellaliases'
+alias esh='vim ~/repo/dotfiles/setup.sh'
 alias eali='vim ~/.aliases'
 alias ef='vim ~/repo/dotfiles/functions.vim'
 alias eg='vim ~/repo/dotfiles/general.vim'
