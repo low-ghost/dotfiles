@@ -237,7 +237,7 @@ alias npmis='npm i -S'
 alias npmid='npm i -D'
 alias npmig='npm i -g'
 
-# google in firefox
+# google and firefox
 goog() {
   firefox google.com/#q=$1
   sleep .5
