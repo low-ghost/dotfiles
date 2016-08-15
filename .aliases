@@ -43,7 +43,6 @@ dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql 
 # node {
 
 alias nvmc='nvm current'
-alias nvmu='nvm use'
 alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias nvml='nvm ls'
@@ -54,6 +53,9 @@ alias ncw='nvm exec latest node ~/repo/js/cw'
 alias ncwp='APP_ENV=production nvm exec latest node ~/repo/js/cw'
 alias npml='npm link'
 
+nvmu(){
+  nvm use $1 && sed -i 's/\(nvm use \).*\( > \/dev\/null\)/\1'$1'\2/' ~/.zshrc                                                                                              feature-dockerize  +2
+}
 
 # }
 # git {
@@ -64,8 +66,16 @@ alias -g gstai='git stash --keep-index'
 alias -g gstain='git stash --keep-index'
 # ignore file in git
 alias -g gic='git update-index --assume-unchanged'
+# ignore dir in git
+gicd() {
+  git update-index --assume-unchanged `git ls-files --directory $1 -z` > /dev/null 2>&1
+}
 # restore watching file in git
 alias -g ungic='git update-index --no-assume-unchanged'
+#unignore dir
+ungicd() {
+  git update-index --no-assume-unchanged `git ls-files --directory $1 -z` > /dev/null 2>&1
+}
 alias -g gcan='git commit -a -n -m'
 gpan() {
   echo "Enter a message"
@@ -140,9 +150,19 @@ pgexm() {
     if [ $# -eq 0 ]; then
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM
     elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c $1 -t
     else
         command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    fi
+}
+
+pgprod() {
+    if [ $# -eq 0 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD
+    elif [ $# -eq 1 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD -c $1 -t
+    else
+        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
 
@@ -150,7 +170,7 @@ pgloc() {
     if [ $# -eq 0 ]; then
         command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC
     elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c $1 -t
     else
         command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
@@ -160,9 +180,19 @@ pgjacob() {
     if [ $# -eq 0 ]; then
         command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM
     elif [ $# -eq 1 ]; then
-        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t
+        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c $1 -t
     else
         command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    fi
+}
+
+pgsta() {
+    if [ $# -eq 0 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging
+    elif [ $# -eq 1 ]; then
+        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -c $1 -t
+    else
+        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
 
@@ -205,3 +235,27 @@ function npmvv() {
 alias npmi='npm i'
 alias npmis='npm i -S'
 alias npmid='npm i -D'
+alias npmig='npm i -g'
+
+# google in firefox
+goog() {
+  firefox google.com/#q=$1
+  sleep .5
+  wmctrl -a 'google'
+}
+
+fire() {
+  firefox -vimperator "+c 'js liberator.sleep(1000) && liberator.open(\"$@\")'"
+}
+
+# raise spotify window
+alias spo="wmctrl -ia `wmctrl -lx | grep spotify.Spotify | awk '{ print $0 }'`"
+
+# notify current track info
+spoc() {
+  current=`. ~/sp current`
+  notify-send $current
+}
+
+# get the jira issue from the current branch name
+alias gitissue="git rev-parse --abbrev-ref HEAD | sed 's/\([a-zA-Z]*-[0-9]*\).*/\1/'"

@@ -300,7 +300,10 @@ command! -nargs=? GsplitBF call GeditBranchFile('h', <f-args>)
 " }
 
 command! -nargs=1 Node echo system('cd ~/repo/js; node --print '.
-  \ '"let lo; let fp; try { lo = require(\"lodash\"); fp = require(\"lodash/fp\");} '.
+  \ '"var lo; var fp; try { lo = require(\"lodash\"); fp = require(\"lodash/fp\");} '.
   \ 'catch (e) {}; '.<f-args>.'"')
 
 let g:EasyMotion_keys = 'tnseriaodhbkvmplfuwyqsent'
+
+let g:fzf_history_dir = '~/.fzf-history'
+

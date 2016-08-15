@@ -288,6 +288,7 @@ function! TogglePosition()
 endfunction
 
 let s:end_column_toggle = "on"
+set colorcolumn=100 
 function! ToggleEndColumn()
   if s:end_column_toggle == "off"
     let s:end_column_toggle = input('end col. num> ', 100)

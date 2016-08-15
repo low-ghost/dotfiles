@@ -84,7 +84,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.nvm/nvm.sh
-nvm use latest > /dev/null
 source ~/.shellaliases
 source ~/.aliases
 source ~/.compdef
@@ -128,3 +127,5 @@ function TRAPINT() {
 }
 
 source ~/.promptline_dark
+
+nvm use latest > /dev/null

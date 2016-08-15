@@ -100,7 +100,7 @@ tnoremap <C-t>n <C-\><C-n>:tabnew<cr>
 tnoremap <C-t>i <C-\><C-n>:tabfirst<cr>
 tnoremap <C-t>I <C-\><C-n>:tablast<cr>
 tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
-autocmd BufWinEnter,WinEnter term://* startinsert
+"autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 "Spacemacs style keys {
