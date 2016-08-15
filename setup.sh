@@ -61,7 +61,7 @@ while getopts ':i:lr' opt; do
               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             ;;
           nvm)
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash
             source ~/.zshrc
             nvm install v6
             nvm alias latest v6
@@ -93,7 +93,7 @@ while getopts ':i:lr' opt; do
             ;;
           # Needs java and mvn. Move key after
           em)
-            echo 'installing ejson, hipchat, dbeaver'
+            echo 'installing ejson, hipchat'
             sudo mkdir -p /opt/ejson
             gem install ejson
             sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
@@ -157,6 +157,10 @@ while getopts ':i:lr' opt; do
       rm ~/.inputrc
       rm ~/.tmux.conf
       rm ~/.xcaperc
+      rm ~/.promptline_dark
+      rm ~/.promptline_light
+      rm ~/.tmuxline_light
+      rm ~/.tmuxline_dark
       sudo rm /usr/share/X11/xkb/symbols/cu
       ;;
   esac
