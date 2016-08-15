@@ -7,6 +7,9 @@ while getopts ':i:lr' opt; do
       for arg in $(echo $OPTARG | tr ',' '\n')
       do
         case $arg in
+          all)
+            sh ~/repo/dotfiles/setup.sh -i basic,omz,xcape,tmux,neovim,nvm,npm,rvm,java,em,chrome
+            ;;
           basic)
             echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts'
             sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl
@@ -88,7 +91,7 @@ while getopts ':i:lr' opt; do
             tar xzvf apache-maven-3.3.9-bin.tar.gz
             sudo mv {,/opt/}apache-maven-3.3.9
             ;;
-          # Needs java and mvn
+          # Needs java and mvn. Move key after
           em)
             echo 'installing ejson, hipchat, dbeaver'
             sudo mkdir -p /opt/ejson

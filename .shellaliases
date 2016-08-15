@@ -2,9 +2,12 @@
 # keyboard {
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
-alias xkbinit='. ~/.xcaperc'
-alias xkb='setxkbmap -layout cu; . ~/.xcaperc'
+alias xkbset='setxkbmap -layout cu'
+alias xkb='xkbset; . ~/.xcaperc'
+alias xkbr='xkbclear; xkbset'
 # }
+
+alias dotinstall='sh ~/repo/dotfiles/setup.sh'
 # configs {
 alias ea='vim ~/.aliases'
 alias eas='vim ~/.shellaliases'
@@ -19,6 +22,7 @@ alias ez='vim ~/.zshrc'
 alias ezsh='vim ~/.zshrc'
 alias et='vim ~/.tmux.conf'
 alias e='vim'
+alias ek='vim ~/repo/dotfiles/xkb/cu'
 # }
 
 # refresh cache font
