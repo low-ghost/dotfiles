@@ -5,8 +5,7 @@ partial alphanumeric_keys
 xkb_symbols "neo-colemak" {
     include "us"
     name[Group1]= "Neo Colemak";
-
-    key.type[Group1] = "EIGHT_LEVEL";
+    
 
     // scrap keys for xcaperc
     key <SCLK> { [            a,            A                                    ] };
@@ -20,8 +19,7 @@ xkb_symbols "neo-colemak" {
     key <AE04> { [            4,       dollar                                    ] };
     key <AE05> { [            5,      percent                                    ] };
     key <AE06> { [            6,  asciicircum                                    ] };
-    // AE07 4 slot is dead
-    key <AE07> { [            7,    ampersand,        NoSymbol,         NoSymbol ] };
+    key <AE07> { [            7,    ampersand,        NoSymbol,            slash ] };
     key <AE08> { [            8,     asterisk,        NoSymbol,         asterisk ] };
     key <AE09> { [            9,    parenleft,        NoSymbol,            minus ] };
     key <AE10> { [            0,   parenright,        NoSymbol,             plus ] };
@@ -33,12 +31,16 @@ xkb_symbols "neo-colemak" {
     key <AD03> { [            f,            F,     bracketleft                   ] };
     key <AD04> { [            p,            P,    bracketright                   ] };
     key <AD05> { [            g,            G,     asciicircum,                G ] };
+
+    key.type[Group1] = "EIGHT_LEVEL";
     key <AD06> { [            j,            J,          exclam,         NoSymbol,
                            Down                                                  ] };
     key <AD07> { [            l,            L,            less,                7,
                           Right                                                  ] };
     key <AD08> { [            u,            U,         greater,                8,
                           Prior                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AD09> { [            y,            Y,           equal,                9 ] };
     // AD10 4 slot is dead
     key <AD10> { [    semicolon,        colon,       ampersand,         NoSymbol ] };
@@ -47,40 +49,56 @@ xkb_symbols "neo-colemak" {
 
     // a is level 3 shift
     key <AC01> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
-    key <AC02> { [            r,            R,           slash,            slash ] };
+    key <AC02> { [            r,            R,           slash                   ] };
     key <AC03> { [            s,            S,       braceleft                   ] };
     key <AC04> { [            t,            T,      braceright                   ] };
-    key <AC05> { [            d,            D,        asterisk,         asterisk,
+
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <AC05> { [            d,            D,        asterisk,         NoSymbol,
                            Next                                                  ] };
     key <AC06> { [            h,            H,        question,           period,
                            Left                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AC07> { [            n,            N,       parenleft,                4 ] };
+
+    key.type[Group1] = "EIGHT_LEVEL";
     key <AC08> { [            e,            E,      parenright,                5,
                             End                                                  ] };
     key <AC09> { [            i,            I,           minus,                6,
                            Home                                                  ] };
     key <AC10> { [            o,            O,           colon,        NoSymbol,
                          Return                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     // apostrophe is level 3 shift
     key <AC11> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
 
+    key.type[Group1] = "EIGHT_LEVEL";
     key <AB01> { [            z,            Z,      numbersign,        NoSymbol,
                        XF86Save                                                  ] };
     key <AB02> { [            x,            X,          dollar,        NoSymbol,
                       BackSpace                                                  ] };
     key <AB03> { [            c,            C,             bar,        NoSymbol,
                          Delete                                                  ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
     key <AB04> { [            v,            V,      asciitilde                   ] };
     key <AB05> { [            b,            B,           grave                   ] };
+
+    key.type[Group1] = "EIGHT_LEVEL";
     key <AB06> { [            k,            K,            plus,                0,
                              Up                                                  ] };
     key <AB07> { [            m,            M,         percent,                1,
                       BackSpace                                                  ] };
     key <AB08> { [        comma,         less,           comma,                2,
                          Delete                                                  ] };
-    // AB09 slot 4 is dead
-    key <AB09> { [       period,      greater,          period,         NoSymbol ] };
+
+    key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+    key <AB09> { [       period,      greater,          period,           period ] };
     key <AB10> { [        slash,     question,           slash,                3 ] };
+
+    key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
 
     include "level5(modifier_mapping)"
     include "cu(caps_cntr)"

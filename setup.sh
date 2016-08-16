@@ -8,11 +8,11 @@ while getopts ':i:lr' opt; do
       do
         case $arg in
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,omz,xcape,tmux,neovim,nvm,npm,rvm,java,em,chrome
+            sh ~/repo/dotfiles/setup.sh -i basic,omz,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose
             ;;
           basic)
-            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts'
-            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl
+            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts, jq'
+            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl jq
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update
@@ -31,6 +31,22 @@ while getopts ':i:lr' opt; do
             make
             sudo make install
             ;;
+          # -y has problems for docker-engine
+          docker)
+            sudo apt-get update
+            sudo apt-get install -y apt-transport-https ca-certificates linux-image-extra-$(uname -r)
+            sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+            sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list'
+            sudo apt-get update
+            sudo apt-get purge lxc-docker
+            apt-cache policy docker-engine
+            sudo apt-get install docker-engine
+            ;;
+          docker-compose)
+            sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose'
+            sudo chmod +x /usr/local/bin/docker-compose
+            ;;
+          # Might have to manually source ~/.tmux.conf or 'prefix I' in tmux to get plugins
           tmux)
             echo 'tmux (from repo)'
             cd ~/repo
@@ -41,6 +57,7 @@ while getopts ':i:lr' opt; do
             sudo ./configure && sudo make
             sudo make install
             sudo cp tmux /usr/bin
+            git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
             ;;
           neovim)
             echo 'neovim'
@@ -65,6 +82,12 @@ while getopts ':i:lr' opt; do
             source ~/.zshrc
             nvm install v6
             nvm alias latest v6
+            cd ~/repo
+            ;;
+          js-repl)
+            git clone https://github.com/low-ghost/js-repl
+            cd js-repl
+            npm install
             ;;
           npm)
             echo 'installing lodash, typescript...'
@@ -96,16 +119,20 @@ while getopts ':i:lr' opt; do
             echo 'installing ejson, hipchat'
             sudo mkdir -p /opt/ejson
             gem install ejson
-            sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
-            wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
-            sudo apt-get update
-            sudo apt-get install hipchat4
+            sudo apt-get install -y postgresql
+            # remember to add a .pgpass and to chmod 0600 ~/.pgpass
             ;;
           chrome)
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
             sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
-            sudo apt-get install google-chrome-stable
+            sudo apt-get install -y google-chrome-stable
+            ;;
+          spotify)
+            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+            echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+            sudo apt-get update
+            sudo apt-get install -y spotify-client
             ;;
           :)
             echo "Invalid option"
