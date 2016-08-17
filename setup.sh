@@ -9,15 +9,19 @@ while getopts ':i:lr' opt; do
         case $arg in
           all)
             sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose,omz
+            sh ~/repo/dotfiles/setup.sh -l
+            vim +PlugInstall +qall
+            zsh
             ;;
           basic)
-            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts, jq'
+            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts, jq, colors'
             sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl jq
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update
             sudo apt-get install -y cmake
             git clone https://github.com/powerline/fonts ~/repo/fonts
+            git clone https://github.com/metalelf0/gnome-terminal-colors ~/repo/gnome-terminal-colors
             cd ~/repo/fonts && ./install.sh
             touch ~/.secrets
             ;;
