@@ -1,0 +1,2 @@
+alias xkb='. ~/repo/dotfiles/.xcaperc; xkbcomp -w 0 ~/repo/dotfiles/xkb/xkbmap $DISPLAY'
+alias xkbe='setxkbmap -layout us; pkill xcape'

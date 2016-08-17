@@ -7,6 +7,7 @@ while getopts ':i:lr' opt; do
       for arg in $(echo $OPTARG | tr ',' '\n')
       do
         case $arg in
+          # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
             sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
@@ -14,8 +15,8 @@ while getopts ':i:lr' opt; do
             zsh
             ;;
           basic)
-            echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts, jq, colors'
-            sudo apt-get install -y curl git xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl jq
+            echo 'curl, xsel, zsh, cmake, ag, wmctrl, fonts, jq, colors'
+            sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl jq
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update
