@@ -8,7 +8,7 @@ while getopts ':i:lr' opt; do
       do
         case $arg in
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,omz,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose
+            sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose,omz
             ;;
           basic)
             echo 'curl, git, xsel, zsh, cmake, ag, wmctrl, fonts, jq'
@@ -19,6 +19,7 @@ while getopts ':i:lr' opt; do
             sudo apt-get install -y cmake
             git clone https://github.com/powerline/fonts ~/repo/fonts
             cd ~/repo/fonts && ./install.sh
+            touch ~/.secrets
             ;;
           omz)
             echo 'oh-my-zsh'
@@ -36,7 +37,7 @@ while getopts ':i:lr' opt; do
             sudo apt-get update
             sudo apt-get install -y apt-transport-https ca-certificates linux-image-extra-$(uname -r)
             sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-            sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list'
+            sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list'
             sudo apt-get update
             sudo apt-get purge lxc-docker
             apt-cache policy docker-engine
@@ -49,9 +50,8 @@ while getopts ':i:lr' opt; do
           # Might have to manually source ~/.tmux.conf or 'prefix I' in tmux to get plugins
           tmux)
             echo 'tmux (from repo)'
-            cd ~/repo
-            git clone https://github.com/tmux/tmux.git
-            cd tmux
+            git clone https://github.com/tmux/tmux.git ~/repo/tmux
+            cd ~/repo/tmux
             sudo apt-get install ncurses-dev libevent-dev autotools-dev automake
             sh autogen.sh
             sudo ./configure && sudo make
@@ -80,13 +80,12 @@ while getopts ':i:lr' opt; do
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash
             source ~/.zshrc
-            nvm install v6
-            nvm alias latest v6
-            cd ~/repo
+            nvm install 6
+            nvm alias latest 6
             ;;
           js-repl)
-            git clone https://github.com/low-ghost/js-repl
-            cd js-repl
+            git clone https://github.com/low-ghost/js-repl ~/repo/js-repl
+            cd ~/repo/js-repl
             npm install
             ;;
           npm)
@@ -110,17 +109,18 @@ while getopts ':i:lr' opt; do
             sudo update-alternatives --install /usr/bin/jar jar /opt/java/jdk1.8.0_102/bin/jar 100
             sudo update-alternatives --config jar
             sudo update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /opt/java/jdk1.8.0_102/jre/lib/amd64/libnpjp2.so 20000
-            cd ~/Downloads
-            tar xzvf apache-maven-3.3.9-bin.tar.gz
-            sudo mv {,/opt/}apache-maven-3.3.9
+            #cd ~/Downloads
+            #tar xzvf apache-maven-3.3.9-bin.tar.gz
+            #sudo mv {,/opt/}apache-maven-3.3.9
             ;;
-          # Needs java and mvn. Move key after
           em)
-            echo 'installing ejson, hipchat'
-            sudo mkdir -p /opt/ejson
+            echo 'installing ejson'
+            sudo mkdir -p /opt/ejson/keys
             gem install ejson
             sudo apt-get install -y postgresql
-            # remember to add a .pgpass and to chmod 0600 ~/.pgpass
+            touch ~/.pgpass
+            chmod 0600 ~/.pgpass
+            # remember to add entries in pgpass and secrets
             ;;
           chrome)
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 

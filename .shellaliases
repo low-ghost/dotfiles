@@ -2,9 +2,11 @@
 # keyboard {
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
+alias xkbe='setxkbmap -layout us; sudo pkill xcape'
 alias xkbset='setxkbmap -layout cu'
 alias xkb='xkbset; . ~/.xcaperc'
 alias xkbr='xkbclear; xkbset'
+
 # }
 
 alias dotinstall='sh ~/repo/dotfiles/setup.sh'
