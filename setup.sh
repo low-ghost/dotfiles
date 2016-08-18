@@ -119,13 +119,13 @@ while getopts ':i:lr' opt; do
             #sudo mv {,/opt/}apache-maven-3.3.9
             ;;
           em)
-            echo 'installing ejson'
+            echo 'installing ejson, postgres, virtualbox'
             sudo mkdir -p /opt/ejson/keys
             gem install ejson
-            sudo apt-get install -y postgresql
+            sudo apt-get install -y postgresql virtualbox libpq-dev
+            # remember to add entries in pgpass and secrets
             touch ~/.pgpass
             chmod 0600 ~/.pgpass
-            # remember to add entries in pgpass and secrets
             ;;
           chrome)
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 

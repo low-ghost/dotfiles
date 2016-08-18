@@ -2,29 +2,30 @@
 # keyboard {
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
-alias xkbe='setxkbmap -layout us; sudo pkill xcape'
-alias xkbset='setxkbmap -layout cu'
+alias xkbe='setxkbmap -layout us; pkill xcape'
+alias xkbset='setxkbmap -layout cu -option compose:rctrl'
 alias xkb='xkbset; . ~/.xcaperc'
 alias xkbr='xkbclear; xkbset'
 
 # }
 
-alias dotinstall='sh ~/repo/dotfiles/setup.sh'
+alias dotinstall='sh ~/repo/dotfiles/setup.sh -i'
+alias dotlink='sh ~/repo/dotfiles/setup.sh -l'
 # configs {
+alias e='vim'
 alias ea='vim ~/.aliases'
-alias eas='vim ~/.shellaliases'
-alias esh='vim ~/repo/dotfiles/setup.sh'
 alias eali='vim ~/.aliases'
+alias eas='vim ~/.shellaliases'
 alias ef='vim ~/repo/dotfiles/functions.vim'
 alias eg='vim ~/repo/dotfiles/general.vim'
+alias ek='vim ~/repo/dotfiles/xkb/cu'
 alias ep='vim ~/repo/dotfiles/plugins.vim'
+alias esh='vim ~/repo/dotfiles/setup.sh'
+alias et='vim ~/.tmux.conf'
 alias ev='vim ~/.config/nvim/init.vim'
 alias evim='vim ~/.config/nvim/init.vim'
 alias ez='vim ~/.zshrc'
 alias ezsh='vim ~/.zshrc'
-alias et='vim ~/.tmux.conf'
-alias e='vim'
-alias ek='vim ~/repo/dotfiles/xkb/cu'
 # }
 
 # refresh cache font

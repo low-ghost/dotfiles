@@ -99,6 +99,7 @@ xkb_symbols "neo-colemak" {
     key <AB10> { [        slash,     question,           slash,                3 ] };
 
     key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
+    key <FK20> { [          F20,          F20,             F20,             F20, XF86Switch_VT_20 ] };
 
     include "level5(modifier_mapping)"
     include "cu(caps_cntr)"
@@ -106,6 +107,7 @@ xkb_symbols "neo-colemak" {
     include "cu(lshift_5_shift)"
     include "cu(lctl_5_lock)"
     include "cu(space_shift)"
+    include "compose(rctrl)"
 };
 
 partial modifier_keys
