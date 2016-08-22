@@ -46,11 +46,12 @@ alias nvmc='nvm current'
 alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias nvml='nvm ls'
-alias nlo='nvm exec latest node ~/repo/js-repl/_'
-alias nlo4='nvm exec latest node ~/repo/js-repl/_4'
+alias nlo='nvm exec latest node ~/repo/js-repl/standard/lo'
+alias nlo3='nvm exec latest node ~/repo/js-repl/lo3/lo3'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node'
-alias ncw='nvm exec latest node ~/repo/js-repl/cw'
-alias ncwp='APP_ENV=production nvm exec latest node ~/repo/js-repl/cw'
+alias ncw='nvm exec latest node ~/repo/js-repl/standard/cw'
+alias ncwp='APP_ENV=production nvm exec latest node ~/repo/js-repl/standard/cw'
+alias ncws='APP_ENV=staging R=true nvm exec latest node ~/repo/js-repl/standard/cw'
 alias npml='npm link'
 
 nvmu(){
@@ -195,9 +196,11 @@ pgsta() {
         command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
-
+groot() {
+  git rev-parse --show-toplevel
+}
 # change dir to git root
-alias cdg='cd `git rev-parse --show-toplevel`'
+alias cdg='cd `groot`'
 cdr() {
   if [ -z "$1" ]; then
     repo=`_cdr_completion | fzf`
