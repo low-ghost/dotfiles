@@ -3,9 +3,9 @@
 alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
 # does not work?
 alias xkbe='setxkbmap -layout us; pkill xcape'
-alias xkbset='setxkbmap -layout cu -option compose:rctrl'
-alias xkb='xkbset; . ~/.xcaperc'
-alias xkbr='xkbclear; xkbset'
+alias xkbc='setxkbmap -layout us -variant colemak; pkill xcape'
+alias xkbset='setxkbmap -layout nc -option keypad:pointerkeys'
+alias xkb='pkill xcape > /dev/null; xkbclear > /dev/null; xkbset; . ~/.xcaperc'
 
 # }
 
@@ -18,7 +18,7 @@ alias eali='vim ~/.aliases'
 alias eas='vim ~/.shellaliases'
 alias ef='vim ~/repo/dotfiles/functions.vim'
 alias eg='vim ~/repo/dotfiles/general.vim'
-alias ek='vim ~/repo/dotfiles/xkb/cu'
+alias ek='vim ~/repo/dotfiles/xkb/nc'
 alias ep='vim ~/repo/dotfiles/plugins.vim'
 alias esh='vim ~/repo/dotfiles/setup.sh'
 alias et='vim ~/.tmux.conf'

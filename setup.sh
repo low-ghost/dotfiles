@@ -90,7 +90,7 @@ while getopts ':i:lr' opt; do
             ;;
           js-repl)
             git clone https://github.com/low-ghost/js-repl ~/repo/js-repl
-            cd ~/repo/js-repl
+            cd ~/repo/js-repl/standard
             npm install
             ;;
           npm)
@@ -170,7 +170,7 @@ while getopts ':i:lr' opt; do
       ln -f .tmux.conf ~/.tmux.conf
       #xcape
       ln -f .xcaperc ~/.xcaperc
-      sudo ln -f xkb/cu /usr/share/X11/xkb/symbols/cu
+      sudo ln -f xkb/nc /usr/share/X11/xkb/symbols/nc
       #pg
       ln -f .pgsqlrc ~/.pgsqlrc
       #statuslines

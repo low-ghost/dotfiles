@@ -1,0 +1,284 @@
+// Neo Colemak
+// 2015-01-01 Mike Bagwell
+// Based on 2006-01-01 Shai Coleman, http://colemak.com/
+//
+// Features:
+// * Colemak base keys with a symbol layer derived from the third layer of the Neo keyboard layout:
+// http://neo-layout.org/index_en.html, accessible via holding the 'a' or single quote key
+// on a normal keyboard
+// * Home row numpad based on the 4th layer, accessible via holding 'z'
+// * Some vim-esque navigation via holding left shift key
+// * CapsLock mapped to ctrl on hold, escape on tap
+// * Return mapped to ctrl on hold, return on tap
+// * Space bar mapped to shift on hold, space on tap
+// * Right shift is alt
+// * Compose keys: Multi_key where [ is normally, dead_hook at ], dead_greek at {, dead_stroke at }
+//
+// Dependencies: xcape
+// Full xcape script:
+//   xcape -e '#38=a;#48=apostrophe;#65=space;#66=Escape;#52=z;#36=Pause'
+// Optional: an ~/.XCompose. xbindkey scripts for F keys generated from ~/.XCompose
+
+// Potential TODO: zx held together make a third layer. Lots of possibilities.
+// Also, left ctrl now is a direct group 3 shift and is an example of how to do that
+// Unused: Number row higher levels, /? key and \| key (though probably use / to much at normal
+// position to actually remove it.
+// Working on: Mouse keys at home num pad (k on qwerty is click)
+// For more stuff, look at xkb/compat/mousekeys
+
+partial alphanumeric_keys
+xkb_symbols "basic" {
+
+  include "us"
+    name[Group1]= "Neo Colemak";
+
+  // ================
+  // Miscellaneous
+  // ================
+
+  // Scrap keys for xcaperc. Only some of the I* codes work
+  // Look at /usr/share/X11/xkb/keycodes/evdev for more
+  key <I120> { [ a, A ] };
+  key <I129> { [ z, Z ] };
+  key <I149> { [ apostrophe, quotedbl ] };
+  key <I154> { [ space ] };
+  // This is convoluted, isn't it? Somehow, works with xcape and mapping keycode for return (36)
+  // to Pause
+  key <PAUS> { [ Return, Pause ] };
+
+  // F keys for scripting (xbindkeys an action to F20, xcompose F20 to some comination, and you
+  // can get any arbitrary key combo to run anything in linux). Only listing them if xcape ever
+  // gets involved
+  key <FK13> { [ F13 ] };
+  key <FK14> { [ F14 ] };
+  key <FK15> { [ F15 ] };
+  key <FK16> { [ F16 ] };
+  key <FK17> { [ F17 ] };
+  key <FK18> { [ F18 ] };
+  key <FK19> { [ F19 ] };
+  key <FK20> { [ F20 ] };
+  key <FK21> { [ F21 ] };
+  key <FK22> { [ F22 ] };
+  key <FK23> { [ F23 ] };
+  key <FK24> { [ F24 ] };
+  key <FK24> { [ F24 ] };
+  key <FK25> { [ F25 ] };
+  key <FK26> { [ F26 ] };
+  key <FK27> { [ F27 ] };
+  key <FK28> { [ F28 ] };
+  key <FK29> { [ F29 ] };
+  key <FK30> { [ F30 ] };
+  key <FK31> { [ F31 ] };
+  key <FK32> { [ F32 ] };
+  key <FK33> { [ F33 ] };
+  key <FK34> { [ F34 ] };
+  key <FK35> { [ F35 ] };
+
+  // ================
+  // Number Row
+  // ================
+
+  key <TLDE> { [ grave, asciitilde ] };
+  key <AE01> {
+    [ 1, exclam ],
+    actions[Group3]=[ LockControls(controls=MouseKeys) ]
+  };
+  key <AE02> { [ 2, at ] };
+  key <AE03> { [ 3, numbersign ] };
+  key <AE04> { [ 4, dollar ] };
+  key <AE05> { [ 5, percent ] };
+  key <AE06> { [ 6, asciicircum ] };
+  key <AE07> { [ 7, ampersand ] };
+  key <AE08> { [ 8, asterisk ] };
+  key <AE09> { [ 9, parenleft ] };
+  key <AE10> {
+    [ 0, parenright ],
+    [ asterisk ]
+  };
+  key <AE11> { [ minus, underscore, endash, emdash ] };
+  key <AE12> { [ equal, plus, multiply, division ] };
+
+  // ================
+  // Q Row
+  // ================
+
+  key <AD01> { [ q, Q, backslash ] };
+  key <AD02> { [ w, W, underscore ] };
+  key <AD03> { [ f, F, bracketleft ] };
+  key <AD04> { [ p, P, bracketright ] };
+  key <AD05> {
+    [ g, G, asciicircum ],
+    [ G ]
+  };
+
+  key.type[Group1] = "EIGHT_LEVEL";
+
+  key <AD06> {
+    [ j, J, exclam, NoSymbol, Down, Down, Down, Down ],
+    [ underscore ]
+  };
+  key <AD07> {
+    [ l, L, less, NoSymbol, Right, Right, Right, Right ],
+    [ 7 ],
+    actions[Group3]=[ MovePtr(x=-2, y=-2) ]
+  };
+  key <AD08> {
+    [ u, U, greater, NoSymbol, Prior ],
+    [ 8 ],
+    actions[Group3]=[ MovePtr(y=-2) ]
+  };
+
+  key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+
+  key <AD09> {
+    [ y, Y, equal ],
+    [ 9 ],
+    actions[Group3]=[ MovePtr(x=+2, y=-2) ]
+  };
+  key <AD10> {
+    [ semicolon, colon, ampersand ],
+    [ minus ]
+  };
+  key <AD11> { [ Multi_key, dead_stroke, at ] };
+  key <AD12> { [ dead_hook, dead_greek, numbersign ] };
+
+  // ================
+  // A Row
+  // ================
+
+  // a is level 3 shift
+  key <AC01> { [ ISO_Level3_Shift, ISO_Level3_Shift                            ] };
+  key <AC02> { [ r, R, slash ] };
+  key <AC03> { [ s, S, braceleft ] };
+  key <AC04> { [ t, T, braceright ] };
+
+  key.type[Group1] = "EIGHT_LEVEL";
+
+  key <AC05> { [ d, D, asterisk, NoSymbol, Next ] };
+  key <AC06> {
+    [ h, H, question, NoSymbol, Left, Left, Left, Left ],
+    [ period ]
+  };
+
+  key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+
+  key <AC07> {
+    [ n, N, parenleft ],
+    [ 4 ],
+    actions[Group3]=[ MovePtr(x=-2) ]
+  };
+
+  key.type[Group1] = "EIGHT_LEVEL";
+
+  key <AC08> {
+    [ e, E, parenright, NoSymbol, End ],
+    [ 5 ],
+    actions[Group3]=[ PointerButton(button=default) ]
+  };
+  key <AC09> {
+    [ i, I, minus, NoSymbol, Home ],
+    [ 6 ],
+    actions[Group3]=[ MovePtr(x=+2) ]
+  };
+  key <AC10> {
+    [ o, O, colon, NoSymbol, Return ],
+    [ plus ]
+  };
+
+  key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+
+  // apostrophe is level 3 shift
+  key <AC11> { [ ISO_Level3_Shift, ISO_Level3_Shift ] };
+  // z is NumLock shift accessor. Ctrl+z turns on mouse keys
+  key <AB01> {
+    [ ISO_Group_Shift, ISO_Group_Shift ]
+  };
+
+  key.type[Group1] = "EIGHT_LEVEL";
+
+  // ================
+  // Z Row
+  // ================
+
+  key <AB02> {
+    [ x, X, dollar, NoSymbol, BackSpace ],
+    [ ISO_Group_Shift ]
+  };
+  key <AB03> { [ c, C, bar, NoSymbol, Delete ] };
+
+  key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+
+  key <AB04> { [ v, V, asciitilde ] };
+  key <AB05> { [ b, B, grave ] };
+
+  key.type[Group1] = "EIGHT_LEVEL";
+
+  // Potentially better nav keys? From: https://www.mail-archive.com/i18n@xfree86.org/msg01867.html
+  key <AB06> {
+    [ k, K, plus, NoSymbol, NoSymbol ],
+    [ 0 ],
+    actions[Group1]=[ NoAction(), NoAction(), NoAction(), NoAction(), RedirectKey(key=<UP>,clearmods=alt)]
+  };
+  key <AB07> {
+    [ m, M, percent, NoSymbol, BackSpace ],
+    [ 1 ],
+    actions[Group3]=[ MovePtr(x=-2, y=+2) ]
+  };
+  key <AB08> {
+    [ comma,less,comma, NoSymbol, Delete ],
+    [ 2 ],
+    actions[Group3]=[ MovePtr(y=+2) ]
+  };
+
+  key.type[Group1] = "FOUR_LEVEL_ALPHABETIC";
+
+  key <AB09> {
+    [ period, greater, period ],
+    [ 3 ],
+    actions[Group3]=[ MovePtr(x=+2, y=+2) ]
+  };
+  key <AB10> { [ slash, question, slash ] };
+  key <RTRN> { [ Control_R, Control_R ] };
+  key <LCTL> { symbols[Group1]=[ NoSymbol ], actions=[ SetGroup(group=3) ] };
+
+  include "level5(modifier_mapping)"
+  include "nc(caps_cntr)"
+  include "nc(rshift_ralt)"
+  include "nc(lshift_5_shift)"
+  include "nc(space_shift)"
+
+};
+
+
+partial modifier_keys
+xkb_symbols "caps_cntr" {
+  replace key <CAPS> { [ Control_L, Control_L ] };
+  modifier_map  Control { <CAPS> };
+};
+
+// No longer used, I kept locking unintentionally by hitting rctrl… Can be reimplemented with
+//   include "nc(lctl_5_lock)"
+// in this file
+partial modifier_keys
+xkb_symbols "lctl_5_lock" {
+  replace key <LCTL> { [ ISO_Level5_Lock, ISO_Level5_Lock ] };
+  modifier_map  Mod3 { <LCTL> };
+};
+
+partial modifier_keys
+xkb_symbols "lshift_5_shift" {
+  replace key <LFSH> { [ ISO_Level5_Shift, ISO_Level5_Shift ] };
+  modifier_map  Mod3 { <LFSH> };
+};
+
+partial modifier_keys
+xkb_symbols "rshift_ralt" {
+  replace key <RTSH> { [ Alt_L, Alt_L ] };
+  modifier_map Mod1 { <RTSH> };
+};
+
+partial modifier_keys
+xkb_symbols "space_shift" {
+  replace key <SPCE> { [ Shift_L, Shift_L ] };
+  modifier_map Shift { <SPCE> };
+};
