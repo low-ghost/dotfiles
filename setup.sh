@@ -168,7 +168,7 @@ while getopts ':i:lr' opt; do
       ln -f .inputrc ~/.inputrc
       #tmux
       ln -f .tmux.conf ~/.tmux.conf
-      #xcape
+      #xkb
       ln -f .xcaperc ~/.xcaperc
       sudo ln -f xkb/nc /usr/share/X11/xkb/symbols/nc
       #pg

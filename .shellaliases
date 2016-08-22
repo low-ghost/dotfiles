@@ -1,6 +1,6 @@
 # vim:set et sw=2 ft=zsh ts=2:
 # keyboard {
-alias xkbclear='sudo rm /var/lib/xkb/*.xkm'
+alias xkbclear='rm -f /var/lib/xkb/*.xkm'
 # does not work?
 alias xkbe='setxkbmap -layout us; pkill xcape'
 alias xkbc='setxkbmap -layout us -variant colemak; pkill xcape'

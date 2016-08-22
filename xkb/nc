@@ -30,7 +30,9 @@ partial alphanumeric_keys
 xkb_symbols "basic" {
 
   include "us"
-    name[Group1]= "Neo Colemak";
+  name[Group1]= "Neo Colemak";
+  name[Group2]= "NumLock";
+  name[Group3]= "Mousekeys";
 
   // ================
   // Miscellaneous
@@ -45,6 +47,7 @@ xkb_symbols "basic" {
   // This is convoluted, isn't it? Somehow, works with xcape and mapping keycode for return (36)
   // to Pause
   key <PAUS> { [ Return, Pause ] };
+  key <LWIN> { [ Super_L ], [ Super_L ] };
 
   // F keys for scripting (xbindkeys an action to F20, xcompose F20 to some comination, and you
   // can get any arbitrary key combo to run anything in linux). Only listing them if xcape ever
@@ -119,12 +122,12 @@ xkb_symbols "basic" {
   };
   key <AD07> {
     [ l, L, less, NoSymbol, Right, Right, Right, Right ],
-    [ 7 ],
+    actions[Group2]=[ RedirectKey(key=<AE07>) ],
     actions[Group3]=[ MovePtr(x=-2, y=-2) ]
   };
   key <AD08> {
     [ u, U, greater, NoSymbol, Prior ],
-    [ 8 ],
+    actions[Group2]=[ RedirectKey(key=<AE08>) ],
     actions[Group3]=[ MovePtr(y=-2) ]
   };
 
@@ -132,7 +135,7 @@ xkb_symbols "basic" {
 
   key <AD09> {
     [ y, Y, equal ],
-    [ 9 ],
+    actions[Group2]=[ RedirectKey(key=<AE09>) ],
     actions[Group3]=[ MovePtr(x=+2, y=-2) ]
   };
   key <AD10> {
@@ -164,7 +167,7 @@ xkb_symbols "basic" {
 
   key <AC07> {
     [ n, N, parenleft ],
-    [ 4 ],
+    actions[Group2]=[ RedirectKey(key=<AE04>) ],
     actions[Group3]=[ MovePtr(x=-2) ]
   };
 
@@ -172,12 +175,12 @@ xkb_symbols "basic" {
 
   key <AC08> {
     [ e, E, parenright, NoSymbol, End ],
-    [ 5 ],
+    actions[Group2]=[ RedirectKey(key=<AE05>) ],
     actions[Group3]=[ PointerButton(button=default) ]
   };
   key <AC09> {
     [ i, I, minus, NoSymbol, Home ],
-    [ 6 ],
+    actions[Group2]=[ RedirectKey(key=<AE06>) ],
     actions[Group3]=[ MovePtr(x=+2) ]
   };
   key <AC10> {
@@ -221,12 +224,12 @@ xkb_symbols "basic" {
   };
   key <AB07> {
     [ m, M, percent, NoSymbol, BackSpace ],
-    [ 1 ],
+    actions[Group2]=[ RedirectKey(key=<AE01>) ],
     actions[Group3]=[ MovePtr(x=-2, y=+2) ]
   };
   key <AB08> {
     [ comma,less,comma, NoSymbol, Delete ],
-    [ 2 ],
+    actions[Group2]=[ RedirectKey(key=<AE02>) ],
     actions[Group3]=[ MovePtr(y=+2) ]
   };
 
@@ -234,7 +237,7 @@ xkb_symbols "basic" {
 
   key <AB09> {
     [ period, greater, period ],
-    [ 3 ],
+    actions[Group2]=[ RedirectKey(key=<AE03>) ],
     actions[Group3]=[ MovePtr(x=+2, y=+2) ]
   };
   key <AB10> { [ slash, question, slash ] };
