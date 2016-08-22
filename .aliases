@@ -259,3 +259,6 @@ spoc() {
 
 # get the jira issue from the current branch name
 alias gitissue="git rev-parse --abbrev-ref HEAD | sed 's/\([a-zA-Z]*-[0-9]*\).*/\1/'"
+
+# better xev
+alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
