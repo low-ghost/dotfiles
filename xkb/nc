@@ -44,6 +44,7 @@ xkb_symbols "basic" {
   key <I120> { [ a, A ] };
   key <I129> { [ z, Z ] };
   key <I149> { [ apostrophe, quotedbl ] };
+  key <I151> { [ backslash ] };
   key <I154> { [ space ] };
   // This is convoluted, isn't it? Somehow, works with xcape and mapping keycode for return (36)
   // to Pause
@@ -140,7 +141,10 @@ xkb_symbols "basic" {
     [ semicolon, colon, ampersand ],
     [ minus ]
   };
-  key <AD11> { [ Multi_key, dead_stroke, at ] };
+  key <AD11> {
+    [ Multi_key, dead_stroke, at ],
+    [ comma ]
+  };
   key <AD12> { [ dead_hook, dead_greek, numbersign ] };
 
   // ================
@@ -184,7 +188,9 @@ xkb_symbols "basic" {
     actions[Group4]=[ RedirectKey(key=<RTRN>) ]
   };
   // apostrophe is level 3 shift
-  key <AC11> { [ ISO_Level3_Shift, ISO_Level3_Shift ] };
+  key <AC11> {
+    [ ISO_Level3_Shift, ISO_Level3_Shift ]
+  };
 
   // ================
   // Z Row
