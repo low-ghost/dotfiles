@@ -83,6 +83,10 @@ gpan() {
   read message
   `git commit -a -n -m $message; ggpush`
 }
+alias -g ged='git branch --edit-description'
+gdesc() {
+  git config branch.$(git rev-parse --abbrev-ref HEAD).description
+}
 
 # git unadd: remove file from
 gun() { git reset HEAD $@ ;}
