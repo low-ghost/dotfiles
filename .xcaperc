@@ -1,7 +1,1 @@
-pkill xcape
-xcape -e '#38=a;#48=apostrophe;#65=space;#66=Escape;#36=Pause'
-# Without this long timeout, holding z results in a keydown of group shift, but never a keyup.
-# This left it in numpad mode with no way of escaping save logout
-# Still, occasionally it will lock. Solution, hold z again and hope it hits right
-# interval to return...
-xcape -e '#52=z' -t 0
+xcape -e '#38=a;#48=apostrophe;#65=space;#66=Escape;#36=Pause;#41=t'

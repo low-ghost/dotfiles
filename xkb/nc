@@ -31,8 +31,8 @@ xkb_symbols "basic" {
 
   include "us"
   name[Group1]= "Neo Colemak";
-  name[Group2]= "NumLock";
-  name[Group3]= "Mousekeys";
+  name[Group2]= "Symbols";
+  name[Group3]= "Numpad";
   name[Group4]= "Nav";
 
   // ================
@@ -42,7 +42,7 @@ xkb_symbols "basic" {
   // Scrap keys for xcaperc. Only some of the I* codes work
   // Look at /usr/share/X11/xkb/keycodes/evdev for more
   key <I120> { [ a, A ] };
-  key <I129> { [ z, Z ] };
+  key <I129> { [ t, T ] };
   key <I149> { [ apostrophe, quotedbl ] };
   key <I151> { [ backslash ] };
   key <I154> { [ space ] };
@@ -84,8 +84,8 @@ xkb_symbols "basic" {
 
   key <TLDE> { [ grave, asciitilde ] };
   key <AE01> {
-    [ 1, exclam, F1 ],
-    actions[Group3]=[ LockControls(controls=MouseKeys) ]
+    [ 1, exclam, F1 ]
+    //actions[Group3]=[ LockControls(controls=MouseKeys) ]
   };
   key <AE02> { [ 2, at, F2 ] };
   key <AE03> { [ 3, numbersign, F3 ] };
@@ -106,134 +106,165 @@ xkb_symbols "basic" {
   // Q Row
   // ================
 
-  key <AD01> { [ q, Q, backslash ] };
-  key <AD02> { [ w, W, underscore ] };
-  key <AD03> { [ f, F, bracketleft ] };
-  key <AD04> { [ p, P, bracketright ] };
+  key <AD01> { [ q, Q ], [ backslash ] };
+  key <AD02> { [ w, W ], [ underscore ] };
+  key <AD03> { [ f, F ], [ bracketleft ] };
+  key <AD04> { [ p, P ], [ bracketright ] };
   key <AD05> {
-    [ g, G, asciicircum ],
+    [ g, G ],
+    [ asciicircum ],
     [ G ]
   };
   key <AD06> {
-    [ j, J, exclam ],
+    [ j, J ],
+    [ exclam ],
     [ underscore ],
     actions[Group4]=[ RedirectKey(key=<DOWN>) ]
   };
   key <AD07> {
-    [ l, L, less ],
-    actions[Group2]=[ RedirectKey(key=<AE07>) ],
-    actions[Group3]=[ MovePtr(x=-2, y=-2) ],
+    [ l, L ],
+    [ less ],
+    actions[Group3]=[ RedirectKey(key=<AE07>) ],
+    //actions[Group3]=[ MovePtr(x=-2, y=-2) ],
     actions[Group4]=[ RedirectKey(key=<RGHT>) ]
 
   };
   key <AD08> {
-    [ u, U, greater ],
-    actions[Group2]=[ RedirectKey(key=<AE08>) ],
-    actions[Group3]=[ MovePtr(y=-2) ],
+    [ u, U ],
+    [ greater ],
+    actions[Group3]=[ RedirectKey(key=<AE08>) ],
+    //actions[Group3]=[ MovePtr(y=-2) ],
     actions[Group4]=[ RedirectKey(key=<PGUP>) ]
   };
   key <AD09> {
-    [ y, Y, equal ],
-    actions[Group2]=[ RedirectKey(key=<AE09>) ],
-    actions[Group3]=[ MovePtr(x=+2, y=-2) ]
+    [ y, Y ],
+    [ equal ],
+    actions[Group3]=[ RedirectKey(key=<AE09>) ]
+    //actions[Group3]=[ MovePtr(x=+2, y=-2) ]
   };
   key <AD10> {
-    [ semicolon, colon, ampersand ],
+    [ semicolon, colon ],
+    [ ampersand ],
     [ minus ]
   };
   key <AD11> {
-    [ Multi_key, dead_stroke, at ],
+    [ Multi_key, dead_stroke ],
+    [ at, braceright ],
     [ comma ]
   };
-  key <AD12> { [ dead_hook, dead_greek, numbersign ] };
+  key <AD12> { [ dead_hook, dead_greek ], [ numbersign ] };
 
   // ================
   // A Row
   // ================
 
   // a is level 3 shift
-  key <AC01> { [ ISO_Level3_Shift, ISO_Level3_Shift ] };
-  key <AC02> { [ r, R, slash ] };
-  key <AC03> { [ s, S, braceleft ] };
-  key <AC04> { [ t, T, braceright ] };
+  key <AC01> {
+    [ VoidSymbol, VoidSymbol ],
+    actions[Group1]=[ SetGroup(group=2), SetGroup(group=2) ],
+    actions[Group2]=[ RedirectKey(key=<BKSL>) ]
+  };
+  key <AC02> { [ r, R ], [ slash ] };
+  key <AC03> { [ s, S ], [ braceleft ] };
+  // t is NumLock shift accessor.
+  key <AC04> {
+    [ VoidSymbol ],
+    [ VoidSymbol ],
+    [ VoidSymbol ],
+    actions[Group1]=[ SetGroup(group=3) ],
+    actions[Group2]=[ RedirectKey(key=<AD11>, modifiers=shift) ]
+  };
   key <AC05> {
-    [ d, D, asterisk ],
+    [ d, D ],
+    [ asterisk ],
     actions[Group4]=[ RedirectKey(key=<PGDN>) ]
   };
   key <AC06> {
-    [ h, H, question ],
+    [ h, H ],
+    [ question ],
     [ period ],
     actions[Group4]=[ RedirectKey(key=<LEFT>) ]
   };
   key <AC07> {
-    [ n, N, parenleft ],
-    actions[Group2]=[ RedirectKey(key=<AE04>) ],
-    actions[Group3]=[ MovePtr(x=-2) ]
+    [ n, N ],
+    [ parenleft ],
+    actions[Group3]=[ RedirectKey(key=<AE04>) ]
+    //actions[Group3]=[ MovePtr(x=-2) ]
   };
   key <AC08> {
-    [ e, E, parenright ],
-    actions[Group2]=[ RedirectKey(key=<AE05>) ],
-    actions[Group3]=[ PointerButton(button=default) ],
+    [ e, E ],
+    [ parenright ],
+    actions[Group3]=[ RedirectKey(key=<AE05>) ],
+   //actions[Group3]=[ PointerButton(button=default) ],
     actions[Group4]=[ RedirectKey(key=<END>) ]
   };
   key <AC09> {
-    [ i, I, minus ],
-    actions[Group2]=[ RedirectKey(key=<AE06>) ],
-    actions[Group3]=[ MovePtr(x=+2) ],
+    [ i, I ],
+    [ minus ],
+    actions[Group3]=[ RedirectKey(key=<AE06>) ],
+    //actions[Group3]=[ MovePtr(x=+2) ],
     actions[Group4]=[ RedirectKey(key=<HOME>) ]
   };
   key <AC10> {
-    [ o, O, colon ],
+    [ o, O ],
+    [ colon ],
     [ plus ],
     actions[Group4]=[ RedirectKey(key=<RTRN>) ]
   };
   // apostrophe is level 3 shift
   key <AC11> {
-    [ ISO_Level3_Shift, ISO_Level3_Shift ]
+    [ VoidSymbol ],
+    actions[Group1]=[ SetGroup(group=2) ],
+    actions[Group2]=[ RedirectKey(key=<BKSL>) ]
   };
 
   // ================
   // Z Row
   // ================
 
-  // z is NumLock shift accessor. Ctrl+z turns on mouse keys
   key <AB01> {
-    [ ISO_Group_Shift, ISO_Group_Shift ]
+    [ z, Z ],
+    [ numbersign ]
   };
   key <AB02> {
-    [ x, X, dollar ],
-    actions[Group2]=[ SetGroup(group=3) ],
+    [ x, X ],
+    [ dollar ],
     actions[Group4]=[ RedirectKey(key=<BKSP>) ]
   };
   key <AB03> {
-    [ c, C, bar ],
+    [ c, C ],
+    [ bar ],
     actions[Group4]=[ RedirectKey(key=<DELE>) ]
   };
-  key <AB04> { [ v, V, asciitilde ] };
-  key <AB05> { [ b, B, grave ] };
+  key <AB04> { [ v, V ], [ asciitilde ] };
+  key <AB05> { [ b, B ], [ grave ] };
   key <AB06> {
-    [ k, K, plus ],
+    [ k, K ],
+    [ plus ],
     [ 0 ],
     actions[Group4]=[ RedirectKey(key=<UP>) ]
   };
   key <AB07> {
-    [ m, M, percent ],
-    actions[Group2]=[ RedirectKey(key=<AE01>) ],
-    actions[Group3]=[ MovePtr(x=-2, y=+2) ],
+    [ m, M ],
+    [ percent ],
+    actions[Group3]=[ RedirectKey(key=<AE01>) ],
+    //actions[Group3]=[ MovePtr(x=-2, y=+2) ],
     actions[Group4]=[ RedirectKey(key=<BKSP>) ]
   };
   key <AB08> {
-    [ comma, less, comma ],
-    actions[Group2]=[ RedirectKey(key=<AE02>) ],
-    actions[Group3]=[ MovePtr(y=+2) ],
+    [ comma, less ],
+    [ comma ],
+    actions[Group3]=[ RedirectKey(key=<AE02>) ],
+    //actions[Group3]=[ MovePtr(y=+2) ],
     actions[Group4]=[ RedirectKey(key=<DELE>) ]
   };
   key <AB09> {
-    [ period, greater, period ],
-    actions[Group2]=[ RedirectKey(key=<AE03>) ],
-    actions[Group3]=[ MovePtr(x=+2, y=+2) ]
+    [ period, greater ],
+    [ period ],
+    actions[Group3]=[ RedirectKey(key=<AE03>) ]
+    //actions[Group3]=[ MovePtr(x=+2, y=+2) ]
   };
-  key <AB10> { [ slash, question, slash ] };
+  key <AB10> { [ slash, question ], [ slash ] };
 
   key <RTRN> { [ Control_R, Control_R ] };
   key <LCTL> {
