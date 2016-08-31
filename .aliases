@@ -83,9 +83,20 @@ gpan() {
   read message
   `git commit -a -n -m $message; ggpush`
 }
-alias -g ged='git branch --edit-description'
-gdesc() {
+alias -g gde='git branch --edit-description'
+gds() {
   git config branch.$(git rev-parse --abbrev-ref HEAD).description
+}
+gda() {
+  for branch in $(git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'); do
+    desc=$(git config branch.$branch.description)
+    if [ $branch == $(git rev-parse --abbrev-ref HEAD) ]; then
+      branch="* \033[0;32m$branch\033[0m"
+    else
+      branch="  $branch"
+    fi
+    echo -e "$branch \033[0;36m$desc\033[0m"
+  done
 }
 
 # git unadd: remove file from
@@ -265,7 +276,93 @@ spoc() {
 }
 
 # get the jira issue from the current branch name
-alias gitissue="git rev-parse --abbrev-ref HEAD | sed 's/\([a-zA-Z]*-[0-9]*\).*/\1/'"
-
+alias gitissue="git rev-parse --abbrev-ref HEAD | sed 's/.*-\(.*\)-\(.*\)/\1-\2/'"
+gcmi() {
+  git commit -m "`gitissue`: $1"
+}
+gcmin() {
+  git commit -n -m "`gitissue`: $1"
+}
 # better xev
 alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
+
+alias gbcur="git rev-parse --abbrev-ref HEAD"
+gb_to_issue() {
+  echo $1 | sed 's/^[[:alnum:]]*-\([[:alnum:]]*\)-\([[:alnum:]]*\).*/\1-\2/'
+}
+# jira issue
+jiraissue() {
+  curl -s --netrc-file ~/.jira-netrc -X GET -H "Content-Type:application/json" \
+    https://excelmicro.atlassian.net/rest/api/2/issue/$1 | jq .fields.summary
+}
+gname() {
+  git remote show origin -n | grep "Fetch URL:" | sed -E 's:^.*/(.*).git$:\1:g'
+}
+# jira issue from git
+gjira() {
+  if [ $# -eq 0 ]; then
+    issue=`gb_to_issue `gbcur``
+    project_name=`gname`
+  elif [ $# -eq 1 ]; then
+    issue=`gb_to_issue $1`
+    project_name=`gname`
+  else
+    issue=`gb_to_issue $1`
+    project_name=$2
+  fi
+  cached_file_dir=$HOME/.jira-descriptions/$project_name
+  cached_file_loc=$cached_file_dir/$issue
+  if [ -f $cached_file_loc ]; then
+    cat $cached_file_loc
+  else
+    summary=`jiraissue $issue`
+    mkdir -p $cached_file_dir
+    touch $cached_file_loc
+    echo $summary > $cached_file_loc
+    echo $summary
+  fi
+}
+
+gbjira() {
+  COLOR=true
+  for i in "$@"; do
+    case $i in
+      -r|--remote)
+        REMOTE=true
+        ;;
+      -n|--nocolor)
+        COLOR=false
+        ;;
+      --default)
+        REMOTE=false
+        ;;
+    esac
+  done
+  if [ "$REMOTE" = true ]; then
+    branches=(`git branch -r | cut -c 3-`)
+  else
+    branches=(`git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'`)
+  fi
+  for unformatted_branch in $branches; do
+    branch=`echo $unformatted_branch | sed 's/^[[:alnum:]]*\///'`
+    desc=`gjira $branch`
+    if [ $branch == `git rev-parse --abbrev-ref HEAD` ]; then
+      if [ "$COLOR" = true ]; then
+        branch="* \033[0;32m$branch\033[0m"
+      else
+        branch="* $branch"
+      fi
+    else
+      branch="  $branch"
+    fi
+    if [ "$COLOR" = true ]; then
+      echo -e "$branch: \033[0;36m$desc\033[0m"
+    else
+      echo -e "$branch: $desc"
+    fi
+  done
+}
+gcof() {
+  branch=`gbjira -r -n | fzf`
+  gco `echo $branch | sed 's/^..\(.*\):\(.*\)/\1/'`
+}
