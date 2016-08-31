@@ -324,21 +324,16 @@ gjira() {
 }
 
 gbjira() {
-  COLOR=true
-  for i in "$@"; do
-    case $i in
-      -r|--remote)
-        REMOTE=true
-        ;;
-      -n|--nocolor)
-        COLOR=false
-        ;;
-      --default)
-        REMOTE=false
-        ;;
+  remote=false
+  color=true
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      -r|--remote) remote=true;;
+      -n|--nocolor) color=false;;
     esac
+    shift
   done
-  if [ "$REMOTE" = true ]; then
+  if [ "$remote" = true ]; then
     branches=(`git branch -r | cut -c 3-`)
   else
     branches=(`git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'`)
@@ -347,7 +342,7 @@ gbjira() {
     branch=`echo $unformatted_branch | sed 's/^[[:alnum:]]*\///'`
     desc=`gjira $branch`
     if [ $branch == `git rev-parse --abbrev-ref HEAD` ]; then
-      if [ "$COLOR" = true ]; then
+      if [ $color == true ]; then
         branch="* \033[0;32m$branch\033[0m"
       else
         branch="* $branch"
@@ -355,7 +350,7 @@ gbjira() {
     else
       branch="  $branch"
     fi
-    if [ "$COLOR" = true ]; then
+    if [ $color == true ]; then
       echo -e "$branch: \033[0;36m$desc\033[0m"
     else
       echo -e "$branch: $desc"
@@ -365,4 +360,16 @@ gbjira() {
 gcof() {
   branch=`gbjira -r -n | fzf`
   gco `echo $branch | sed 's/^..\(.*\):\(.*\)/\1/'`
+}
+bb() {
+  while [[ "$#" -gt 1 ]]; do
+    case "$1" in
+      -b|--branch) branch="$2";;
+      -p|--project) project_name="$2";;
+    esac
+    shift
+  done
+  project_name=${project_name:=`gname`}
+  branch=${branch:=`gbcur`}
+  firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
 }
