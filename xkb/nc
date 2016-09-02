@@ -170,7 +170,11 @@ xkb_symbols "basic" {
   };
   key <AC02> { [ r, R ], [ slash ] };
   key <AC03> { [ s, S ], [ braceleft ] };
-  key <AC04> { [ t, T ], [ braceright ] };
+  key <AC04> {
+    [ t, T ],
+    [ braceright ],
+    actions[Group4]=[ RedirectKey(key=<DELE>) ]
+  };
   key <AC05> {
     [ d, D ],
     [ asterisk ],
@@ -187,7 +191,8 @@ xkb_symbols "basic" {
     [ n, N ],
     [ parenleft ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK04>, clearmods=Mod5) ],
-    actions[Group3]=[ RedirectKey(key=<AE04>) ]
+    actions[Group3]=[ RedirectKey(key=<AE04>) ],
+    actions[Group4]=[ RedirectKey(key=<BKSP>) ]
     //actions[Group3]=[ MovePtr(x=-2) ]
   };
   key <AC08> {
@@ -234,6 +239,7 @@ xkb_symbols "basic" {
   key <AB02> {
     [ x, X ],
     [ dollar ],
+    actions[Group3]=[ RedirectKey(key=<BKSP>) ],
     actions[Group4]=[ RedirectKey(key=<BKSP>) ]
   };
   key <AB03> {
@@ -254,17 +260,15 @@ xkb_symbols "basic" {
     [ m, M ],
     [ percent ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK01>, clearmods=Mod5) ],
-    actions[Group3]=[ RedirectKey(key=<AE01>) ],
+    actions[Group3]=[ RedirectKey(key=<AE01>) ]
     //actions[Group3]=[ MovePtr(x=-2, y=+2) ],
-    actions[Group4]=[ RedirectKey(key=<BKSP>) ]
   };
   key <AB08> {
     [ comma, less ],
     [ comma ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK02>, clearmods=Mod5) ],
-    actions[Group3]=[ RedirectKey(key=<AE02>) ],
+    actions[Group3]=[ RedirectKey(key=<AE02>) ]
     //actions[Group3]=[ MovePtr(y=+2) ],
-    actions[Group4]=[ RedirectKey(key=<DELE>) ]
   };
   key <AB09> {
     [ period, greater ],

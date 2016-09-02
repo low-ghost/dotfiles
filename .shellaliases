@@ -26,6 +26,7 @@ alias ev='vim ~/.config/nvim/init.vim'
 alias evim='vim ~/.config/nvim/init.vim'
 alias ez='vim ~/.zshrc'
 alias ezsh='vim ~/.zshrc'
+alias ec='vim /usr/share/X11/locale/en_US.UTF-8/Compose'
 # }
 
 # refresh cache font
