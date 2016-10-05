@@ -410,3 +410,13 @@ if !exists('g:additional_motions')
   let g:additional_motions = 1
 endif
 " }
+
+" Extra Coercion {
+
+function! SelectionToCamel()
+  silent try | :silent s/\%V\-\(.\)/\U\1/g | catch || endtry
+  silent normal crc
+  silent normal! `<
+endfunction
+
+"}

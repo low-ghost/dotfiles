@@ -51,7 +51,6 @@ Plug 'wellle/targets.vim'
 Plug 'mxw/vim-jsx'
 Plug 'low-ghost/vimax'
 Plug 'low-ghost/vim-macro-manager'
-Plug 'low-ghost/toggle-words.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -102,6 +101,8 @@ tnoremap <C-t>I <C-\><C-n>:tablast<cr>
 tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
 "autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
+
+vnoremap crc :call SelectionToCamel()<cr>
 
 "Spacemacs style keys {
 
@@ -195,6 +196,7 @@ nnoremap <silent> <Space>lg :<C-U>call CountCommand('ll')<CR>
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space><CR> :w<CR>
 nnoremap <silent> <Space>f/ :FzfGitFiles<CR>
+nnoremap <silent> <Space>f? :FzfFiles<CR>
 nnoremap <silent> <Space>fea :e ~/.aliases<CR>
 nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
 nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
@@ -234,8 +236,8 @@ nnoremap <silent> <Space>tN :set relativenumber!<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
 nnoremap <silent> <Space>tsp :set spell!<CR>
 nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
-nmap <silent> <Space>tw :ToggleWord<CR>
-nmap <silent> <Space>tW :ToggleWordReverse<CR>
+"nmap <silent> <Space>tw :ToggleWord<CR>
+"nmap <silent> <Space>tW :ToggleWordReverse<CR>
 " }
 
 " Insert {
@@ -269,9 +271,15 @@ nnoremap <silent> <Space>am :Neomake<CR>
 " Substitute {
 " s - standard | a - all | f - in cntr-f mode
 " Standard {
+" Sub last
+nnoremap <silent> <Space>sl :s///g<Left><Left>
+" Sub standard
 nnoremap <silent> <Space>ss :s///g<Left><Left><Left>
+" Sub all standard
 nnoremap <silent> <Space>sas :%s///g<Left><Left><Left>
+" Sub standard in command mode
 nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
+" Sub all standard in command mode
 nnoremap <silent> <Space>sfas :%s///g<Left><Left><Left><C-f>i
 " }
 " Word {
@@ -291,13 +299,22 @@ nnoremap <silent> <Space>sfa/ :%s/\(<C-r>/\)//g<Left><Left><C-f>i
 " Search {
 map <space>// <Plug>(easymotion-s)
 map <space>/2 <Plug>(easymotion-s2)
+map <space>/B <Plug>(easymotion-B)
+map <space>/E <Plug>(easymotion-E)
 map <space>/F <Plug>(easymotion-F)
 map <space>/T <Plug>(easymotion-T)
+map <space>/W <Plug>(easymotion-W)
+map <space>/b <Plug>(easymotion-b)
+map <space>/e <Plug>(easymotion-e)
 map <space>/f <Plug>(easymotion-f)
+map <space>/gE <Plug>(easymotion-gE)
+map <space>/ge <Plug>(easymotion-ge)
 map <space>/j <Plug>(easymotion-j)
 map <space>/k <Plug>(easymotion-k)
 map <space>/n <Plug>(easymotion-sn)
 map <space>/t <Plug>(easymotion-t)
+map <space>/w <Plug>(easymotion-w)
+map <space>/<space> <Plug>(easymotion-overwin-f)
 omap z <Plug>(easymotion-t)
 omap Z <Plug>(easymotion-T)
 omap x <Plug>(easymotion-f)

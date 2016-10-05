@@ -106,7 +106,7 @@ xkb_symbols "basic" {
   // Q Row
   // ================
 
-  key <AD01> { [ q, Q ], [ backslash ] };
+  key <AD01> { [ q, Q ] };
   key <AD02> { [ w, W ], [ underscore ] };
   key <AD03> { [ f, F ], [ bracketleft ] };
   key <AD04> { [ p, P ], [ bracketright ] };

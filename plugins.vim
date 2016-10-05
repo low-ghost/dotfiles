@@ -135,7 +135,6 @@ let g:neomake_typescript_tsc_maker = {
   \ }
 let g:neomake_typescript_tsca_maker = {
   \ 'exe': 'tsc',
-  \ 'args': ['-p', '.'],
   \ 'append_file': 0,
   \ 'errorformat':
       \ '%E%f %#(%l\,%c): error %m,' .
@@ -174,11 +173,11 @@ let g:neomake_error_sign = {
 " }
 
 function! Tsc()
-  let path = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    return s:warn('Not in git repo')
-  endif
-  exe 'cd' path
+  "let path = systemlist('git rev-parse --show-toplevel')[0]
+  "if v:shell_error
+    "return s:warn('Not in git repo')
+  "endif
+  "exe 'cd' path
   exe 'Neomake tsca'
 endfunction
 command! Tsc call Tsc()
@@ -202,7 +201,7 @@ function! NeoAg(search, ...)
   let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
   call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
 endfunction
-command! -nargs=* Ag call NeoAg(<f-args>)
+command! -nargs=* Ag call NeoAg(<q-args>)
 
 function! Esfix()
   exe 'Neomake eslintf'
@@ -222,20 +221,20 @@ let g:jsdoc_enable_es6 = 1
 
 " toggle-words {
 "switches ' and ' to ' or '
-let g:toggle_words_dict = {
-\   "python": [
-\     [toggle_words#word('and'), toggle_words#word('or')],
-\   ],
-\   "javascript": [
-\      ['if (', 'else if (', 'else '],
-\      ['import', 'export'],
-\      [['\.to\.\(not\)\@!', '\.to\.'], ['\.to\.not\.', '\.to\.not\.']],
-\      ['&&', '||'],
-\      ['const', 'let'],
-\   ],
-\ }
-" }
-let g:toggle_words_dict['typescript'] = g:toggle_words_dict['javascript']
+"let g:toggle_words_dict = {
+"\   "python": [
+"\     [toggle_words#word('and'), toggle_words#word('or')],
+"\   ],
+"\   "javascript": [
+"\      ['if (', 'else if (', 'else '],
+"\      ['import', 'export'],
+"\      [['\.to\.\(not\)\@!', '\.to\.'], ['\.to\.not\.', '\.to\.not\.']],
+"\      ['&&', '||'],
+"\      ['const', 'let'],
+"\   ],
+"\ }
+"" }
+"let g:toggle_words_dict['typescript'] = g:toggle_words_dict['javascript']
 
 function! Fzf_base(prompt, source, sink, ...)
 

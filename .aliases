@@ -1,5 +1,36 @@
 #!/bin/zsh
 
+# $1: function - completion function
+# $2: function - function itself, expecting one arg
+# $3: any - initial parameter
+fzf-ize() {
+  completion_func=$1
+  func=$2
+  initial_param=$3
+  local _eval_fzf() {
+    if [ -z "$1" ]; then
+      result=`$completion_func | fzf -1`
+      if [ -z "$result" ]; then
+        echo 'no items were chosen'
+        return
+      fi
+    else
+      result=$1
+    fi
+    { # try
+      $func $result 2>/dev/null
+    } || { # catch
+      result=`$completion_func | fzf -1 -q $result`
+      if [ -z "$result" ]; then
+        echo 'no items were chosen'
+        return
+      fi
+      $func $result
+    }
+  }
+  _eval_fzf $initial_param
+}
+
 # ejson {
 # TODO: if has .json
 encjson() { ejson encrypt $1.json }
@@ -184,11 +215,11 @@ pgprod() {
 
 pgloc() {
     if [ $# -eq 0 ]; then
-        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC
+        command psql -h localhost -U $PG_USER_LOC -d exm-production
     elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c $1 -t
+        command psql -h localhost -U $PG_USER_LOC -d exm-production -c $1 -t
     else
-        command psql -h $PG_HOST_LOC -U $PG_USER_LOC -d $PG_DB_LOC -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+        command psql -h localhost -U $PG_USER_LOC -d exm-production -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
     fi
 }
 
@@ -216,18 +247,8 @@ groot() {
 }
 # change dir to git root
 alias cdg='cd `groot`'
-cdr() {
-  if [ -z "$1" ]; then
-    repo=`_cdr_completion | fzf`
-    if [ -z "$repo" ]; then
-      echo 'no repo chosen'
-      return
-    fi
-  else
-    repo=$1
-  fi
-  cd ~/repo/$repo
-}
+
+_cdr_pre_fzf() { cd ~/repo/$1 }
 _cdr_completion() {
   ls ~/repo
 }
@@ -235,7 +256,9 @@ _cdr() {
   compset -P '*,'
   compadd -S '' `_cdr_completion`
 }
-
+cdr() {
+  fzf-ize "_cdr_completion" "_cdr_pre_fzf" $1
+}
 # start a test environment
 alias testenv='env $(ejson decrypt test.json | python ./env.py) docker-compose -f pg-redis.yml up'
 
@@ -357,10 +380,20 @@ gbjira() {
     fi
   done
 }
-gcof() {
-  branch=`gbjira -r -n | fzf`
-  gco `echo $branch | sed 's/^..\(.*\):\(.*\)/\1/'`
+_gcof_pre_fzf() {
+  gco `echo $1 | sed 's/^..\(.*\):\(.*\)/\1/'`
 }
+_gcof_completion() {
+  gbjira -r -n
+}
+_gcof () {
+  compset -P '*,'
+  compadd -S '' `_gcof_completion`
+}
+gcof() {
+  fzf-ize "_gcof_completion" "_gcof_pre_fzf" $1
+}
+#alias gbc="gbjira | grep `gbcur`"
 bb() {
   while [[ "$#" -gt 1 ]]; do
     case "$1" in
@@ -372,4 +405,24 @@ bb() {
   project_name=${project_name:=`gname`}
   branch=${branch:=`gbcur`}
   firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
+}
+
+# TODO: execute a file
+#alias pgexec='echo "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM (`cat modules/sql/audit/retrieval.sql | sed 's/;//g'`) AS fooo;" | sed 's/to_timestamp(\$.)/now()/g' | sed 's/\$/:v/g' | psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -t -v v1=62530 -v v2=314 | jq .'
+
+# typescript to json helper
+tsc-json() {
+  ./node_modules/typescript-json-schema/bin/typescript-json-schema \
+    models/$1/types.d.ts $2 --keywords errorMessage,id,title --required > schema/$1/$3.json
+}
+
+# thesaurus lookup
+thesaur() {
+  curl http://words.bighugelabs.com/api/2/$THES_KEY/$1/json | jq .
+}
+alias other-words='thesaur'
+
+pr() {
+  branch=`gbcur`
+  bitbucket pull_request --owner excelmicro --title "$branch: $2" $branch $1
 }
