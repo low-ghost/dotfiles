@@ -96,6 +96,8 @@ if exists('g:Completion_YouCompleteMe')
   let g:ycm_semantic_triggers['typescript'] = ['.']
 
 endif
+let g:UltiSnipsSnippetsDir="~/repo/dotfiles/UltiSnips"
+set runtimepath+=~/repo/dotfiles
 " }
 
 " UndoTree {
@@ -186,7 +188,7 @@ function! NeoAg(search, ...)
   "Takes a search parameter as first arg and all additional args
   "to perform ag query at git root
   let path = systemlist('git rev-parse --show-toplevel')[0]
-  exe 'cd' path
+  exe 'lcd' path
   if v:shell_error
     return s:warn('Not in git repo')
   endif
@@ -201,7 +203,9 @@ function! NeoAg(search, ...)
   let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
   call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
 endfunction
-command! -nargs=* Ag call NeoAg(<q-args>)
+command! -nargs=* Ago call NeoAg(<q-args>)
+command! -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!
+command! -nargs=+ -complete=file -bar Gr silent! grep! <args>|cwindow|redraw!
 
 function! Esfix()
   exe 'Neomake eslintf'

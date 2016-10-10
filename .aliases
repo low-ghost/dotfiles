@@ -59,8 +59,10 @@ _his () {
 
 alias dc='docker-compose'
 alias dcs='docker-compose stop'
-alias ds='docker stop'
+alias ds='sudo docker stop'
 alias dps='docker ps'
+alias dr='sudo docker rm'
+alias dls='sudo docker ps -a'
 
 dstopall() { docker stop $(docker ps -a -q) }
 alias drmall='docker rm $(docker ps -a -q)'

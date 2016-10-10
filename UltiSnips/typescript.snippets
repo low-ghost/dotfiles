@@ -1,0 +1,27 @@
+snippet des "describe" b
+describe('${1}', () => {
+
+	$0
+
+});
+endsnippet
+
+snippet it "it" b
+it('should ${1}', () => {
+
+	expect(${2}).to.$0
+
+});
+endsnippet
+
+snippet desi "describe it" b
+describe('${1}', () => {
+
+	it('should ${2}', () => {
+
+		expect($1).to.$0
+
+	});
+
+});
+endsnippet

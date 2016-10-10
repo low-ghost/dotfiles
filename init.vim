@@ -18,6 +18,7 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'honza/vim-snippets'
+Plug 'rking/ag.vim'
 	"Plug 'jiangmiao/auto-pairs'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kana/vim-textobj-indent'
@@ -67,6 +68,9 @@ let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 let g:airline#extensions#tmuxline#enabled = 0
+let g:ag_working_path_mode="r"
+set grepprg=rg\ --vimgrep\ --no-heading
+set grepformat=%f:%l:%c:%m,%f:%l:%m
 "let g:promptline_preset = {
   "\ 'a' : [ '$vim_mode' ],
   "\ 'b' : [ promptline#slices#cwd() ],
@@ -135,6 +139,12 @@ nnoremap <silent> <Space>wC :windo lclose\|windo cclose\|windo pclose\|helpclose
 " Commands {
 nnoremap <silent> <Space>x q:i
 nnoremap <silent> <Space>x/ :FzfHistory :<CR>
+" }
+
+" Dir {
+nnoremap <silent> <Space>dr :lcd `git rev-parse --show-toplevel`<CR>
+nnoremap <silent> <Space>ds :echo getcwd()<CR>
+nnoremap <silent> <Space>dc :lcd %:p:h<CR>
 " }
 
 " Buffers {
