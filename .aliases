@@ -57,10 +57,10 @@ _his () {
 
 # docker {
 
-alias dc='docker-compose'
-alias dcs='docker-compose stop'
+alias dc='sudo docker-compose'
+alias dcs='sudo docker-compose stop'
 alias ds='sudo docker stop'
-alias dps='docker ps'
+alias dps='sudo docker ps'
 alias dr='sudo docker rm'
 alias dls='sudo docker ps -a'
 
@@ -68,7 +68,11 @@ dstopall() { docker stop $(docker ps -a -q) }
 alias drmall='docker rm $(docker ps -a -q)'
 dbuild() {
   dir=${PWD##*/}
-  docker build -t ${1-$dir} .
+  sudo docker build -t ${1-$dir} .
+}
+dbuilde() {
+  dir=${PWD##*/}
+  echo ${1-$dir}
 }
 dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
 
@@ -82,9 +86,9 @@ alias nvml='nvm ls'
 alias nlo='nvm exec latest node ~/repo/js-repl/standard/lo'
 alias nlo3='nvm exec latest node ~/repo/js-repl/lo3/lo3'
 alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node'
-alias ncw='nvm exec latest node ~/repo/js-repl/standard/cw'
-alias ncwp='APP_ENV=production nvm exec latest node ~/repo/js-repl/standard/cw'
-alias ncws='APP_ENV=staging R=true nvm exec latest node ~/repo/js-repl/standard/cw'
+alias ncw='nvm exec 6.4 node ~/repo/js-repl/standard/cw'
+alias ncwp='APP_ENV=production nvm exec 6.4 node ~/repo/js-repl/standard/cw'
+alias ncws='APP_ENV=staging R=true nvm exec 6.4 node ~/repo/js-repl/standard/cw'
 alias npml='npm link'
 
 nvmu(){

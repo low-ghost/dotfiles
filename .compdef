@@ -9,3 +9,4 @@ compdef _cdr cdr
 compdef _apt apt='sudo apt-get'
 compdef _apti apti='sudo apt-get install'
 compdef _gcof gcof
+compdef docker dockerd

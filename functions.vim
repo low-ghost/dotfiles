@@ -8,6 +8,11 @@ function! ResCur()
   endif
 endfunction
 
+let g:last_changed_dir = ""
+function! SaveLastDir()
+  let g:last_changed_dir = getcwd()
+endfunction
+
 " Initialize directories {
 function! InitializeDirectories()
   let parent = $HOME

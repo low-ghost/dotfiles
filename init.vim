@@ -142,9 +142,15 @@ nnoremap <silent> <Space>x/ :FzfHistory :<CR>
 " }
 
 " Dir {
-nnoremap <silent> <Space>dr :lcd `git rev-parse --show-toplevel`<CR>
+nnoremap <silent> <Space>dr :call SaveLastDir()<CR>:lcd `git rev-parse --show-toplevel`<CR>:echo getcwd()<CR>
 nnoremap <silent> <Space>ds :echo getcwd()<CR>
-nnoremap <silent> <Space>dc :lcd %:p:h<CR>
+nnoremap <silent> <Space>df :call SaveLastDir()<CR>:lcd %:p:h<CR>:echo getcwd()<CR>
+"TODO: make du accept a count as in 2du would exe cd ../../
+nnoremap <silent> <Space>du :call SaveLastDir()<CR>:cd ../<CR>:echo getcwd()<CR>
+nnoremap <silent> <Space>dc :call SaveLastDir()<CR>:cd
+"TODO: maybe maintain a stack of 5 or so and d- moves back in stack, d+ moves
+"forward?
+nnoremap <silent> <Space>d- :exe "cd " . g:last_changed_dir<CR>:echo getcwd()<CR>
 " }
 
 " Buffers {
@@ -304,6 +310,12 @@ nnoremap <silent> <Space>sa/ :%s/\(<C-r>/\)//g<Left><Left>
 nnoremap <silent> <Space>sf/ :s/\(<C-r>/\)//g<Left><Left><C-f>i
 nnoremap <silent> <Space>sfa/ :%s/\(<C-r>/\)//g<Left><Left><C-f>i
 " }
+" Register {
+nnoremap <silent> <Space>s' :s/\(<C-r>"\)//g<Left><Left>
+nnoremap <silent> <Space>sa' :%s/\(<C-r>"\)//g<Left><Left>
+nnoremap <silent> <Space>sf' :s/\(<C-r>"\)//g<Left><Left><C-f>i
+nnoremap <silent> <Space>sfa' :%s/\(<C-r>"\)//g<Left><Left><C-f>i
+" }
 " }
 
 " Search {
@@ -421,6 +433,8 @@ nnoremap <silent> <Space>' :FzfMarks<CR>
 
 " Vimax {
 nmap <silent> <Space>va <Plug>VimaxList
+nmap <silent> <Space>vbo <Plug>VimaxOpenScratch
+nmap <silent> <Space>vbc <Plug>VimaxCloseScratch
 nmap <silent> <Space>vc <Plug>VimaxClearAddressHistory
 nmap <silent> <Space>vd <Plug>VimaxRunCommandInDir
 nmap <silent> <Space>vg <Plug>VimaxGoToAddress
