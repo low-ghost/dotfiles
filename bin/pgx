@@ -42,7 +42,7 @@ sql_to_json = (
 command = "{} -t -c \"{}\"".format(psql_command, sql_to_json)
 
 result = run([command], stdout=PIPE, shell=True)
-p = Popen(['jq', args.jq], stdin=PIPE, stderr=PIPE)
+p = Popen(['jq', args.jq], stdin=PIPE)
 p.communicate(input=result.stdout)
 
 exit()
