@@ -3,25 +3,32 @@
 # $1: function - completion function
 # $2: function - function itself, expecting one arg
 # $3: any - initial parameter
-fzf-ize() {
+fzf_ize() {
   completion_func=$1
   func=$2
   initial_param=$3
   local _eval_fzf() {
-    if [ -z "$1" ]; then
+    if [[ -z "$1" ]]; then
       result=`$completion_func | fzf -1`
-      if [ -z "$result" ]; then
+      if [[ "$?" == 130 ]]; then
         echo 'no items were chosen'
         return
       fi
-    else
-      result=$1
     fi
     { # try
-      $func $result 2>/dev/null
+      if [[ -n "$result" ]]; then
+        $func $result 2>/dev/null
+      else
+        result=`$completion_func | fzf -1 -q $1`
+        if [[ "$?" == 130 ]]; then
+          echo 'no items were chosen'
+          return
+        fi
+        $func $result
+      fi
     } || { # catch
-      result=`$completion_func | fzf -1 -q $result`
-      if [ -z "$result" ]; then
+      result=`$completion_func | fzf -1 -q $1`
+      if [[ "$?" == 130 ]]; then
         echo 'no items were chosen'
         return
       fi
@@ -32,9 +39,14 @@ fzf-ize() {
 }
 
 # ejson {
-# TODO: if has .json
-encjson() { ejson encrypt $1.json }
-decjson() { ejson decrypt $1.json | tee t.json && mv t.json $1.json }
+encjson() {
+  file=`echo $1 | sed 's/\.json$//'`
+  ejson encrypt $file.json
+}
+decjson() {
+  file=`echo $1 | sed 's/\.json$//'`
+  ejson decrypt $file.json | tee t.json && mv t.json $file.json
+}
 # }
 
 whatsonport() { sudo netstat -tulnap | grep :$1 }
@@ -92,7 +104,7 @@ alias ncws='APP_ENV=staging R=true nvm exec 6.4 node ~/repo/js-repl/standard/cw'
 alias npml='npm link'
 
 nvmu(){
-  nvm use $1 && sed -i 's/\(nvm use \).*\( > \/dev\/null\)/\1'$1'\2/' ~/.zshrc                                                                                              feature-dockerize  +2
+  nvm use $1 && sed -i 's/\(nvm use \).*\( > \/dev\/null\)/\1'$1'\2/' ~/.zshrc
 }
 
 # }
@@ -119,21 +131,6 @@ gpan() {
   echo "Enter a message"
   read message
   `git commit -a -n -m $message; ggpush`
-}
-alias -g gde='git branch --edit-description'
-gds() {
-  git config branch.$(git rev-parse --abbrev-ref HEAD).description
-}
-gda() {
-  for branch in $(git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'); do
-    desc=$(git config branch.$branch.description)
-    if [ $branch == $(git rev-parse --abbrev-ref HEAD) ]; then
-      branch="* \033[0;32m$branch\033[0m"
-    else
-      branch="  $branch"
-    fi
-    echo -e "$branch \033[0;36m$desc\033[0m"
-  done
 }
 
 # git unadd: remove file from
@@ -199,55 +196,16 @@ pyserve() {
 }
 alias rdevstart='docker run -p 6379:6379 -d redis'
 
-pgexm() {
-    if [ $# -eq 0 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM
-    elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c $1 -t
-    else
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    fi
-}
+# pgjacob() {
+    #if [ $# -eq 0 ]; then
+        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM
+    #elif [ $# -eq 1 ]; then
+        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c $1 -t
+    #else
+        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
+    #fi
+#}
 
-pgprod() {
-    if [ $# -eq 0 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD
-    elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD -c $1 -t
-    else
-        command psql -h $PG_HOST_EXM -U $PG_USER_EXM -d $PG_DB_PROD -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    fi
-}
-
-pgloc() {
-    if [ $# -eq 0 ]; then
-        command psql -h localhost -U $PG_USER_LOC -d exm-production
-    elif [ $# -eq 1 ]; then
-        command psql -h localhost -U $PG_USER_LOC -d exm-production -c $1 -t
-    else
-        command psql -h localhost -U $PG_USER_LOC -d exm-production -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    fi
-}
-
-pgjacob() {
-    if [ $# -eq 0 ]; then
-        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM
-    elif [ $# -eq 1 ]; then
-        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c $1 -t
-    else
-        command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    fi
-}
-
-pgsta() {
-    if [ $# -eq 0 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging
-    elif [ $# -eq 1 ]; then
-        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -c $1 -t
-    else
-        command psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    fi
-}
 groot() {
   git rev-parse --show-toplevel
 }
@@ -263,7 +221,7 @@ _cdr() {
   compadd -S '' `_cdr_completion`
 }
 cdr() {
-  fzf-ize "_cdr_completion" "_cdr_pre_fzf" $1
+  fzf_ize "_cdr_completion" "_cdr_pre_fzf" $1
 }
 # start a test environment
 alias testenv='env $(ejson decrypt test.json | python ./env.py) docker-compose -f pg-redis.yml up'
@@ -330,7 +288,8 @@ gname() {
 # jira issue from git
 gjira() {
   if [ $# -eq 0 ]; then
-    issue=`gb_to_issue `gbcur``
+    branch=`gbcur`
+    issue=`gb_to_issue $branch`
     project_name=`gname`
   elif [ $# -eq 1 ]; then
     issue=`gb_to_issue $1`
@@ -397,7 +356,7 @@ _gcof () {
   compadd -S '' `_gcof_completion`
 }
 gcof() {
-  fzf-ize "_gcof_completion" "_gcof_pre_fzf" $1
+  fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
 }
 #alias gbc="gbjira | grep `gbcur`"
 bb() {
@@ -411,6 +370,11 @@ bb() {
   project_name=${project_name:=`gname`}
   branch=${branch:=`gbcur`}
   firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
+}
+jj() {
+  branch=${1:-`gbcur`}
+  issue=`gb_to_issue $branch`
+  firefox https://excelmicro.atlassian.net/browse/$issue
 }
 
 # TODO: execute a file
@@ -430,5 +394,23 @@ alias other-words='thesaur'
 
 pr() {
   branch=`gbcur`
-  bitbucket pull_request --owner excelmicro --title "$branch: $2" $branch $1
+  desc=${2:-`gjira`}
+  firefox `bitbucket pull_request --owner excelmicro --title "$branch: $desc" $branch $1 \
+    | grep 'Link:' \
+    | sed 's/.*Link: \(.*\)/\1/'`
+}
+
+# checkout files from the current branch
+alias gcoc='gco `gbcur` -- '
+
+_egit_pre_fzf() { vim $1 }
+_egit_completion() {
+  git ls-files
+}
+_egit() {
+  compset -P '*,'
+  compadd -S '' `_egit_completion`
+}
+egit() {
+  fzf_ize "_egit_completion" "_egit_pre_fzf" $1
 }

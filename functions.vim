@@ -109,34 +109,45 @@ command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 
 "TODO visual block
 " Insert functions {
-function! AppendLine()
+function! AppendLine(go)
   let c = v:count > 0 ? v:count : 1
   let i = 0
   while i < c
     call append(line("."), "")
     let i += 1
   endwhile
+  if a:go
+    execute '+' . c
+    startinsert!
+  endif
 endfunction
 
-function! PrependLine()
-  let l:scrolloffsave = &scrolloff
-  " Avoid jerky scrolling with ^E at top of window
-  set scrolloff=0
+function! PrependLine(go)
+  if !a:go
+    let l:scrolloffsave = &scrolloff
+    " Avoid jerky scrolling with ^E at top of window
+    set scrolloff=0
+  endif
   let c = v:count > 0 ? v:count : 1
   let i = 0
   while i < c
     call append(line(".") - 1, "")
     let i += 1
   endwhile
-  if winline() != winheight(0)
-    silent normal! <C-e>
-  end
-  let &scrolloff = l:scrolloffsave
+  if a:go
+    execute '-' . c
+    startinsert!
+  else
+    if winline() != winheight(0)
+      silent normal! <C-e>
+    end
+    let &scrolloff = l:scrolloffsave
+  endif
 endfunction
 
 function! AppendAndPrependLine()
-  call AppendLine()
-  call PrependLine()
+  call AppendLine(0)
+  call PrependLine(0)
 endfunction
 " }
 
@@ -423,5 +434,57 @@ function! SelectionToCamel()
   silent normal crc
   silent normal! `<
 endfunction
+
+"}
+
+" Shell Helper {
+
+function! s:ExecuteInShell(command)
+  silent! execute 'sp ' . fnameescape(a:command)
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  echo 'Execute ' . a:command . '...'
+  silent! execute 'silent %!'. a:command
+  silent! set ft=zsh
+  silent! resize 10
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <space>r :call <SID>ExecuteInShell(''' . a:command . ''')<CR>'
+  echo 'Shell command ' . a:command . ' executed.'
+endfunction
+
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+command! -complete=shellcmd -nargs=+ Sh call s:ExecuteInShell(<q-args>)
+
+function! s:IExecuteInShell(command)
+  let name = a:command ? fnameescape(a:command) : 'new_terminal'
+  silent! execute 'sp ' . name
+  silent! set ft=zsh
+  silent! resize 10
+  let g:last_terminal = termopen('zsh')
+  if a:command
+    silent! call jobsend(g:last_terminal, a:command . "\r")
+  endif
+  startinsert!
+endfunction
+
+command! -complete=shellcmd -nargs=* IShell call s:IExecuteInShell(<q-args>)
+command! -complete=shellcmd -nargs=* ISh call s:IExecuteInShell(<q-args>)
+
+"}
+
+" Zoom / Restore window. {
+function! s:ZoomToggle() abort
+  if exists('t:zoomed') && t:zoomed
+    execute t:zoom_winrestcmd
+    let t:zoomed = 0
+  else
+    let t:zoom_winrestcmd = winrestcmd()
+    resize
+    vertical resize
+    let t:zoomed = 1
+  endif
+endfunction
+
+command! ZoomToggle call s:ZoomToggle()
 
 "}

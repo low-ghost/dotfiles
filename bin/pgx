@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+from os import environ
+from subprocess import run, PIPE, Popen
+
+parser = argparse.ArgumentParser(description='Wrapper around postgres cli')
+parser.add_argument('-f', '--file', help='file to execute',
+                    type=argparse.FileType('r'))
+parser.add_argument('environment', nargs='?', choices=['p', 's', 'd'],
+                    default='s', type=str,
+                    help='environment for execution [p, s, d]')
+parser.add_argument('sql', help='sql to execute', nargs='?')
+parser.add_argument('-j', '--jq', help='jq filter', default='.', nargs='?',
+                    type=str)
+args = parser.parse_args()
+
+
+def get_env(environment):
+    if environment == 's':
+        return {'h': environ['PG_HOST_EXM'], 'u': environ['PG_USER_LOC'],
+                'd': 'exm-staging'}
+    if environment == 'd':
+        return {'h': 'localhost', 'u': environ['PG_USER_LOC'],
+                'd': 'exm-development'}
+    return {'h': environ['PG_HOST_EXM'], 'u': environ['PG_USER_ME'],
+            'd': 'exm-production'}
+
+env_dict = get_env(args.environment)
+psql_command = "psql -h {h} -U {u} -d {d}".format(**env_dict)
+sql = args.sql or (args.file and args.file.read()) or None
+
+# If no args are provided, start psql
+if not args.file and sql is None:
+    run([psql_command], shell=True)
+    exit()
+
+sql_to_json = (
+    "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ({}) AS fooo"
+    .format(sql))
+command = "{} -t -c \"{}\"".format(psql_command, sql_to_json)
+
+result = run([command], stdout=PIPE, shell=True)
+p = Popen(['jq', args.jq], stdin=PIPE, stderr=PIPE)
+p.communicate(input=result.stdout)
+
+exit()

@@ -88,25 +88,30 @@ nnoremap <C-t>n :tabnew<cr>
 nnoremap <C-t>i :tabfirst<cr>
 nnoremap <C-t>I :tablast<cr>
 nnoremap <C-t>x :tabclose<cr>
-
-"neovim terminal
-tnoremap <C-o> <C-\><C-n>
-tnoremap <C-w>h <C-\><C-n><C-w>h
-tnoremap <C-w>k <C-\><C-n><C-w>k
-tnoremap <C-w>l <C-\><C-n><C-w>l
-tnoremap <C-w>j <C-\><C-n><C-w>j
-tnoremap <C-w>= <C-\><C-n><C-w>=
-tnoremap <C-w>R <C-\><C-n><C-w>R
 tnoremap <C-t>l <C-\><C-n>:tabnext<cr>
 tnoremap <C-t>h <C-\><C-n>:tabprevious<cr>
 tnoremap <C-t>n <C-\><C-n>:tabnew<cr>
 tnoremap <C-t>i <C-\><C-n>:tabfirst<cr>
 tnoremap <C-t>I <C-\><C-n>:tablast<cr>
 tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
+
+"neovim terminal
+tnoremap <C-o> <C-\><C-n>
+tnoremap <C-o>x <C-\><C-n>:bd!<cr>
+tnoremap <C-o><C-x> <C-\><C-n>:bd!<cr>
+tnoremap <C-o>z <C-\><C-n>:ZoomToggle<cr>
+tnoremap <C-o><C-z> <C-\><C-n>:ZoomToggle<cr>
+"found this to be too annoying if accidentally landing on buffer
 "autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 vnoremap crc :call SelectionToCamel()<cr>
+vnoremap O <Esc>O
+
+nnoremap H ^
+vnoremap H ^
+nnoremap L $
+vnoremap L $
 
 "Spacemacs style keys {
 
@@ -118,6 +123,7 @@ nnoremap <silent> <Space>wK :<C-U>call CountCommand('resize -', 10, 1)<CR>
 nnoremap <silent> <Space>wH :<C-U>call CountCommand('vertical resize +', 10, 1)<CR>
 nnoremap <silent> <Space>wL :<C-U>call CountCommand('vertical resize -', 10, 1)<CR>
 nnoremap <silent> <Space>w= <C-W>=
+nnoremap <silent> <Space>wz :ZoomToggle<CR>
 "split
 nnoremap <silent> <Space>ws <C-W>s:bn<CR>
 nnoremap <silent> <Space>wv <C-W>v:bn<CR>
@@ -157,6 +163,7 @@ nnoremap <silent> <Space>d- :exe "cd " . g:last_changed_dir<CR>:echo getcwd()<CR
 "both delete accept count to specify buffer
 nnoremap <silent> <Space>bd :lclose\|cclose\|pclose<CR>:bp\|bd #<CR>
 nnoremap <silent> <Space>bD :lclose\|cclose\|pclose<CR>:bp\|bd! #<CR>
+nnoremap <silent> <Space>BD :lclose\|cclose\|pclose<CR>:bp\|bd! #<CR>
 "delete or keep buffers matching a string
 nnoremap <silent> <Space>bmd :call BufferByMatch(1)<CR>
 nnoremap <silent> <Space>bmo :call BufferByMatch(0)<CR>
@@ -258,11 +265,11 @@ nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
 
 " Insert {
 " TODO: visual support
-nnoremap <silent> <space>ij :<C-U>call AppendLine()<CR>
-"nnoremap <space>io :<C-U>call AppendLine()<CR>i
-nnoremap <silent> <Space>ik :<C-U>call PrependLine()<CR>
+nnoremap <silent> <space>ij :<C-U>call AppendLine(0)<CR>
+nnoremap <silent> <space>io :<C-U>call AppendLine(1)<CR>
+nnoremap <silent> <Space>ik :<C-U>call PrependLine(0)<CR>
+nnoremap <silent> <space>iO :<C-U>call PrependLine(1)<CR>
 nnoremap <silent> <Space>ib :<C-U>call AppendAndPrependLine()<CR>
-"nnoremap <space>iO :<C-U>call PrependLine()<CR>i
 " }
 
 " Applications (a is also alignment, watch for conflicts) {
@@ -273,6 +280,10 @@ vnoremap <silent> <Space>as :sort<CR>
 "t for template
 nnoremap <silent> <Space>ate :UltiSnipsEdit<CR>
 nnoremap <silent> <Space>at/ :FzfSnippets<CR>
+"e for execute
+nnoremap <silent> <Space>aeo :IShell<CR>
+nnoremap <silent> <Space>aei :IShell<Space>
+nnoremap <silent> <Space>ae<space> :Shell<Space>
 " Plugins {
 " TODO: generic functions
 nnoremap <silent> <Space>api :PlugInstall<CR>
@@ -283,6 +294,7 @@ nnoremap <silent> <Space>aps :PlugStatus<CR>
 " }
 nnoremap <silent> <Space>am :Neomake<CR>
 " }
+
 
 " Substitute {
 " s - standard | a - all | f - in cntr-f mode
