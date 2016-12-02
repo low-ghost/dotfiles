@@ -53,20 +53,6 @@ whatsonport() { sudo netstat -tulnap | grep :$1 }
 
 clip() { "$1" | xclip -sel clip }
 
-his() {
-  if [ -z "$1" ]; then
-      history
-  else
-      history | grep "$@"
-  fi
-}
-_his_completion () {
-  grep --help
-}
-_his () {
-  compadd -S '' `_his_completion`
-}
-
 # docker {
 
 alias dc='sudo docker-compose'
@@ -140,16 +126,6 @@ _gitunadd_completion() {
 }
 _gitunadd () {
   compadd -S '' `_gitunadd_completion`
-}
-
-# generate git ignore from gitignore.io
-gi() { curl -sL https://www.gitignore.io/api/`echo $@ | sed s/" "/,/g` ;}
-_gitignoreio_completion() {
-  curl -sL https://www.gitignore.io/api/list | tr "," "\n"
-}
-_gitignoreio () {
-  compset -P '*,'
-  compadd -S '' `_gitignoreio_completion`
 }
 
 # clone from the excel micro repo
