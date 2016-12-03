@@ -69,7 +69,6 @@ def main():
     return p.communicate(input=result.stdout)
 
 
-# If no args are provided, start psql
 try:
     main()
 except KeyboardInterrupt:
