@@ -14,16 +14,16 @@ from subprocess import run, PIPE, Popen
 
 def get_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('-f', '--file', help='file to execute',
+    parser.add_argument('--file', help='file to execute',
                         type=argparse.FileType('r'))
-    parser.add_argument('-e', '--environment', nargs='?',
+    parser.add_argument('--environment', nargs='?',
                         choices=['p', 's', 'd'], default='s', type=str,
                         help='environment for execution')
-    parser.add_argument('-u', '--user', nargs='?', type=str,
+    parser.add_argument('--user', nargs='?', type=str,
                         help='override environment based user')
-    parser.add_argument('-d', '--db', nargs='?', type=str,
+    parser.add_argument('--db', nargs='?', type=str,
                         help='override environment based db')
-    parser.add_argument('-l', '--location', nargs='?', type=str,
+    parser.add_argument('--location', nargs='?', type=str,
                         help='override environment based location (host)')
     parser.add_argument('sql', help='sql to execute', nargs='?')
     parser.add_argument('jq', help='jq filter', default='.', nargs='?',
@@ -50,8 +50,7 @@ def main():
     to_assign = {'h': args.location, 'u': args.user, 'd': args.db}
     env_dict = {
         **initial_env_dict,
-        **{k: v for k, v in to_assign.items() if v is not None }
-    }
+        **{k: v for k, v in to_assign.items() if v is not None }}
 
     psql_command = 'psql -h {h} -U {u} -d {d}'.format(**env_dict)
     sql = (args.file and args.file.read()) or args.sql or None
