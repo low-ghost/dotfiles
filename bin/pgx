@@ -17,17 +17,16 @@ def get_args():
     parser.add_argument('--file', help='file to execute',
                         type=argparse.FileType('r'))
     parser.add_argument('--environment', nargs='?',
-                        choices=['p', 's', 'd'], default='s', type=str,
+                        choices=['p', 's', 'd'], default='s',
                         help='environment for execution')
-    parser.add_argument('--user', nargs='?', type=str,
+    parser.add_argument('--user', nargs='?',
                         help='override environment based user')
-    parser.add_argument('--db', nargs='?', type=str,
+    parser.add_argument('--db', nargs='?',
                         help='override environment based db')
-    parser.add_argument('--location', nargs='?', type=str,
+    parser.add_argument('--location', nargs='?',
                         help='override environment based location (host)')
     parser.add_argument('sql', help='sql to execute', nargs='?')
-    parser.add_argument('jq', help='jq filter', default='.', nargs='?',
-                        type=str)
+    parser.add_argument('jq', help='jq filter', default='.', nargs='?')
     return parser.parse_args()
 
 
@@ -74,4 +73,4 @@ try:
 except KeyboardInterrupt:
     pass
 finally:
-    exit()
+    exit(0)
