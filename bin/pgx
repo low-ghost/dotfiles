@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-args=("$@")
-command=`./pgx.py --getcommand "$@"`
+result=`pgx.py --bash "$@"`
+out="$?"
+
 if [[ "$@" =~ --help|-h ]]; then
-    echo "$command"
-else
-    eval "$command"
+    echo "$result"
+elif [[ "$out" -eq 0 ]]; then
+    if [[ "$result" =~ ^continue$ ]]; then
+        pgx.py "$@"
+    else
+        eval "$result"
+    fi
 fi
