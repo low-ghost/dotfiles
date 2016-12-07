@@ -12,21 +12,24 @@ alias xkb='pkill xcape > /dev/null; xkbclear; xkbset; . ~/.xcaperc'
 alias dotinstall='sh ~/repo/dotfiles/setup.sh -i'
 alias dotlink='sh ~/repo/dotfiles/setup.sh -l'
 # configs {
-alias e='vim'
-alias ea='vim ~/.aliases'
-alias eali='vim ~/.aliases'
-alias eas='vim ~/.shellaliases'
-alias ef='vim ~/repo/dotfiles/functions.vim'
-alias eg='vim ~/repo/dotfiles/general.vim'
-alias ek='vim ~/repo/dotfiles/xkb/nc'
-alias ep='vim ~/repo/dotfiles/plugins.vim'
-alias esh='vim ~/repo/dotfiles/setup.sh'
-alias et='vim ~/.tmux.conf'
-alias ev='vim ~/.config/nvim/init.vim'
-alias evim='vim ~/.config/nvim/init.vim'
-alias ez='vim ~/.zshrc'
-alias ezsh='vim ~/.zshrc'
-alias ec='vim /usr/share/X11/locale/en_US.UTF-8/Compose'
+alias e='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket vim'
+alias ea='e ~/.aliases'
+alias eali='e ~/.aliases'
+alias eas='e ~/.shellaliases'
+alias ef='e ~/repo/dotfiles/functions.vim'
+alias eg='e ~/repo/dotfiles/general.vim'
+alias ek='e ~/repo/dotfiles/xkb/nc'
+alias ep='e ~/repo/dotfiles/plugins.vim'
+alias esh='e ~/repo/dotfiles/setup.sh'
+alias et='e ~/.tmux.conf'
+alias ev='e ~/.config/nvim/init.vim'
+alias evim='e ~/.config/nvim/init.vim'
+alias ez='e ~/.zshrc'
+alias ezsh='e ~/.zshrc'
+alias ec='e /usr/share/X11/locale/en_US.UTF-8/Compose'
+etest() {
+  e -O {test/unit/,}$1
+}
 # }
 
 # refresh cache font
@@ -69,9 +72,9 @@ cbr() {
 }
 eb() {
   if [ $# -eq 1 ]; then
-    vim +/$1 ~/.bookmarks
+    e +/$1 ~/.bookmarks
   else
-    vim ~/.bookmarks
+    e ~/.bookmarks
   fi
 }
 db() {

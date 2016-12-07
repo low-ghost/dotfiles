@@ -9,7 +9,7 @@ while getopts ':i:lr' opt; do
         case $arg in
           # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,neovim,nvm,js-repl,npm,rvm,java,em,chrome,spotify,docker,docker-compose,omz
+            sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
             vim +PlugInstall +qall
             zsh
@@ -81,6 +81,8 @@ while getopts ':i:lr' opt; do
             sudo update-alternatives --config editor
             curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            gem install neovim
+            sudo pip3 install neovim-remote
             ;;
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash

@@ -114,19 +114,6 @@ vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
 vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
 " }
 
-" Capitalization errors {
-command! -bang -nargs=* -complete=file E e<bang> <args>
-command! -bang -nargs=* -complete=file W w<bang> <args>
-command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-command! -bang Wa wa<bang>
-command! -bang WA wa<bang>
-command! -bang Q q<bang>
-command! -bang QA qa<bang>
-command! -bang Qa qa<bang>
-cmap Tabe tabe
-" }
-
 " General {
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
@@ -192,3 +179,6 @@ cmap w!! w !sudo tee % >/dev/null
 " Select last pasted block
 nnoremap gp `[v`]
 " }
+
+" Neovim specific incremental substitute
+set inccommand=split

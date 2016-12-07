@@ -28,3 +28,46 @@ endsnippet
 snippet par "jsdoc param"
 @param {$1} $2
 endsnippet
+snippet sinst "sinon.stub"
+sinon.stub($0)
+endsnippet
+snippet sinprop "stub prop"
+${1}: sinon.stub(${2}, '$1')
+  .returns('$1'),
+$0
+endsnippet
+snippet sinsand "sinon.sandbox" b
+sandbox = sinon.sandbox.create();
+endsnippet
+snippet sinsani "instantiate sandbox" b
+let sandbox: Sinon.SinonSandbox;
+endsnippet
+snippet sinaft "after sandbox" b
+afterEach(() => sandbox.restore());
+endsnippet
+snippet ex "expect" b
+expect(${1}).to.$0
+endsnippet
+snippet sinontest "full sandbox test" b
+let sandbox: Sinon.SinonSandbox;
+let stub: any;
+
+beforeEach(() => {
+
+  sandbox = sinon.sandbox.create();
+  stub = {
+    sinprop$0
+  };
+
+});
+
+afterEach(() => sandbox.restore());
+endsnippet
+snippet curriedstub "curried stub sandboxed" b
+${1}: curriedStub(
+  ${2:2},
+  sandbox.stub(${3}, '$1'),
+  '$1'
+),
+$0
+endsnippet
