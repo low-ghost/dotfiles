@@ -13,6 +13,7 @@ with the --getcommand flag and then executing
 import argparse
 from os import environ
 from subprocess import run, PIPE, Popen
+from re import escape, compile
 
 
 def get_args():
@@ -30,6 +31,8 @@ def get_args():
                         help='override environment based location (host)')
     parser.add_argument('--getcommand', action='store_true',
                         help='get command to execute for inspection or later execution')
+    parser.add_argument('--variables', nargs='+',
+                        help='list of variables to replace ${1} style prepared arguments')
     parser.add_argument('sql', help='sql to execute', nargs='?')
     parser.add_argument('jq', help='jq filter', default='.', nargs='?')
     return parser.parse_args()
@@ -44,6 +47,19 @@ def get_env(environment):
                 'd': 'exm-development'}
     return {'h': environ['PG_HOST_EXM'], 'u': environ['PG_USER_ME'],
             'd': 'exm-production'}
+
+
+def get_replacement_dict(variables):
+    return { escape('${}'.format(k)): v for k, v in enumerate(variables, 1) }
+
+
+def make_replacements(variables, text):
+    if not variables:
+      return text
+
+    replacement_dict = get_replacement_dict(variables)
+    pattern = compile("|".join(replacement_dict.keys()))
+    return pattern.sub(lambda match: replacement_dict[escape(match.group(0))], text)
 
 
 def main():
@@ -67,9 +83,10 @@ def main():
             return print(psql_command)
         return run([psql_command], shell=True)
 
+    replaced_sql = make_replacements(args.variables, sql)
     command = ('{} -t -c'
                ' "SELECT array_to_json(array_agg(row_to_json(fooo)))'
-               ' FROM ({}) AS fooo"'.format(psql_command, sql))
+               ' FROM ({}) AS fooo"'.format(psql_command, replaced_sql))
 
     if args.getcommand:
         return print('{} | jq {}'.format(command, jq))

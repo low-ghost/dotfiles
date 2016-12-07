@@ -2,4 +2,8 @@
 
 args=("$@")
 command=`./pgx.py --getcommand "$@"`
-eval "$command"
+if [[ "$@" =~ --help|-h ]]; then
+    echo "$command"
+else
+    eval "$command"
+fi
