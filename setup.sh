@@ -9,7 +9,7 @@ while getopts ':i:lr' opt; do
         case $arg in
           # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
+            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
             vim +PlugInstall +qall
             zsh
@@ -25,6 +25,11 @@ while getopts ':i:lr' opt; do
             git clone https://github.com/metalelf0/gnome-terminal-colors ~/repo/gnome-terminal-colors
             cd ~/repo/fonts && ./install.sh
             touch ~/.secrets
+            ;;
+          repos)
+            git clone https://github.com/low-ghost/pgx ~/repo/dotfiles/bin/pgx-temp
+            cp ~/repo/dotfiles/bin/pgx-temp/* ~/repo/dotfiles/bin/
+            rm -rf ~/repo/dotfiles/bin/pgx-temp
             ;;
           omz)
             echo 'oh-my-zsh'
