@@ -1,6 +1,18 @@
 " vim: foldmarker={,} foldmethod=marker spell:
 " Plugin specific settings
 
+let g:Completion_YouCompleteMe = 1
+let g:Make_neomake = 1
+let g:fzf_command_prefix = 'Fzf'
+let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+let g:airline#extensions#tmuxline#enabled = 0
+"let g:tmuxline_preset = 'nightly_line'
+"let g:promptline_preset = {
+  "\ 'a' : [ '$vim_mode' ],
+  "\ 'b' : [ promptline#slices#cwd() ],
+  "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
+  "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
+
 " OmniComplete {
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -96,8 +108,8 @@ if exists('g:Completion_YouCompleteMe')
   let g:ycm_semantic_triggers['typescript'] = ['.']
 
 endif
-let g:UltiSnipsSnippetsDir="~/repo/dotfiles/UltiSnips"
-set runtimepath+=~/repo/dotfiles
+let g:UltiSnipsSnippetsDir="~/repo/dotfiles/vim/UltiSnips"
+set runtimepath+=~/repo/dotfiles/vim
 " }
 
 " UndoTree {

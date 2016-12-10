@@ -182,3 +182,6 @@ nnoremap gp `[v`]
 
 " Neovim specific incremental substitute
 set inccommand=split
+" Grep w/ rg
+set grepprg=rg\ --vimgrep\ --no-heading
+set grepformat=%f:%l:%c:%m,%f:%l:%m

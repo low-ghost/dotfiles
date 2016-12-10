@@ -5,83 +5,77 @@ set shell=/bin/zsh
 "TODO: figure out why cursor doesn't show in history edit
 
 call plug#begin('~/.nvim/plugged')
-Plug 'altercation/vim-colors-solarized'
-	"Plug 'amirh/HTML-AutoCloseTag'
+"Not currently used
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'amirh/HTML-AutoCloseTag'
+"Plug 'jiangmiao/auto-pairs'
+"Plug 'flazz/vim-colorschemes'
+"Plug 'rking/ag.vim'
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'edkolev/promptline.vim'
+
+"All other vim settings
+Plug '~/repo/dotfiles/vim'
+
+"All plugins
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'benekastah/neomake'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
-Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'honza/vim-snippets'
-Plug 'rking/ag.vim'
-	"Plug 'jiangmiao/auto-pairs'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'kana/vim-textobj-indent'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'kana/vim-textobj-user'
+  "i
+  Plug 'kana/vim-textobj-indent'
+  "l
+  Plug 'kana/vim-textobj-line'
+  "e
+  Plug 'kana/vim-textobj-entire'
+Plug 'klen/python-mode'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Lokaltog/vim-easymotion'
+Plug 'low-ghost/vim-macro-manager'
+Plug 'low-ghost/vimax'
+Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
 Plug 'matchit.zip'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
+Plug 'morhetz/gruvbox'
+Plug 'mxw/vim-jsx'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-over'
 Plug 'pangloss/vim-javascript'
 Plug 'powerline/fonts'
+Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'SirVer/ultisnips'
 Plug 'spf13/vim-colors'
 Plug 'spf13/vim-preview'
+Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'wellle/targets.vim'
-Plug 'mxw/vim-jsx'
-Plug 'low-ghost/vimax'
-Plug 'low-ghost/vim-macro-manager'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf.vim'
-Plug 'tomtom/tlib_vim'
-Plug 'klen/python-mode'
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'edkolev/promptline.vim'
 call plug#end()
-"let g:tmuxline_preset = 'nightly_line'
-let g:Completion_YouCompleteMe = 1
-let g:Make_neomake = 1
-let g:fzf_command_prefix = 'Fzf'
-let g:VimaxHistoryFile = $HOME.'/.zsh_history'
-let g:airline#extensions#tmuxline#enabled = 0
-let g:ag_working_path_mode="r"
-set grepprg=rg\ --vimgrep\ --no-heading
-set grepformat=%f:%l:%c:%m,%f:%l:%m
-"let g:promptline_preset = {
-  "\ 'a' : [ '$vim_mode' ],
-  "\ 'b' : [ promptline#slices#cwd() ],
-  "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
-  "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
 
-source ~/.config/vim/general.vim
-source ~/.config/vim/plugins.vim
-source ~/.config/vim/functions.vim
 let mapleader = ","
-
 nnoremap <C-t>l :tabnext<cr>
 nnoremap <C-t>h :tabprevious<cr>
 nnoremap <C-t>n :tabnew<cr>
@@ -112,6 +106,13 @@ nnoremap H ^
 vnoremap H ^
 nnoremap L $
 vnoremap L $
+
+nnoremap ; :
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
+nnoremap ,, ,
+vnoremap ,, ,
 
 "Spacemacs style keys {
 
@@ -220,13 +221,14 @@ map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space><CR> :w<CR>
 nnoremap <silent> <Space>f/ :FzfGitFiles<CR>
 nnoremap <silent> <Space>f? :FzfFiles<CR>
-nnoremap <silent> <Space>fea :e ~/.aliases<CR>
-nnoremap <silent> <Space>fef :e ~/repo/dotfiles/functions.vim<CR>
-nnoremap <silent> <Space>feg :e ~/repo/dotfiles/general.vim<CR>
-nnoremap <silent> <Space>fep :e ~/repo/dotfiles/plugins.vim<CR>
-nnoremap <silent> <Space>fet :e ~/.tmux.conf<CR>
-nnoremap <silent> <Space>fev :e $MYVIMRC<CR>
-nnoremap <silent> <Space>fez :e ~/.zshrc<CR>
+nnoremap <silent> <Space>fea :e ~/repo/dotfiles/.aliases<CR>
+nnoremap <silent> <Space>fef :e ~/repo/dotfiles/vim/plugin/functions.vim<CR>
+nnoremap <silent> <Space>feg :e ~/repo/dotfiles/vim/plugin/general.vim<CR>
+nnoremap <silent> <Space>fep :e ~/repo/dotfiles/vim/plugin/plugins.vim<CR>
+nnoremap <silent> <Space>fet :e ~/repo/dotfiles/.tmux.conf<CR>
+nnoremap <silent> <Space>fev :e ~/repo/dotfiles/vim/init.vim<CR>
+nnoremap <silent> <Space>fez :e ~/repo/dotfiles/.zshrc<CR>
+nnoremap <silent> <Space>fft :call EditFtPlugin()<CR>
 nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
@@ -331,29 +333,29 @@ nnoremap <silent> <Space>sfa' :%s/\(<C-r>"\)//g<Left><Left><C-f>i
 " }
 
 " Search {
-map <space>// <Plug>(easymotion-s)
-map <space>/2 <Plug>(easymotion-s2)
-map <space>/B <Plug>(easymotion-B)
-map <space>/E <Plug>(easymotion-E)
-map <space>/F <Plug>(easymotion-F)
-map <space>/T <Plug>(easymotion-T)
-map <space>/W <Plug>(easymotion-W)
-map <space>/b <Plug>(easymotion-b)
-map <space>/e <Plug>(easymotion-e)
-map <space>/f <Plug>(easymotion-f)
-map <space>/gE <Plug>(easymotion-gE)
-map <space>/ge <Plug>(easymotion-ge)
-map <space>/j <Plug>(easymotion-j)
-map <space>/k <Plug>(easymotion-k)
-map <space>/n <Plug>(easymotion-sn)
-map <space>/t <Plug>(easymotion-t)
-map <space>/w <Plug>(easymotion-w)
-map <space>/<space> <Plug>(easymotion-overwin-f)
+map <Space>// <Plug>(easymotion-s)
+map <Space>/2 <Plug>(easymotion-s2)
+map <Space>/B <Plug>(easymotion-B)
+map <Space>/E <Plug>(easymotion-E)
+map <Space>/F <Plug>(easymotion-F)
+map <Space>/T <Plug>(easymotion-T)
+map <Space>/W <Plug>(easymotion-W)
+map <Space>/b <Plug>(easymotion-b)
+map <Space>/e <Plug>(easymotion-e)
+map <Space>/f <Plug>(easymotion-f)
+map <Space>/gE <Plug>(easymotion-gE)
+map <Space>/ge <Plug>(easymotion-ge)
+map <Space>/j <Plug>(easymotion-j)
+map <Space>/k <Plug>(easymotion-k)
+map <Space>/n <Plug>(easymotion-sn)
+map <Space>/t <Plug>(easymotion-t)
+map <Space>/w <Plug>(easymotion-w)
+map <Space>/<space> <Plug>(easymotion-overwin-f)
 omap z <Plug>(easymotion-t)
 omap Z <Plug>(easymotion-T)
 omap x <Plug>(easymotion-f)
 omap X <Plug>(easymotion-F)
-omap <space>/ <Plug>(easymotion-prefix)
+omap <Space> <Plug>(easymotion-prefix)
 " List matching words and go to one. TODO: fzf-ize. Looks like:
 " function ListInstances()
   " redir => lines
@@ -478,24 +480,9 @@ nnoremap <silent> <Space>yr :YcmCompleter GoToReferences<CR>
 " Mappings helper {
 nnoremap <silent> <Space><Space>/ :FzfMaps<CR>
 nnoremap <silent> <Space><Space><Space> :FzfMaps<CR>'space>
-nnoremap <silent> <Space><Space><leader> :FzfMaps<CR>^<leader>
-nnoremap <silent> <Space><Space>l :FzfMaps<CR>^<leader>
 " }
 
 vnoremap <Space>r c<C-O>:set ri<CR><C-R>"<Esc>:set nori<CR>
-
-"TODO text-object-user
-"targets delete word
-nnoremap dilw 2bdiw
-nnoremap dalw 2bdaw
-nnoremap daLw _daw
-nnoremap diLw _diw
-nnoremap dinw wdiw
-nnoremap danw wdaw
-nnoremap daNw $bdaw
-nnoremap diNw $bdiw
-
-" }
 
 " autoclose for multiline only {
 inoremap [<CR> [<CR>]<Esc>ko
@@ -510,5 +497,3 @@ inoremap ({; ({<CR>});<Esc>ko
 inoremap ([<CR> ([<CR>])<Esc>ko
 inoremap ([; ([<CR>]);<Esc>ko
 "}
-
-let &runtimepath.=','.string('~/repo/dotfiles/')

@@ -84,29 +84,6 @@ function! StripTrailingWhitespace()
 endfunction
 " }
 
-" Shell command {
-function! s:RunShellCommand(cmdline)
-  botright new
-
-  setlocal buftype=nofile
-  setlocal bufhidden=delete
-  setlocal nobuflisted
-  setlocal noswapfile
-  setlocal nowrap
-  setlocal filetype=shell
-  setlocal syntax=shell
-
-  call setline(1, a:cmdline)
-  call setline(2, substitute(a:cmdline, '.', '=', 'g'))
-  execute 'silent $read !' . escape(a:cmdline, '%#')
-  setlocal nomodifiable
-  1
-endfunction
-command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-
-" e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
-" }
-
 "TODO visual block
 " Insert functions {
 function! AppendLine(go)
@@ -262,61 +239,6 @@ function! BufOnly(buffer, bang)
 endfunction
 " }
 
-" Toggle {
-" Background {
-function! ToggleBG()
-  let s:tbg = &background
-  if s:tbg == "dark"
-    set background=light
-  else
-    set background=dark
-  endif
-endfunction
-" }
-
-" Syntax {
-let s:syntax_toggle = "on"
-function! ToggleSyntax()
-  if s:syntax_toggle == "on"
-    let s:syntax_toggle = "off"
-    syntax off
-  else
-    let s:syntax_toggle = "on"
-    syntax on
-  endif
-endfunction
-
-"TODO redir => hi_cursor_line
-"hi CursorLine
-"redir END
-"grep to get values and execute in else
-let s:position_toggle = "off"
-function! TogglePosition()
-  if s:position_toggle == "off"
-    let s:position_toggle = "on"
-    set cursorcolumn
-    hi CursorLine cterm=reverse ctermbg=241 gui=reverse guibg=#665c54
-  else
-    let s:position_toggle = "off"
-    set cursorcolumn!
-    hi CursorLine cterm=NONE ctermbg=237 gui=NONE guibg=#3c3836
-  endif
-endfunction
-
-let s:end_column_toggle = "on"
-set colorcolumn=100 
-function! ToggleEndColumn()
-  if s:end_column_toggle == "off"
-    let s:end_column_toggle = input('end col. num> ', 100)
-    exe 'set colorcolumn='.s:end_column_toggle
-  else
-    let s:end_column_toggle = "off"
-    set colorcolumn=
-  endif
-endfunction
-" }
-" }
-
 " Miscellaneous {
 function! IncrementVisualNumbers()
   "increment all visually selected nums in order (only in col)
@@ -341,92 +263,6 @@ function! CountCommand(command, ...)
 endfunction
 "}
 
-" Additional Motions {
-if !exists('g:additional_motions')
-
- "pasted/yanked
-  call textobj#user#plugin('pasted', {
-        \      '-': {
-        \        '*sfile*': expand('<sfile>:p'),
-        \        'select-a': 'agp', '*select-a-function*': 's:pasted_select_a',
-        \        'select-i': 'igp', '*select-i-function*': 's:pasted_select_i',
-        \   },
-        \ })
-
-  function! s:pasted_select_i()
-    normal `]
-    let end_pos = getpos('.')
-    normal `[
-    let start_pos = getpos('.')
-    return ['v', end_pos, start_pos]
-  endfunction
-
-  function! s:pasted_select_a()
-    normal ']$
-    let end_pos = getpos('.')
-    normal '[0
-    let start_pos = getpos('.')
-    return ['v', end_pos, start_pos]
-  endfunction
-
-  "selected
-  call textobj#user#plugin('selected', {
-        \      '-': {
-        \        '*sfile*': expand('<sfile>:p'),
-        \        'select-a': 'agp', '*select-a-function*': 's:selected_select_a',
-        \        'select-i': 'igp', '*select-i-function*': 's:selected_select_i',
-        \   },
-        \ })
-
-  function! s:selected_select_i()
-    normal `>
-    let end_pos = getpos('.')
-    normal `<
-    let start_pos = getpos('.')
-    return ['v', end_pos, start_pos]
-  endfunction
-
-  function! s:selected_select_a()
-    normal '>$
-    let end_pos = getpos('.')
-    normal '<0
-    let start_pos = getpos('.')
-    return ['v', end_pos, start_pos]
-  endfunction
-
-  "line
-  call textobj#user#plugin('line', {
-        \      '-': {
-        \        '*sfile*': expand('<sfile>:p'),
-        \         'select-a': 'al', '*select-a-function*': 's:line_select_a',
-        \         'select-i': 'il', '*select-i-function*': 's:line_select_i',
-        \  },
-        \ })
-
-  function! s:line_select_a()
-    normal! 0
-    let head_pos = getpos('.')
-    normal! $
-    let tail_pos = getpos('.')
-    return ['v', head_pos, tail_pos]
-  endfunction
-
-  function! s:line_select_i()
-    normal! ^
-    let head_pos = getpos('.')
-    normal! g_
-    let tail_pos = getpos('.')
-    let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
-    return
-          \ non_blank_char_exists_p
-          \ ? ['v', head_pos, tail_pos]
-          \ : 0
-  endfunction
-
-  let g:additional_motions = 1
-endif
-" }
-
 " Extra Coercion {
 
 function! SelectionToCamel()
@@ -437,54 +273,7 @@ endfunction
 
 "}
 
-" Shell Helper {
-
-function! s:ExecuteInShell(command)
-  silent! execute 'sp ' . fnameescape(a:command)
-  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-  echo 'Execute ' . a:command . '...'
-  silent! execute 'silent %!'. a:command
-  silent! set ft=zsh
-  silent! resize 10
-  silent! redraw
-  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <space>r :call <SID>ExecuteInShell(''' . a:command . ''')<CR>'
-  echo 'Shell command ' . a:command . ' executed.'
+function! EditFtPlugin()
+  let to_edit = &ft
+  exe 'e ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
 endfunction
-
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-command! -complete=shellcmd -nargs=+ Sh call s:ExecuteInShell(<q-args>)
-
-function! s:IExecuteInShell(command)
-  let name = a:command ? fnameescape(a:command) : 'new_terminal'
-  silent! execute 'sp ' . name
-  silent! set ft=zsh
-  silent! resize 10
-  let g:last_terminal = termopen('zsh')
-  if a:command
-    silent! call jobsend(g:last_terminal, a:command . "\r")
-  endif
-  startinsert!
-endfunction
-
-command! -complete=shellcmd -nargs=* IShell call s:IExecuteInShell(<q-args>)
-command! -complete=shellcmd -nargs=* ISh call s:IExecuteInShell(<q-args>)
-
-"}
-
-" Zoom / Restore window. {
-function! s:ZoomToggle() abort
-  if exists('t:zoomed') && t:zoomed
-    execute t:zoom_winrestcmd
-    let t:zoomed = 0
-  else
-    let t:zoom_winrestcmd = winrestcmd()
-    resize
-    vertical resize
-    let t:zoomed = 1
-  endif
-endfunction
-
-command! ZoomToggle call s:ZoomToggle()
-
-"}

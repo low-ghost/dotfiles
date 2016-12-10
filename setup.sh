@@ -11,7 +11,13 @@ while getopts ':i:lr' opt; do
           all)
             sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
-            vim +PlugInstall +qall
+            sudo vim +PlugInstall +qall
+            zsh
+            ;;
+          most)
+            sh ~/repo/dotfiles/setup.sh -i em,chrome,spotify,omz
+            sh ~/repo/dotfiles/setup.sh -l
+            sudo vim +PlugInstall +qall
             zsh
             ;;
           basic)
@@ -91,9 +97,9 @@ while getopts ':i:lr' opt; do
             ;;
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash
-            source ~/.zshrc
-            nvm install 6
-            nvm alias latest 6
+	    source ~/.nvm/nvm.sh
+            nvm install 7
+            nvm alias latest 7 
             ;;
           js-repl)
             git clone https://github.com/low-ghost/js-repl ~/repo/js-repl
@@ -161,10 +167,7 @@ while getopts ':i:lr' opt; do
       echo 'linking...'
       cd ~/repo/dotfiles
       #nvim
-      ln -f init.vim ~/.config/nvim/init.vim
-      ln -f general.vim ~/.config/vim/general.vim
-      ln -f plugins.vim ~/.config/vim/plugins.vim
-      ln -f functions.vim ~/.config/vim/functions.vim
+      ln -f vim/init.vim ~/.config/nvim/init.vim
       #firefox
       ln -f .vimperatorrc ~/.vimperatorrc
       #zsh and aliases
@@ -189,7 +192,6 @@ while getopts ':i:lr' opt; do
     r)
       echo 'removing links...'
       rm ~/.config/nvim/init.vim
-      rm ~/.config/vim/*.vim
       rm ~/.vimperatorrc
       rm ~/.zshrc
       rm ~/.aliases
