@@ -27,29 +27,37 @@ describe('${1}', () => {
 
 });
 endsnippet
+
 snippet par "jsdoc param"
 @param {$1} $2
 endsnippet
+
 snippet sinst "sinon.stub"
 sinon.stub($0)
 endsnippet
+
 snippet sinprop "stub prop"
 ${1}: sinon.stub(${2}, '$1')
   .returns('$1'),
 $0
 endsnippet
+
 snippet sinsand "sinon.sandbox" b
 sandbox = sinon.sandbox.create();
 endsnippet
+
 snippet sinsani "instantiate sandbox" b
 let sandbox: Sinon.SinonSandbox;
 endsnippet
+
 snippet sinaft "after sandbox" b
 afterEach(() => sandbox.restore());
 endsnippet
+
 snippet ex "expect" b
 expect(${1}).to.$0
 endsnippet
+
 snippet sinontest "full sandbox test" b
 let sandbox: Sinon.SinonSandbox;
 let stub: any;
@@ -65,6 +73,7 @@ beforeEach(() => {
 
 afterEach(() => sandbox.restore());
 endsnippet
+
 snippet curriedstub "curried stub sandboxed" b
 ${1}: curriedStub(
   ${2:2},
@@ -72,4 +81,10 @@ ${1}: curriedStub(
   '$1'
 ),
 $0
+endsnippet
+
+snippet expectstub "expect stub" b
+expect(stubs.$1)
+  .to.have.callCount(${2:1})
+  .and.calledWith($3);
 endsnippet
