@@ -22,6 +22,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'do': 'npm install -g tern' }
+Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'benekastah/neomake'
 Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
@@ -73,6 +77,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'wellle/targets.vim'
+Plug 'steelsojka/deoplete-flow'
 call plug#end()
 
 let mapleader = ","

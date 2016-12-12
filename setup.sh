@@ -11,13 +11,7 @@ while getopts ':i:lr' opt; do
           all)
             sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
-            sudo vim +PlugInstall +qall
-            zsh
-            ;;
-          most)
-            sh ~/repo/dotfiles/setup.sh -i em,chrome,spotify,omz
-            sh ~/repo/dotfiles/setup.sh -l
-            sudo vim +PlugInstall +qall
+            vim +PlugInstall +qall
             zsh
             ;;
           basic)
@@ -78,7 +72,6 @@ while getopts ':i:lr' opt; do
           neovim)
             echo 'neovim'
             mkdir -p ~/.config/nvim
-            mkdir -p ~/.config/vim
             sudo add-apt-repository ppa:neovim-ppa/unstable
             sudo apt-get update
             sudo apt-get install -y neovim python-dev python-pip python3-dev python3-pip
@@ -97,7 +90,7 @@ while getopts ':i:lr' opt; do
             ;;
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash
-	    source ~/.nvm/nvm.sh
+            source ~/.nvm/nvm.sh
             nvm install 7
             nvm alias latest 7 
             ;;
@@ -107,8 +100,9 @@ while getopts ':i:lr' opt; do
             npm install
             ;;
           npm)
-            echo 'installing lodash, typescript...'
-            npm install -g lodash typescript
+            echo 'installing lodash, typescript, eslint...'
+            npm install -g lodash typescript eslint tern eslint-plugin-import eslint-plugin-react \
+              babel-eslint flow-bin flow-typed flow-vim-quickfix
             ;;
           rvm)
             gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -166,6 +160,10 @@ while getopts ':i:lr' opt; do
     l)
       echo 'linking...'
       cd ~/repo/dotfiles
+      #this script
+      ln -f setup.sh /usr/bin/dots
+      #eslintrc
+      ln -f .eslintrc.js ~/.eslintrc.js
       #nvim
       ln -f vim/init.vim ~/.config/nvim/init.vim
       #firefox
@@ -192,6 +190,8 @@ while getopts ':i:lr' opt; do
     r)
       echo 'removing links...'
       rm ~/.config/nvim/init.vim
+      rm /usr/bin/dots
+      rm ~/.eslintrc.js
       rm ~/.vimperatorrc
       rm ~/.zshrc
       rm ~/.aliases

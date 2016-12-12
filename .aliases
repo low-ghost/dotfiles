@@ -4,10 +4,11 @@
 # $2: function - function itself, expecting one arg
 # $3: any - initial parameter
 fzf_ize() {
-  completion_func=$1
-  func=$2
-  initial_param=$3
+  local completion_func=$1
+  local func=$2
+  local initial_param=$3
   local _eval_fzf() {
+    local result
     if [[ -z "$1" ]]; then
       result=`$completion_func | fzf -1`
       if [[ "$?" == 130 ]]; then

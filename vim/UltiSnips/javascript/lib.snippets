@@ -1,0 +1,61 @@
+snippet lib-ass "immutable assign" b
+/**
+ * Immutably assign to an object
+ *
+ * @param {Object.T} toAssign - new key values
+ * @param {Object.T} obj - original object
+ * @returns {Object.T} - the merged object
+ */
+const immutableAssign = /*:: <T: Object, T2: Object>*/(
+  toAssign/*: T2*/,
+  obj/*: T*/
+)/*: T & T2*/ => Object.assign({}, obj, toAssign);
+endsnippet
+
+snippet lib-set "immutable set" b
+/**
+ * Immutably set a value on an object via a key
+ *
+ * @param {string} key - key on object to update
+ * @param {any} value - what the value should be after update
+ * @param {Object.T} obj - original object
+ * @returns {Object.T} - the newly updated object
+ */
+const immutableSet = /*:: <T: Object, K: $Keys<T>>*/(
+  key/*: K*/,
+  // presumably, value will be typed $PropertyType<T, K>, when this is supported
+  value/*: any*/,
+  obj/*: T*/
+)/*: T*/ => Object.assign({}, obj, { [key]: value });
+endsnippet
+
+snippet lib-obj-red "Reduce an object" b
+/**
+ * Reduces an object while passing the value to the reducer as a second arg
+ *
+ * @param {Function} reducer - consumer provided reducer function with arrity of 3
+ * @param {any} seed - initial state of reducer
+ * @param {Object} obj - original object
+ * @returns {any} - the accumulation
+ */
+const reduceObj = /*:: <T: Object, R, K: $Keys<T>>*/(
+  reducer/*: (a: R, v: any, k: K) => R*/,
+  seed/*: R*/,
+  obj/*: T*/
+)/*: R*/ => {
+
+  return Object.keys(obj)
+    .reduce((acc, key/*:K */)/*: R*/ => reducer(acc, obj[key], key), seed);
+
+};
+endsnippet
+
+snippet lib-sum "sum an iterable of numbers" b
+/**
+ * Sum an array or iterable of numbers
+ *
+ * @param {Iterable.<Number>} arr - iterable of numbers
+ * @returns {number} - summed amount
+ */
+const sum = (arr/*: number[]*/) => arr.reduce((acc, num) => acc + num, 0);
+endsnippet

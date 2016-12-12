@@ -1,0 +1,30 @@
+#JSX {{{
+snippet jx "<element>" b
+<${1:div}>$2</$1>
+endsnippet
+
+snippet d "<div>" b
+<div$1>$2</div>
+endsnippet
+
+snippet h "<h>" b
+<h${1:1}>$2</h$1>
+endsnippet
+
+snippet p "<p>" b
+<p>$2</p>
+endsnippet
+#}}}
+
+snippet import-react "import React"
+import React${1: { Component${2:, PropTypes} }} from 'react';
+endsnippet
+
+snippet sst "set state"
+// eslint-disable-next-line react/no-set-state
+this.setState({$1});
+endsnippet
+
+snippet life "react lifecycle"
+`!p vim.command('FZF')`
+endsnippet

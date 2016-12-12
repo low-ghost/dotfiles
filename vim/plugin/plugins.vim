@@ -12,7 +12,6 @@ let g:airline#extensions#tmuxline#enabled = 0
   "\ 'b' : [ promptline#slices#cwd() ],
   "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
   "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
-
 " OmniComplete {
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -84,7 +83,7 @@ if exists('g:Completion_YouCompleteMe')
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -112,6 +111,17 @@ let g:UltiSnipsSnippetsDir="~/repo/dotfiles/vim/UltiSnips"
 set runtimepath+=~/repo/dotfiles/vim
 " }
 
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+let g:deoplete#sources = {}
+let g:deoplete#sources#flow#flow_bin = 'flow' 
+let g:deoplete#sources['javascript.jsx'] = ['flow', 'tern', 'file', 'ultisnips']
+let g:deoplete#sources['javascript'] = ['flow', 'tern', 'file', 'ultisnips']
+
+
 " UndoTree {
 let g:undotree_SetFocusWhenToggle=1
 " }
@@ -135,7 +145,6 @@ let g:airline#extensions#tabline#tab_min_count = 2
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-autocmd FileType javascript autocmd BufWritePre <buffer> let b:neomake_javascript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
 let g:neomake_typescript_tsc_maker = {
   \ 'args': [
@@ -163,19 +172,6 @@ let g:neomake_typescript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
   \ }
 let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
-let g:neomake_javascript_eslint_maker = {
-  \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
-  \ 'args': ['-f', 'compact'],
-  \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-    \ '%W%f: line %l\, col %c\, Warning - %m'
-  \ }
-let g:neomake_javascript_eslintf_maker = {
-  \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
-  \ 'args': ['-f', 'compact', '--fix'],
-  \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-    \ '%W%f: line %l\, col %c\, Warning - %m',
-  \ }
-let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_warning_sign = {
   \ 'text': '>',
   \ 'texthl': 'WarningMsg',
@@ -215,7 +211,7 @@ function! NeoAg(search, ...)
   let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
   call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
 endfunction
-command! -nargs=* Ago call NeoAg(<q-args>)
+command! -nargs=* Ag call NeoAg(<q-args>)
 command! -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!
 command! -nargs=+ -complete=file -bar Gr silent! grep! <args>|cwindow|redraw!
 
@@ -223,6 +219,33 @@ function! Esfix()
   exe 'Neomake eslintf'
 endfunction
 command! Esfix call Esfix()
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+let g:neomake_javascript_enabled_makers = []
+
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+
+if findfile('.flowconfig', '.;') !=# ''
+  let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+  if g:flow_path != 'flow not found'
+    let g:neomake_javascript_flow_maker = {
+          \ 'exe': 'sh',
+          \ 'args': ['-c', g:flow_path.' --json 2> /dev/null | flow-vim-quickfix'],
+          \ 'errorformat': '%E%f:%l:%c\,%n: %m',
+          \ 'cwd': '%:p:h' 
+          \ }
+    let g:neomake_javascript_enabled_makers = g:neomake_javascript_enabled_makers + [ 'flow']
+  endif
+endif
+
+" This is kinda useful to prevent Neomake from unnecessary runs
+if !empty(g:neomake_javascript_enabled_makers)
+  autocmd! BufWritePost * Neomake
+endif
+
 " }
 
 

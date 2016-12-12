@@ -1,0 +1,126 @@
+global !p
+
+def wrap_to_eol(snip, pre, trigger_len):
+		line_text = snip.buffer[snip.line]
+		_, pos = snip.cursor
+
+		line_to_pos = ('' if pos == trigger_len
+			else line_text[0:pos - trigger_len])
+		to_wrap = line_text[pos:]
+
+		snip.buffer[snip.line] = line_to_pos + pre + to_wrap;
+
+		new_pos = len(line_to_pos) + len(pre) + len(to_wrap)
+		snip.cursor.set(snip.line, new_pos)
+
+endglobal
+
+snippet func "arrow func"
+const $1 = ($2) => $0 
+endsnippet
+
+snippet funcm "multiline arrow func"
+const $1 = ($2) => {
+
+	return $3;
+
+};
+endsnippet
+
+snippet "(\.)?red" "Reduce an iterable" r
+.reduce(
+	(acc, ${1:nextValue}) => {
+		
+    $0
+
+		return acc;
+		
+	},
+	${2:seed}
+);
+endsnippet
+
+snippet "(\.)?redo" "Reduce an iterable (one line)" r
+.reduce((acc, ${1:nextValue}) => $3, ${2:seed});$0
+endsnippet
+
+snippet "(\.)?map" "Map an iterable" r
+.map((${1:nextValue}) => {
+
+	return $1;
+
+});
+endsnippet
+
+snippet "(\.)?mapo" "Map an iterable (one line)" r
+.map((${1:nextValue}) => $2);
+endsnippet
+
+snippet obj-red "Reduce an object"
+Object.keys(${1:obj}).reduce(
+	(acc, ${2:nextKey}) => {
+		
+		const ${3:value} = $1[$2];
+    $0
+
+		return acc;
+		
+	},
+	${2:seed}
+);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'Object.keys(', 2)"
+snippet ok "Object.keys()"
+$1);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'Object.values(', 2)"
+snippet ov "Object.values()"
+$1);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'Object.assign({}, ', 2)"
+snippet oa "Object.assign({}, obj, x)"
+$1, $2);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'Object.assign({}, ', 2)"
+snippet os "Object.assign({}, obj, { [key]: value })"
+$1, { [${2:key}]: ${3:value} });
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'console.log(', 2)"
+snippet cl "console.log()"
+$1);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'console.warn(', 2)"
+snippet cw "console.warn()"
+$1);
+endsnippet
+
+pre_expand "wrap_to_eol(snip, 'console.error(', 2)"
+snippet ce "console.error()"
+$1);
+endsnippet
+
+snippet /**
+/**
+ * ${1:description}
+ * $0
+ * @returns {${2:any}} - ${3:TODO: describe return}
+ */
+endsnippet
+
+snippet "(\*(\s)?)p" "param" r
+* @param {${1:any}} $2 - ${3:TODO: describe param}
+endsnippet
+
+snippet "(\*(\s)?)r" "returns" r
+* @returns {${1:any}} - ${2:TODO: describe return}
+endsnippet
+
+snippet /edn "eslint-disable-next-line"
+// eslint-disable-next-line${1: rule}
+endsnippet
