@@ -6,6 +6,7 @@ let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 let g:airline#extensions#tmuxline#enabled = 0
+let g:jsx_ext_required = 0
 "let g:tmuxline_preset = 'nightly_line'
 "let g:promptline_preset = {
   "\ 'a' : [ '$vim_mode' ],
@@ -111,6 +112,7 @@ let g:UltiSnipsSnippetsDir="~/repo/dotfiles/vim/UltiSnips"
 set runtimepath+=~/repo/dotfiles/vim
 " }
 
+let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',

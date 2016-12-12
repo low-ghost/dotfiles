@@ -78,7 +78,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'wellle/targets.vim'
 Plug 'steelsojka/deoplete-flow'
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'othree/javascript-libraries-syntax.vim'
 call plug#end()
+let g:used_javascript_libs='react,underscore,chai'
 
 let mapleader = ","
 nnoremap <C-t>l :tabnext<cr>

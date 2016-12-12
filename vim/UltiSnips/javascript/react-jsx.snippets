@@ -1,4 +1,7 @@
-#JSX {{{
+#######
+# JSX #
+#######
+
 snippet jx "<element>" b
 <${1:div}>$2</$1>
 endsnippet
@@ -14,7 +17,14 @@ endsnippet
 snippet p "<p>" b
 <p>$2</p>
 endsnippet
-#}}}
+
+snippet on "on method in jsx"
+on${1:Change}={${2:this.}handle$1}
+endsnippet
+
+###########
+# General #
+###########
 
 snippet import-react "import React"
 import React${1: { Component${2:, PropTypes} }} from 'react';
@@ -25,6 +35,93 @@ snippet sst "set state"
 this.setState({$1});
 endsnippet
 
-snippet life "react lifecycle"
-`!p vim.command('FZF')`
+snippet han "handle methods"
+handle${1:Change}(e:/* SyntheticEvent*/) {
+
+  $0
+
+}
+endsnippet
+
+#############
+# LIFECYCLE #
+#############
+
+snippet constructor "constructor(props, context) | called before render, initialize state"
+constructor(props${1:, context$}) {
+
+  super(props);
+  $0
+
+}
+endsnippet
+
+snippet componentWillMount "componentWillMount() | only lifecycle called on server, state will not trigger"
+componentWillMount() {
+
+  $0
+
+}
+endsnippet
+
+snippet componentDidMount "componentDidMount(component) | dom node init, network, state will trigger"
+componentDidMount(${1:component}) {
+
+  $0
+
+}
+endsnippet
+
+snippet componentWillReceiveProps "componentWillReceiveProps(nextProps, nextContext) | setState based on prop changes"
+componentWillReceiveProps(nextProps${1:, nextContext}) {
+
+  $0
+
+}
+endsnippet
+
+snippet shouldComponentUpdate "shouldComponentUpdate(nextProps, nextState, nextContext) | force component to not update"
+shouldComponentUpdate(nextProps${1:, nextState${2:, nextContext}}) {
+
+  return ${3:false};
+
+}
+endsnippet
+
+snippet componentWillUpdate "componentWillUpdate(nextProps, nextState, nextContext) | before render when new props or state. Pre-update prep. Not state on props"
+componentWillUpdate(nextProps${1:, nextState${2:, nextContext}}) {
+
+  $0
+
+}
+endsnippet
+
+snippet render "render() | required and returns ReactElement or null"
+render() {
+  ${1:
+  const { $2 } = this.props;
+  }
+  return ${3:(
+    <div>${4:
+      <$5 />
+    }</div>
+  )};
+
+}
+endsnippet
+
+snippet componentDidUpdate "componentDidUpdate(prevProps, prevState, nextContext) | post update dom etc."
+componentWillUpdate(prevProps${1:, prevState${2:, nextContext}}) {
+
+  $0
+
+}
+endsnippet
+
+snippet componentWillUnmount "componentWillUnmount() | clean up, request cancel, timers etc."
+componentWillUnmount() {
+
+  $0
+
+}
 endsnippet

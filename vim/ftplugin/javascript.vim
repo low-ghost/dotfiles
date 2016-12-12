@@ -37,31 +37,40 @@ nnoremap <silent> <Space>yi :call FlowInit()<CR>
 
 let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
 
-let g:react_lifecycle_list = [
-  \ 'Mounting   | constructor()                                            | called before render, initialize state',
-  \ 'Mounting   | componentWillMount()                                     | only lifecycle called on server, state will not trigger',
-  \ 'Mounting   | componentDidMount(component)                             | dom node init, network, state will trigger',
-  \ 'Updating   | componentWillReceiveProps(nextProps, nextContext)        | setState based on prop changes',
-  \ 'Updating   | shouldComponentUpdate(nextProps, nextState, nextContext) | force component to not update',
-  \ 'Updating   | componentWillUpdate(nextProps, nextState, nextContext)   | before render when new props or state. Pre-update prep. Not state on props',
-  \ 'Updating   | render()                                                 | required and returns ReactElement or null',
-  \ 'Updating   | componentDidUpdate(prevProps, prevState, nextContext)    | post update dom etc.',
+let g:react_lifecycle_list = {
+  \ 'Mounting   | constructor(props, context)                              | called before render, initialize state'
+  \   : 'constructor',
+  \ 'Mounting   | componentWillMount()                                     | only lifecycle called on server, state will not trigger'
+  \   : 'componentWillMount',
+  \ 'Mounting   | componentDidMount(component)                             | dom node init, network, state will trigger'
+  \   : 'componentDidMount',
+  \ 'Updating   | componentWillReceiveProps(nextProps, nextContext)        | setState based on prop changes'
+  \   : 'componentWillReceiveProps',
+  \ 'Updating   | shouldComponentUpdate(nextProps, nextState, nextContext) | force component to not update'
+  \   : 'shouldComponentUpdate',
+  \ 'Updating   | componentWillUpdate(nextProps, nextState, nextContext)   | before render when new props or state. Pre-update prep. Not state on props'
+  \   : 'componentWillUpdate',
+  \ 'Updating   | render()                                                 | required and returns ReactElement or null'
+  \   : 'render',
+  \ 'Updating   | componentDidUpdate(prevProps, prevState, nextContext)    | post update dom etc.'
+  \   : 'componentDidUpdate',
   \ 'Unmounting | componentWillUnmount()                                   | clean up, request cancel, timers etc.'
-  \ ]
+  \   : 'componentWillUnmount',
+  \ }
 
 function! ReactLifecycleSync(lines)
   let [ item ] = a:lines
-py << EOP
-import re
-item = vim.eval('item')
-vim_input = vim.eval('input(item)')
-EOP
+  let snip = g:react_lifecycle_list[item]
+  call append(line('.'), snip)
+  call feedkeys("jA\<C-r>=UltiSnips#ExpandSnippet()\<CR>")
 endfunction
 
 function! ReactLifecyclePicker()
   return fzf#run(extend({
-    \ 'source': g:react_lifecycle_list,
+    \ 'source': keys(g:react_lifecycle_list),
     \ 'sink*': function('ReactLifecycleSync'),
-    \ 'options': '+m --ansi --prompt="Life> " --header "React Lifecycles"'
+    \ 'options': '--ansi --prompt="Life> " --header "React Lifecycles"'
     \ }, g:VimaxFzfLayout))
 endfunction
+
+command! Life call ReactLifecyclePicker()
