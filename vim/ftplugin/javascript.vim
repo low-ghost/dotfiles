@@ -6,15 +6,13 @@ let g:tern_show_signature_in_pum = 1
 call deoplete#enable()
 
 function! FlowGetType()
-  let pos = fnameescape(expand('%')) . ' ' . line('.') . ' ' .col('.')
-  let cmd = 'flow type-at-pos ' . pos
-  let output = 'FlowType: ' . system(cmd)
-  let output_trimmed = substitute(output, '\n$', '', '')
-  echo output_trimmed
+  py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
 endfunction
+command! FlowGetType call FlowGetType()
 
 function! FlowInit()
-py << EOP
+python << endpython
+import vim
 current = vim.current
 buf = current.buffer;
 first_line = buf[0]
@@ -22,7 +20,7 @@ if first_line == '// @flow' or first_line == '/* @flow */':
   print('already flow typed')
 else:
   buf.append(['// @flow', ''], 0)
-EOP
+endpython
 endfunction
 
 nnoremap <silent> <Space>yt :TernType<CR>

@@ -112,16 +112,19 @@ let g:UltiSnipsSnippetsDir="~/repo/dotfiles/vim/UltiSnips"
 set runtimepath+=~/repo/dotfiles/vim
 " }
 
-let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 'ignorecase'
+let g:deoplete#auto_completion_start_length = 0
+let g:min_pattern_length = 0
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
 \]
 let g:deoplete#sources = {}
-let g:deoplete#sources#flow#flow_bin = 'flow' 
-let g:deoplete#sources['javascript.jsx'] = ['flow', 'tern', 'file', 'ultisnips']
-let g:deoplete#sources['javascript'] = ['flow', 'tern', 'file', 'ultisnips']
+let g:deoplete#sources#flow#flow_bin = 'flow'
+let g:deoplete#sources['javascript.jsx'] = ['file', 'flow', 'tern', 'ultisnips']
+let g:deoplete#sources['javascript'] = ['file', 'flow', 'tern', 'ultisnips']
 
 
 " UndoTree {
@@ -347,3 +350,14 @@ let g:EasyMotion_keys = 'tnseriaodhbkvmplfuwyqsent'
 
 let g:fzf_history_dir = '~/.fzf-history'
 
+
+let g:surround_{char2nr("c")} = "/*\r*/"
+let g:surround_{char2nr("C")} = "/* \r */"
+
+let g:textobj_line_no_default_mappings = 1
+call textobj#user#plugin('line', {
+\      '-': {
+\        'select-a': 'ass', 'select-a-function': 'textobj#line#select_a',
+\        'select-i': 'iss', 'select-i-function': 'textobj#line#select_i',
+\      },
+\    })

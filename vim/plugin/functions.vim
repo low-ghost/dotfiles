@@ -277,3 +277,8 @@ function! EditFtPlugin()
   let to_edit = &ft
   exe 'e ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
 endfunction
+
+function! SourceFtPlugin()
+  let to_edit = &ft
+  exe 'so ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
+endfunction

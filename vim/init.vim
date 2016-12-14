@@ -21,7 +21,6 @@ Plug '~/repo/dotfiles/vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'do': 'npm install -g tern' }
@@ -46,6 +45,8 @@ Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-line'
   "e
   Plug 'kana/vim-textobj-entire'
+  "c
+  Plug 'glts/vim-textobj-comment'
 Plug 'klen/python-mode'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'low-ghost/vim-macro-manager'
@@ -237,6 +238,7 @@ nnoremap <silent> <Space>fet :e ~/repo/dotfiles/.tmux.conf<CR>
 nnoremap <silent> <Space>fev :e ~/repo/dotfiles/vim/init.vim<CR>
 nnoremap <silent> <Space>fez :e ~/repo/dotfiles/.zshrc<CR>
 nnoremap <silent> <Space>fft :call EditFtPlugin()<CR>
+nnoremap <silent> <Space>flft :call SourceFtPlugin()<CR>
 nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
