@@ -57,8 +57,23 @@ def main():
                                     + current.buffer[line_num_for_match + 1:])
             sub_command = get_flow_command(flow_bin, line_num_for_match + 1)
             sub_command_results = execute_with_input(sub_command, reduced_buf)
-            if 'React$Element' in sub_command_results['type']:
-                print('type: {}'.format(sub_command_results['type']))
+            sub_command_type = sub_command_results['type']
+            sub_is_react_element = 'React$Element' in sub_command_type
+            if sub_is_react_element:
+                print('element type: {}'.format(sub_command_type))
+
+            current_word = vim.eval("expand('<cword>')")
+            type_to_search_for_prop = (sub_command_type if sub_is_react_element
+                                       else parent_type)
+            # TODO `test?: number` and objects. Really, this will never be
+            # exhaustive. Look into flow internals?
+            prop_match = re.search(r'{}: (\w+|\(.*\s=>\s\w+)'
+                                   .format(current_word),
+                                   type_to_search_for_prop)
+            # json_able = re.search(r"([a-zA-Z0-9]+)?: [{.*}|(.*]",
+            if prop_match is not None:
+                print('prop: {}\nprop type: {}'
+                      .format(current_word, prop_match.group(1)))
         else:
             print(results['type'])
     else:
