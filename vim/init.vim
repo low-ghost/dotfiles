@@ -81,6 +81,7 @@ Plug 'wellle/targets.vim'
 Plug 'steelsojka/deoplete-flow'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'simnalamburt/vim-mundo'
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
 
@@ -243,14 +244,11 @@ nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
 nnoremap <silent> <Space>fr :FzfHistory<CR>
-nnoremap <silent> <Space>fs :wa<CR>
 nnoremap <silent> <Space>fw :silent w !sudo tee % > /dev/null<CR>
 nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
-" }
-" Quit {
-nnoremap <silent> <Space>za :qa<CR>
-nnoremap <silent> <Space>zf :qa!<CR>
-nnoremap <silent> <Space>zwa :wqa!<CR>
+nnoremap <silent> <Space>ft :call EditTestFile('e')<CR>
+nnoremap <silent> <Space>fst :call EditTestFile('s')<CR>
+nnoremap <silent> <Space>fvt :call EditTestFile('v')<CR>
 " }
 
 " Toggle {
@@ -271,6 +269,8 @@ nnoremap <silent> <Space>tN :set relativenumber!<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
 nnoremap <silent> <Space>tsp :set spell!<CR>
 nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
+"toggle line wrap
+nnoremap <silent> <Space>tlw :call ToggleWrap()<CR>
 "nmap <silent> <Space>tw :ToggleWord<CR>
 "nmap <silent> <Space>tW :ToggleWordReverse<CR>
 " }

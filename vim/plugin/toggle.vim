@@ -50,3 +50,13 @@ function! ToggleEndColumn()
   endif
 endfunction
 " }
+
+" Wrap {
+function! ToggleWrap()
+  if &wrap == 'nowrap'
+    set wrap
+  else
+    set nowrap
+  endif
+endfunction
+" }

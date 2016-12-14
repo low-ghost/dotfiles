@@ -281,4 +281,22 @@ endfunction
 function! SourceFtPlugin()
   let to_edit = &ft
   exe 'so ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
+endfunction 
+
+let g:test_path = 'test/unit'
+function! EditTestFile(direction)
+  let current_dir = expand('%:p')
+  let git_root = systemlist('git rev-parse --show-toplevel')[0]
+  if v:shell_error
+    return s:warn('Not in git repo')
+  endif
+  let diff_path = matchlist(current_dir, git_root . '\(.*\)')[1]
+  let full_alt_path = git_root . '/' . g:test_path . diff_path
+  if a:direction == 'e'
+    exe 'e ' . full_alt_path
+  elseif a:direction == 's'
+    exe 'sp ' . full_alt_path
+  else
+    exe 'vsp ' . full_alt_path
+  endif
 endfunction
