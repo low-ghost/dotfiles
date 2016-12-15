@@ -4,6 +4,13 @@ import re
 from subprocess import Popen, PIPE
 
 
+def get_initial_vars():
+    current = vim.current
+    line_num, col_num = current.window.cursor
+    flow_bin = vim.vars['deoplete#sources#flow#flow_bin'] or 'flow'
+    return [line_num, col_num, current.buffer, flow_bin, Printer()]
+
+
 def get_flow_command(flow_bin, line_num, col_num=1):
     return [flow_bin, 'type-at-pos', '--json', '--no-auto-start',
             str(line_num), str(col_num + 1)]
@@ -21,12 +28,33 @@ def execute_with_input(command, input_str):
     return decode_json_load(command_results)
 
 
+def get_initial_type(flow_bin, line_num, col_num, buf):
+    command = get_flow_command(flow_bin, line_num, col_num)
+    buf_joined = '\n'.join(buf[:])
+    flow_results = execute_with_input(command, buf_joined)
+    return flow_results['type']
+
+
+def get_secondary_type(flow_bin, line_num, buf, name):
+    reduced_line = '{' + name + '}'
+    reduced_buf = '\n'.join(buf[:line_num]
+                            + [reduced_line]
+                            + buf[line_num + 1:])
+    sub_command = get_flow_command(flow_bin, line_num + 1)
+    flow_results = execute_with_input(sub_command, reduced_buf)
+    return flow_results['type']
+
+
+def is_react(element_type):
+    return 'React$Element' in element_type
+
+
 def get_wrapping_jsx(buf, line_num, col_num, index=0):
 
     line_num_to_search = line_num - 1 - index
     if line_num_to_search < 0:
         return [[None, None], None]
-    # TODO: if on </div> here: <div><Here /></div>
+    # TODO: if on closing tag, like </div> here: <div><Something /></div>
     line_text = buf[line_num_to_search]
     starts_and_names = [[m.start(), m.group(1)]
                         for m in re.finditer(r'<(\w+)', line_text)
@@ -36,47 +64,100 @@ def get_wrapping_jsx(buf, line_num, col_num, index=0):
             else get_wrapping_jsx(buf, line_num, None, index))
 
 
+def parse_type_end_pos(after_key):
+    token_to_regex = {
+        'word': '\w+',
+        'openings': '<|\{|\[',
+        'closings': '>|\}|\]',
+        'func_init': '\(.*?=>',
+    }
+    token_regex = '|'.join('(?P<{}>{})'.format(k, v)
+                           for k, v in token_to_regex.items())
+
+    # Warning, evil mutation and for loop ahead
+    last_pos = None
+    checking_generic = False
+    openings = 0
+    closings = 0
+    for m in re.finditer(token_regex, after_key):
+        kind = m.lastgroup
+        value = m.group(kind)
+        if kind == 'word':
+            last_found_was_a_word = checking_generic
+            if last_found_was_a_word:
+                return last_pos
+            last_pos = m.end()
+            checking_generic = True
+            continue
+        type_is_just_a_word = (checking_generic and value != '<'
+                               and openings == closings)
+        if type_is_just_a_word:
+            return last_pos
+        if kind == 'openings':
+            openings += 1
+        if kind == 'closings':
+            closings += 1
+        if closings == openings and openings != 0:
+            last_pos = m.end()
+            return last_pos
+
+
+def attempt_prop_lookup(type_to_search):
+    current_word = vim.eval("expand('<cword>')")
+    pos_of_key = re.search('{}(\?)?:\s(.*)'.format(current_word),
+                           type_to_search)
+    if not pos_of_key:
+        return None
+    optional_mark = '?' if pos_of_key.group(1) else ''
+    after_key = pos_of_key.group(2)
+    last_pos = parse_type_end_pos(after_key)
+
+    if last_pos is None:
+        return None
+
+    return [current_word, optional_mark, after_key[:last_pos]]
+
+
+class Printer:
+
+    def __init__(self):
+        self.collated = ''
+
+    def write(self, text):
+        self.collated = '{}\n{}'.format(self.collated, text)
+        print(text)
+
+    def get_collated(self):
+        return self.collated
+
+    def set_vim_var(self):
+        if self.collated is not None:
+            vim.vars['last_flow_type'] = self.collated
+
+
 def main():
-    current = vim.current
-    line_num, col_num = current.window.cursor
-    flow_bin = vim.vars['deoplete#sources#flow#flow_bin'] or 'flow'
+    line_num, col_num, buf, flow_bin, printer = get_initial_vars()
+    parent_type = get_initial_type(flow_bin, line_num, col_num, buf)
+    printer.write(parent_type)
 
-    command = get_flow_command(flow_bin, line_num, col_num)
-    buf_joined = '\n'.join(current.buffer[:])
-    results = execute_with_input(command, buf_joined)
-
-    parent_type = results['type']
-    if 'React$Element' in parent_type:
-        [start, name],  line_num_for_match = (
-            get_wrapping_jsx(current.buffer, line_num, col_num))
+    if is_react(parent_type):
+        [start, name], line_of_match = get_wrapping_jsx(buf, line_num, col_num)
         if start is not None:
-            print('parent: {}\nelement name: {}'.format(parent_type, name))
-            reduced_line = '{' + name + '}'
-            reduced_buf = '\n'.join(current.buffer[:line_num_for_match]
-                                    + [reduced_line]
-                                    + current.buffer[line_num_for_match + 1:])
-            sub_command = get_flow_command(flow_bin, line_num_for_match + 1)
-            sub_command_results = execute_with_input(sub_command, reduced_buf)
-            sub_command_type = sub_command_results['type']
-            sub_is_react_element = 'React$Element' in sub_command_type
-            if sub_is_react_element:
-                print('element type: {}'.format(sub_command_type))
+            printer.write('element-name: {}'.format(name))
+            sub_type = get_secondary_type(flow_bin, line_of_match, buf, name)
+            sub_is_react = is_react(sub_type)
 
-            current_word = vim.eval("expand('<cword>')")
-            type_to_search_for_prop = (sub_command_type if sub_is_react_element
-                                       else parent_type)
-            # TODO `test?: number` and objects. Really, this will never be
-            # exhaustive. Look into flow internals?
-            prop_match = re.search(r'{}: (\w+|\(.*\s=>\s\w+)'
-                                   .format(current_word),
-                                   type_to_search_for_prop)
-            # json_able = re.search(r"([a-zA-Z0-9]+)?: [{.*}|(.*]",
-            if prop_match is not None:
-                print('prop: {}\nprop type: {}'
-                      .format(current_word, prop_match.group(1)))
-        else:
-            print(results['type'])
-    else:
-        print(results['type'])
+            # Element type is not reliable for built in jsx elements like div
+            if sub_is_react:
+                printer.write('element-type: {}'.format(sub_type))
+
+            type_to_search = sub_type if sub_is_react else parent_type
+            current_word, optional_mark, parsed_type = attempt_prop_lookup(
+                type_to_search)
+
+            printer.write('prop: {}{}: {}'.format(current_word, optional_mark,
+                                                  parsed_type))
+
+    printer.set_vim_var()
 
 main()
