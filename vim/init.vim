@@ -104,6 +104,10 @@ tnoremap <C-o>x <C-\><C-n>:bd!<cr>
 tnoremap <C-o><C-x> <C-\><C-n>:bd!<cr>
 tnoremap <C-o>z <C-\><C-n>:ZoomToggle<cr>
 tnoremap <C-o><C-z> <C-\><C-n>:ZoomToggle<cr>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
 "found this to be too annoying if accidentally landing on buffer
 "autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
@@ -262,6 +266,7 @@ nnoremap <silent> <Space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1)
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 nnoremap <silent> <Space>thl :set cursorline!<CR>
 nnoremap <silent> <Space>thp :call TogglePosition()<CR>
+nnoremap <silent> <Space>tl :call ToggleHiddenAll()<CR>
 nnoremap <silent> <Space>tn :set nu!<CR>
 nnoremap <silent> <Space>tN :set relativenumber!<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>

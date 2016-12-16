@@ -83,11 +83,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/.nvm/nvm.sh
 source ~/.shellaliases
 source ~/.aliases
-source ~/.compdef
 source ~/.secrets
+source ~/.compdef
+source ~/.nvm/nvm.sh
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -139,3 +139,6 @@ export JAVA_HOME=/opt/java/jdk1.8.0_102
 export JRE_HOME=/opt/java/jdk1.8.0._102/jre
 export PATH=$PATH:/opt/java/jdk1.8.0_102/bin:/opt/java/jdk1.8.0_102/jre/bin
 export PATH=/opt/apache-maven-3.3.9/bin:$PATH
+
+# Add repo bin to path
+export PATH=$HOME/repo/dotfiles/bin:$PATH
