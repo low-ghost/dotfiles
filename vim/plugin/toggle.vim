@@ -39,11 +39,15 @@ function! TogglePosition()
 endfunction
 
 let s:end_column_toggle = "on"
-set colorcolumn=100 
+
+if !exists('color_column')
+  let g:color_column = 100
+endif
+exe 'set colorcolumn=' . g:color_column
 function! ToggleEndColumn()
   if s:end_column_toggle == "off"
-    let s:end_column_toggle = input('end col. num> ', 100)
-    exe 'set colorcolumn='.s:end_column_toggle
+    let s:end_column_toggle = input('end col. num> ', g:color_column)
+    exe 'set colorcolumn=' . s:end_column_toggle
   else
     let s:end_column_toggle = "off"
     set colorcolumn=

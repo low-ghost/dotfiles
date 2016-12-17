@@ -87,6 +87,8 @@ while getopts ':i:lr' opt; do
               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             gem install neovim
             sudo pip3 install neovim-remote
+            pip3 install pylama
+            sudo pip3 install --upgrade git+https://github.com/myint/vulture
             ;;
           nvm)
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash

@@ -23,15 +23,15 @@ else:
 endpython
 endfunction
 
-nnoremap <silent> <Space>yt :TernType<CR>
-nnoremap <silent> <Space>yg :TernDef<CR>
-nnoremap <silent> <Space>yv :TernDefSplit<CR>
-nnoremap <silent> <Space>yd :TernDoc<CR>
-nnoremap <silent> <Space>yr :TernRefs<CR>
-nnoremap <silent> <Space>yn :TernRename<CR>
-nnoremap <silent> <Space>ya :JsDoc<CR>
-nnoremap <silent> <Space>yf :call FlowGetType()<CR>
-nnoremap <silent> <Space>yi :call FlowInit()<CR>
+nnoremap <silent> <buffer> <Space>yt :TernType<CR>
+nnoremap <silent> <buffer> <Space>yg :TernDef<CR>
+nnoremap <silent> <buffer> <Space>yv :TernDefSplit<CR>
+nnoremap <silent> <buffer> <Space>yd :TernDoc<CR>
+nnoremap <silent> <buffer> <Space>yr :TernRefs<CR>
+nnoremap <silent> <buffer> <Space>yn :TernRename<CR>
+nnoremap <silent> <buffer> <Space>ya :JsDoc<CR>
+nnoremap <silent> <buffer> <Space>yf :call FlowGetType()<CR>
+nnoremap <silent> <buffer> <Space>yi :call FlowInit()<CR>
 
 let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
 

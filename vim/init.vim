@@ -13,6 +13,7 @@ call plug#begin('~/.nvim/plugged')
 "Plug 'rking/ag.vim'
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'edkolev/promptline.vim'
+"Plug 'gorodinskiy/vim-coloresque'
 
 "All other vim settings
 Plug '~/repo/dotfiles/vim'
@@ -22,15 +23,11 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'do': 'npm install -g tern' }
-Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'benekastah/neomake'
 Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-Plug 'gorodinskiy/vim-coloresque'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'honza/vim-snippets'
@@ -47,7 +44,6 @@ Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-entire'
   "c
   Plug 'glts/vim-textobj-comment'
-Plug 'klen/python-mode'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'low-ghost/vim-macro-manager'
 Plug 'low-ghost/vimax'
@@ -59,17 +55,13 @@ Plug 'mhinz/vim-signify'
 Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'osyo-manga/vim-over'
 Plug 'pangloss/vim-javascript'
-Plug 'powerline/fonts'
 Plug 'powerline/fonts', { 'dir': '~/fonts', 'do': './install.sh' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'spf13/vim-colors'
 Plug 'spf13/vim-preview'
-Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
@@ -78,10 +70,21 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'wellle/targets.vim'
-Plug 'steelsojka/deoplete-flow'
 Plug 'vim-scripts/SyntaxComplete'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'simnalamburt/vim-mundo'
+" Python {{{
+Plug 'hdima/python-syntax', { 'for': 'python' }
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+" }}}
+" Javascript {{{
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'do': 'npm install -g tern' }
+Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'steelsojka/deoplete-flow', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+" }}}
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
 
@@ -105,6 +108,10 @@ tnoremap <C-o>x <C-\><C-n>:bd!<cr>
 tnoremap <C-o><C-x> <C-\><C-n>:bd!<cr>
 tnoremap <C-o>z <C-\><C-n>:ZoomToggle<cr>
 tnoremap <C-o><C-z> <C-\><C-n>:ZoomToggle<cr>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
 "found this to be too annoying if accidentally landing on buffer
 "autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
@@ -467,7 +474,7 @@ nmap <silent> <Space>vi <Plug>VimaxInspectAddress
 nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
 nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
 nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
-nmap <silent> <Space>v<CR> <Plug>VimaxExitInspect
+nmap <silent> <Space>v<CR> <Plug>VimaxSendReturn
 nmap <silent> <Space>vp <Plug>VimaxPromptCommand
 nmap <silent> <Space>vq <Plug>VimaxCloseAddress
 nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot

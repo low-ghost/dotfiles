@@ -7,6 +7,7 @@ let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:jsx_ext_required = 0
+
 "let g:tmuxline_preset = 'nightly_line'
 "let g:promptline_preset = {
   "\ 'a' : [ '$vim_mode' ],
@@ -125,6 +126,7 @@ let g:deoplete#sources = {}
 let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:deoplete#sources['javascript.jsx'] = ['file', 'flow', 'tern', 'ultisnips']
 let g:deoplete#sources['javascript'] = ['file', 'flow', 'tern', 'ultisnips']
+let g:deoplete#sources['python'] = ['file', 'jedi', 'ultisnips']
 
 
 " UndoTree {
@@ -149,6 +151,18 @@ let g:airline#extensions#tabline#tab_min_count = 2
 " neomake {
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
+
+let g:neomake_warning_sign = {
+  \ 'text': '>',
+  \ 'texthl': 'WarningMsg',
+  \ }
+let g:neomake_error_sign = {
+  \ 'text': '>>',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
+let g:neomake_python_enabled_makers = ['pylama', 'vulture', 'mypy']
+
 autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
 let g:neomake_typescript_tsc_maker = {
@@ -177,15 +191,6 @@ let g:neomake_typescript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
   \ }
 let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
-let g:neomake_warning_sign = {
-  \ 'text': '>',
-  \ 'texthl': 'WarningMsg',
-  \ }
-let g:neomake_error_sign = {
-  \ 'text': '>>',
-  \ 'texthl': 'ErrorMsg',
-  \ }
-" }
 
 function! Tsc()
   "let path = systemlist('git rev-parse --show-toplevel')[0]
