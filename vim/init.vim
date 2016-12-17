@@ -271,6 +271,7 @@ nnoremap <silent> <Space>thi :echo "hi<" . synIDattr(synID(line("."),col("."),1)
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 nnoremap <silent> <Space>thl :set cursorline!<CR>
 nnoremap <silent> <Space>thp :call TogglePosition()<CR>
+nnoremap <silent> <Space>tl :call ToggleHiddenAll()<CR>
 nnoremap <silent> <Space>tn :set nu!<CR>
 nnoremap <silent> <Space>tN :set relativenumber!<CR>
 nnoremap <silent> <Space>tp :RainbowParentheses!!<CR>
