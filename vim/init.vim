@@ -311,6 +311,7 @@ nnoremap <silent> <Space>apc :PlugClean<CR>
 nnoremap <silent> <Space>apu :PlugUpdate<CR>
 nnoremap <silent> <Space>apU :PlugUpgrade<CR>
 nnoremap <silent> <Space>aps :PlugStatus<CR>
+nnoremap <silent> <Space>apr :UpdateRemotePlugins<CR>
 " }
 nnoremap <silent> <Space>am :Neomake<CR>
 " }

@@ -1,10 +1,3 @@
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-let g:tern_show_argument_hints = 1
-let g:tern_show_signature_in_pum = 1
-
-call deoplete#enable()
-
 function! FlowGetType()
   py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
 endfunction
