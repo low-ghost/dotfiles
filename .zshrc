@@ -130,6 +130,10 @@ source ~/.promptline_dark
 
 nvm use latest > /dev/null
 
+insert_sudo () { zle beginning-of-line; zle -U "sudo " }
+zle -N insert-sudo insert_sudo
+bindkey "^S" insert-sudo
+
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
@@ -142,3 +146,4 @@ export PATH=/opt/apache-maven-3.3.9/bin:$PATH
 
 # Add repo bin to path
 export PATH=$HOME/repo/dotfiles/bin:$PATH
+

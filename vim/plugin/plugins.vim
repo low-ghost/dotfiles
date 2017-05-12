@@ -5,6 +5,8 @@ let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+"Save to location
+let g:VimaxScratchBufferPath = '~/.vimax-scratch'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:jsx_ext_required = 0
 "let g:tmuxline_preset = 'nightly_line'
@@ -174,6 +176,7 @@ let g:neomake_typescript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
   \ }
 let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
+let g:neomake_sql_enabled_makers = ['sqlint']
 let g:neomake_warning_sign = {
   \ 'text': '>',
   \ 'texthl': 'WarningMsg',
@@ -339,9 +342,13 @@ command! -nargs=? GvsplitBF call GeditBranchFile('v', <f-args>)
 command! -nargs=? GsplitBF call GeditBranchFile('h', <f-args>)
 " }
 
-command! -nargs=1 Node echo system('cd ~/repo/js; node --print '.
+command! -nargs=1 Node echo system('cd ~/repo/js-repl; node --print '.
   \ '"var lo; var fp; try { lo = require(\"lodash\"); fp = require(\"lodash/fp\");} '.
   \ 'catch (e) {}; '.<f-args>.'"')
+command! -nargs=1 RNode call setline(line('.'), getline('.') . ' ' .
+  \ system('cd ~/repo/js-repl; node --print ' .
+  \ '"var lo; var fp; try { lo = require(\"lodash\"); fp = require(\"lodash/fp\");} '.
+  \ 'catch (e) {}; '.<f-args>.'"'))
 
 let g:EasyMotion_keys = 'tnseriaodhbkvmplfuwyqsent'
 

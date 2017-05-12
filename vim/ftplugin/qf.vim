@@ -26,6 +26,7 @@ nnoremap <buffer> t <C-w><CR><C-w>T
 " open entry and come back
 nnoremap <buffer> o <CR><C-w>p
 " open entry and close the location/quickfix window.
+nnoremap <buffer> w :call ToggleWrap()<CR>
 if b:isLoc == 1
     nnoremap <buffer> c <CR>:lclose<CR>
 else

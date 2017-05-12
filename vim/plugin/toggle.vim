@@ -54,9 +54,11 @@ endfunction
 " Wrap {
 function! ToggleWrap()
   if &wrap == 'nowrap'
-    set wrap
+    setlocal wrap
+    setlocal linebreak
   else
-    set nowrap
+    setlocal nowrap
+    setlocal linebreak
   endif
 endfunction
 " }

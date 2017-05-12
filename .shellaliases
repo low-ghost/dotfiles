@@ -12,7 +12,7 @@ alias xkb='pkill xcape > /dev/null; xkbclear; xkbset; . ~/.xcaperc'
 alias dotinstall='sh ~/repo/dotfiles/setup.sh -i'
 alias dotlink='sh ~/repo/dotfiles/setup.sh -l'
 # configs {
-alias e='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket vim'
+alias e='vim'
 alias ea='e ~/repo/dotfiles/.aliases'
 alias eas='e ~/repo/dotfiles/.shellaliases'
 alias ef='e ~/repo/dotfiles/vim/plugin/functions.vim'

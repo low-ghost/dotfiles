@@ -257,7 +257,7 @@ gb_to_issue() {
 # jira issue
 jiraissue() {
   curl -s --netrc-file ~/.jira-netrc -X GET -H "Content-Type:application/json" \
-    https://excelmicro.atlassian.net/rest/api/2/issue/$1 | jq .fields.summary
+    https://fusemail.atlassian.net/rest/api/2/issue/$1 | jq .fields.summary
 }
 gname() {
   git remote show origin -n | grep "Fetch URL:" | sed -E 's:^.*/(.*).git$:\1:g'
@@ -351,7 +351,7 @@ bb() {
 jj() {
   branch=${1:-`gbcur`}
   issue=`gb_to_issue $branch`
-  firefox https://excelmicro.atlassian.net/browse/$issue
+  firefox https://fusemail.atlassian.net/browse/$issue
 }
 
 # TODO: execute a file
@@ -391,3 +391,6 @@ _egit() {
 egit() {
   fzf_ize "_egit_completion" "_egit_pre_fzf" $1
 }
+
+# git last 10
+alias glast='head -10 <(git branch --sort=-committerdate)'

@@ -471,6 +471,7 @@ nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
 nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
 nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
 nmap <silent> <Space>v<CR> <Plug>VimaxExitInspect
+nmap <silent> <Space>vn <Plug>VimaxPromptSend
 nmap <silent> <Space>vp <Plug>VimaxPromptCommand
 nmap <silent> <Space>vq <Plug>VimaxCloseAddress
 nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
