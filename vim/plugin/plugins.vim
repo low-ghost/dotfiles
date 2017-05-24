@@ -4,7 +4,9 @@
 let g:Completion_YouCompleteMe = 1
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
-let g:VimaxHistoryFile = $HOME.'/.zsh_history'
+let g:vimax_history_file = $HOME . '/.zsh_history'
+let g:vimax_default_mappings = 1
+let g:vimax_leader = '<Space>v'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:jsx_ext_required = 0
 
@@ -73,42 +75,19 @@ let g:vim_json_syntax_conceal = 0
 	"nnoremap <silent> <leader>tt :TagbarToggle<CR>
 "}
 
-" YouCompleteMe {
-if exists('g:Completion_YouCompleteMe')
-  let g:acp_enableAtStartup = 0
-  " enable completion from tags
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  " remap Ultisnips for compatibility for YCM
-  let g:UltiSnipsExpandTrigger = '<C-j>'
-  let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-  let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-  " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-
-  if !executable("ghcmod")
-    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-  endif
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
-  " Disable the neosnippet preview candidate window
-  " When enabled, there can be too much visual noise
-  " especially when splits are used.
-  "set completeopt-=preview
-
-
-  if !exists("g:ycm_semantic_triggers")
-    let g:ycm_semantic_triggers = {}
-  endif
-  let g:ycm_semantic_triggers['typescript'] = ['.']
-
-endif
+" Let <Tab> also do completion
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB> pumvisible()
+  \ ? "\<C-n>"
+  \ : <SID>check_back_space()
+  \ ? "\<TAB>"
+  \ : deoplete#mappings#manual_complete()
 let g:UltiSnipsSnippetsDir="~/repo/dotfiles/vim/UltiSnips"
 set runtimepath+=~/repo/dotfiles/vim
 " }
@@ -123,10 +102,12 @@ let g:deoplete#omni#functions.javascript = [
   \ 'jspc#omni'
 \]
 let g:deoplete#sources = {}
-let g:deoplete#sources#flow#flow_bin = 'flow'
-let g:deoplete#sources['javascript.jsx'] = ['file', 'flow', 'tern', 'ultisnips']
-let g:deoplete#sources['javascript'] = ['file', 'flow', 'tern', 'ultisnips']
+let g:deoplete#sources['javascript.jsx'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
+let g:deoplete#sources['javascript'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
 let g:deoplete#sources['python'] = ['file', 'jedi', 'ultisnips']
+call deoplete#custom#set('flow', 'rank', 9999)
+
+let g:deoplete#enable_refresh_always=1
 
 
 " UndoTree {
@@ -161,7 +142,8 @@ let g:neomake_error_sign = {
   \ 'texthl': 'ErrorMsg',
   \ }
 
-let g:neomake_python_enabled_makers = ['pylama', 'vulture', 'mypy']
+let g:neomake_python_enabled_makers = ['pylama', 'mypy']
+let g:neomake_vim_enambled_makers = ['vint']
 
 autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
@@ -361,8 +343,8 @@ let g:surround_{char2nr("C")} = "/* \r */"
 
 let g:textobj_line_no_default_mappings = 1
 call textobj#user#plugin('line', {
-\      '-': {
-\        'select-a': 'ass', 'select-a-function': 'textobj#line#select_a',
-\        'select-i': 'iss', 'select-i-function': 'textobj#line#select_i',
-\      },
-\    })
+\   '-': {
+\     'select-a': 'ass', 'select-a-function': 'textobj#line#select_a',
+\     'select-i': 'iss', 'select-i-function': 'textobj#line#select_i',
+\   },
+\ })

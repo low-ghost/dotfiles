@@ -1,5 +1,5 @@
 " vim: foldmarker={,} foldmethod=marker spell:
-set nocompatible
+"set nocompatible
 set shell=/bin/zsh
 
 "TODO: figure out why cursor doesn't show in history edit
@@ -85,10 +85,14 @@ Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'steelsojka/deoplete-flow', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 " }}}
+" Typescript {{{
+" Never got deoplete typescript working well...
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --all', 'for': ['typescript']}
+" }}}
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
 
-let mapleader = ","
+let g:mapleader = ','
 nnoremap <C-t>l :tabnext<cr>
 nnoremap <C-t>h :tabprevious<cr>
 nnoremap <C-t>n :tabnew<cr>
@@ -102,7 +106,7 @@ tnoremap <C-t>i <C-\><C-n>:tabfirst<cr>
 tnoremap <C-t>I <C-\><C-n>:tablast<cr>
 tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
 
-"neovim terminal
+"Neovim terminal {{{
 tnoremap <C-o> <C-\><C-n>
 tnoremap <C-o>x <C-\><C-n>:bd!<cr>
 tnoremap <C-o><C-x> <C-\><C-n>:bd!<cr>
@@ -115,8 +119,9 @@ tnoremap <C-l> <C-\><C-n><C-w>l
 "found this to be too annoying if accidentally landing on buffer
 "autocmd BufWinEnter,WinEnter term://* startinsert
 let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
+" }}}
 
-vnoremap crc :call SelectionToCamel()<cr>
+vnoremap crc :call case#selection_to_camel()<cr>
 vnoremap O <Esc>O
 
 nnoremap H ^
@@ -131,15 +136,15 @@ vnoremap : ;
 nnoremap ,, ,
 vnoremap ,, ,
 
-"Spacemacs style keys {
+"Spacemacs style keys {{{
 
-" Windows {
+" Windows {{{
 nnoremap <silent> <Space>wd :hide<cr>;
 "resize
-nnoremap <silent> <Space>wJ :<C-U>call CountCommand('resize +', 10, 1)<CR>
-nnoremap <silent> <Space>wK :<C-U>call CountCommand('resize -', 10, 1)<CR>
-nnoremap <silent> <Space>wH :<C-U>call CountCommand('vertical resize +', 10, 1)<CR>
-nnoremap <silent> <Space>wL :<C-U>call CountCommand('vertical resize -', 10, 1)<CR>
+nnoremap <silent> <Space>wJ :<C-U>call util#count_command('resize +', 10, 1)<CR>
+nnoremap <silent> <Space>wK :<C-U>call util#count_command('resize -', 10, 1)<CR>
+nnoremap <silent> <Space>wH :<C-U>call util#count_command('vertical resize +', 10, 1)<CR>
+nnoremap <silent> <Space>wL :<C-U>call util#count_command('vertical resize -', 10, 1)<CR>
 nnoremap <silent> <Space>w= <C-W>=
 nnoremap <silent> <Space>wz :ZoomToggle<CR>
 "split
@@ -158,14 +163,14 @@ nnoremap <silent> <Space>wrah :windo wincmd H<CR>
 "close all extraneous windows
 nnoremap <silent> <Space>wc :lclose\|cclose\|pclose\|helpclose\|NERDTreeClose<CR>
 nnoremap <silent> <Space>wC :windo lclose\|windo cclose\|windo pclose\|helpclose\|NERDTreeClose<CR>
-" }
+" }}}
 
-" Commands {
+" Commands {{{
 nnoremap <silent> <Space>x q:i
 nnoremap <silent> <Space>x/ :FzfHistory :<CR>
-" }
+" }}}
 
-" Dir {
+" Dir {{{
 nnoremap <silent> <Space>dr :call SaveLastDir()<CR>:lcd `git rev-parse --show-toplevel`<CR>:echo getcwd()<CR>
 nnoremap <silent> <Space>ds :echo getcwd()<CR>
 nnoremap <silent> <Space>df :call SaveLastDir()<CR>:lcd %:p:h<CR>:echo getcwd()<CR>
@@ -175,25 +180,28 @@ nnoremap <silent> <Space>dc :call SaveLastDir()<CR>:cd
 "TODO: maybe maintain a stack of 5 or so and d- moves back in stack, d+ moves
 "forward?
 nnoremap <silent> <Space>d- :exe "cd " . g:last_changed_dir<CR>:echo getcwd()<CR>
-" }
+" }}}
 
-" Buffers {
+" Buffers {{{
 "both delete accept count to specify buffer
 nnoremap <silent> <Space>bd :lclose\|cclose\|pclose<CR>:bp\|bd #<CR>
 nnoremap <silent> <Space>bD :lclose\|cclose\|pclose<CR>:bp\|bd! #<CR>
 nnoremap <silent> <Space>BD :lclose\|cclose\|pclose<CR>:bp\|bd! #<CR>
 "delete or keep buffers matching a string
-nnoremap <silent> <Space>bmd :call BufferByMatch(1)<CR>
-nnoremap <silent> <Space>bmo :call BufferByMatch(0)<CR>
+nnoremap <silent> <Space>bmd :call buffer#by_match(v:true)<CR>
+nnoremap <silent> <Space>bmo :call buffer#by_match(v:false)<CR>
 "BOnly will not kill buffers w/ unsaved content
-nnoremap <silent> <Space>bo :BOnly<CR>
+nnoremap <silent> <Space>bo :call buffer#only(v:null, '')<CR>
+nnoremap <silent> <Space>bO :call buffer#only(v:null, v:true)<CR>
 "TODO filter current
 nnoremap <silent> <Space>b/ :FzfBuffers<CR>
 "bp/h and bn/l accept count
-nnoremap <silent> <Space>bp :<C-U> call CountCommand('bprev')<CR>
-nnoremap <silent> <Space>bh :<C-U> call CountCommand('bprev')<CR>
-nnoremap <silent> <Space>bn :<C-U> call CountCommand('bnext')<CR>
-nnoremap <silent> <Space>bl :<C-U> call CountCommand('bnext')<CR>
+nnoremap <silent> <Space>bp :<C-U> call util#count_command('bprev')<CR>
+nnoremap <silent> <Space>bh :<C-U> call util#count_command('bprev')<CR>
+nnoremap <silent> <Space>bH :bfirst<CR>
+nnoremap <silent> <Space>bn :<C-U> call util#count_command('bnext')<CR>
+nnoremap <silent> <Space>bl :<C-U> call util#count_command('bnext')<CR>
+nnoremap <silent> <Space>bL :blast<CR>
 "copy entire buffer
 nnoremap <silent> <Space>by gg"+yG<CR>
 nnoremap <silent> <Space>bY gg"+yG<CR>
@@ -202,38 +210,36 @@ nnoremap <silent> <Space>bY gg"+yG<CR>
 nnoremap <silent> <Space>bP gg"_dGp<CR>
 nnoremap <silent> <Space>br :e! %<CR>
 "TODO get to work
-nnoremap <silent> <Space>bR :call RefreshAllBuffers()<CR>
+nnoremap <silent> <Space>bR :call buffer#refresh_all()<CR>
 "go to buffer
-nnoremap <silent> <Space>bg :<C-U>call CountCommand('b')<CR>
+nnoremap <silent> <Space>bg :<C-U>call util#count_command('b')<CR>
 "buffer toggle
 nnoremap <silent> <Space>bt :b#<CR>
-nnoremap <silent> <Space>bf :bfirst<CR>
-nnoremap <silent> <Space>be :blast<CR>
-" }
+" }}}
 
-" QuickFix and Location {
+" QuickFix and Location {{{
 " for now, close both quickfix and location on close map
 nnoremap <silent> <Space>cc :cclose<CR>
 nnoremap <silent> <Space>cC :windo cclose<CR>
-nnoremap <silent> <Space>co :<C-U>call CountCommand('copen', 7)<CR>
-nnoremap <silent> <Space>cn :<C-U>call CountCommand('cnext')<CR>
-nnoremap <silent> <Space>cp :<C-U>call CountCommand('cprev')<CR>
-nnoremap <silent> <Space>cl :<C-U>cacl CountCommand('cnewer')<CR>
-nnoremap <silent> <Space>ch :<C-U>call CountCommand('colder')<CR>
+nnoremap <silent> <Space>co :<C-U>call util#count_command('copen', 7)<CR>
+nnoremap <silent> <Space>cn :<C-U>call util#count_command('cnext')<CR>
+nnoremap <silent> <Space>cp :<C-U>call util#count_command('cprev')<CR>
+nnoremap <silent> <Space>cl :<C-U>cacl util#count_command('cnewer')<CR>
+nnoremap <silent> <Space>ch :<C-U>call util#count_command('colder')<CR>
 nnoremap <silent> <Space>c/ :FzfQf<CR>
-nnoremap <silent> <Space>cg :<C-U>call CountCommand('cc')<CR>
+nnoremap <silent> <Space>cg :<C-U>call util#count_command('cc')<CR>
 nnoremap <silent> <Space>lc :lclose<CR>
 nnoremap <silent> <Space>lC :windo lclose<CR>
-nnoremap <silent> <Space>lo :<C-U>call CountCommand('lopen', 7)<CR>
-nnoremap <silent> <Space>ln :<C-U>call CountCommand('lnext')<CR>
-nnoremap <silent> <Space>lp :<C-U>call CountCommand('lprev')<CR>
-nnoremap <silent> <Space>ll :<C-U>call CountCommand('lnewer')<CR>
-nnoremap <silent> <Space>lh :<C-U>call CountCommand('lolder')<CR>
+nnoremap <silent> <Space>lo :<C-U>call util#count_command('lopen', 7)<CR>
+nnoremap <silent> <Space>ln :<C-U>call util#count_command('lnext')<CR>
+nnoremap <silent> <Space>lp :<C-U>call util#count_command('lprev')<CR>
+nnoremap <silent> <Space>ll :<C-U>call util#count_command('lnewer')<CR>
+nnoremap <silent> <Space>lh :<C-U>call util#count_command('lolder')<CR>
 nnoremap <silent> <Space>l/ :FzfLl<CR>
-nnoremap <silent> <Space>lg :<C-U>call CountCommand('ll')<CR>
-" }
+nnoremap <silent> <Space>lg :<C-U>call util#count_command('ll')<CR>
+" }}}
 
-" File {
+" File {{{
 map <C-e> <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Space><CR> :w<CR>
 nnoremap <silent> <Space>f/ :FzfGitFiles<CR>
@@ -245,8 +251,8 @@ nnoremap <silent> <Space>fep :e ~/repo/dotfiles/vim/plugin/plugins.vim<CR>
 nnoremap <silent> <Space>fet :e ~/repo/dotfiles/.tmux.conf<CR>
 nnoremap <silent> <Space>fev :e ~/repo/dotfiles/vim/init.vim<CR>
 nnoremap <silent> <Space>fez :e ~/repo/dotfiles/.zshrc<CR>
-nnoremap <silent> <Space>fft :call EditFtPlugin()<CR>
-nnoremap <silent> <Space>flft :call SourceFtPlugin()<CR>
+nnoremap <silent> <Space>fft :call filetype#edit_ft_plugin()<CR>
+nnoremap <silent> <Space>flft :call filetype#source_ft_plugin()<CR>
 nnoremap <silent> <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <silent> <Space>flv :source $MYVIMRC<CR>
 nnoremap <silent> <Space>fn :NERDTreeFind<CR>
@@ -256,9 +262,9 @@ nnoremap <silent> <space>fi :let g:NERDTreeIgnore = ['
 nnoremap <silent> <Space>ft :call EditTestFile('e')<CR>
 nnoremap <silent> <Space>fst :call EditTestFile('s')<CR>
 nnoremap <silent> <Space>fvt :call EditTestFile('v')<CR>
-" }
+" }}}
 
-" Toggle {
+" Toggle {{{
 nnoremap <silent> <Space>t/ :set invhlsearch<CR>
 nnoremap <silent> <Space>tb :call ToggleBG()<CR>
 nnoremap <silent> <Space>tc :FzfColors<CR>
@@ -281,16 +287,17 @@ nnoremap <silent> <Space>tsy :call ToggleSyntax()<CR>
 nnoremap <silent> <Space>tlw :call ToggleWrap()<CR>
 "nmap <silent> <Space>tw :ToggleWord<CR>
 "nmap <silent> <Space>tW :ToggleWordReverse<CR>
-" }
+" }}}
 
-" Insert {
+" Insert {{{
 " TODO: visual support
-nnoremap <silent> <space>ij :<C-U>call AppendLine(0)<CR>
-nnoremap <silent> <space>io :<C-U>call AppendLine(1)<CR>
-nnoremap <silent> <Space>ik :<C-U>call PrependLine(0)<CR>
-nnoremap <silent> <space>iO :<C-U>call PrependLine(1)<CR>
-nnoremap <silent> <Space>ib :<C-U>call AppendAndPrependLine()<CR>
-" }
+call util#nvmap('ij', ':<C-U>call line#append(v:count1, v:false)<CR>')
+call util#nvmap('io', ':<C-U>call line#append(v:count1, v:true)<CR>')
+call util#nvmap('ik', ':<C-U>call line#prepend(v:count1, v:false)<CR>')
+call util#nvmap('iO', ':<C-U>call line#prepend(v:count1, v:true)<CR>')
+nnoremap <silent> <Space>ib :<C-U>call line#append_and_prepend(v:count1, v:false)<CR>
+vnoremap <silent> <Space>ib :<C-U>call line#append_and_prepend(v:count1, v:true)<CR>
+" }}}
 
 " Applications (a is also alignment, watch for conflicts) {
 nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
@@ -318,40 +325,25 @@ nnoremap <silent> <Space>am :Neomake<CR>
 
 
 " Substitute {
-" s - standard | a - all | f - in cntr-f mode
-" Standard {
-" Sub last
-nnoremap <silent> <Space>sl :s///g<Left><Left>
-" Sub standard
-nnoremap <silent> <Space>ss :s///g<Left><Left><Left>
-" Sub all standard
-nnoremap <silent> <Space>sas :%s///g<Left><Left><Left>
-" Sub standard in command mode
-nnoremap <silent> <Space>sfs :s///g<Left><Left><Left><C-f>i
-" Sub all standard in command mode
-nnoremap <silent> <Space>sfas :%s///g<Left><Left><Left><C-f>i
-" }
-" Word {
-nnoremap <silent> <Space>sw :s/\(<C-r><C-w>\)//g<Left><Left>
-nnoremap <silent> <Space>saw :%s/\(<C-r><C-w>\)//g<Left><Left>
-nnoremap <silent> <Space>sfw :s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
-nnoremap <silent> <Space>sfaw :%s/\(<C-r><C-w>\)//g<Left><Left><C-f>i
-" }
-" Search {
-nnoremap <silent> <Space>s/ :s/\(<C-r>/\)//g<Left><Left>
-nnoremap <silent> <Space>sa/ :%s/\(<C-r>/\)//g<Left><Left>
-nnoremap <silent> <Space>sf/ :s/\(<C-r>/\)//g<Left><Left><C-f>i
-nnoremap <silent> <Space>sfa/ :%s/\(<C-r>/\)//g<Left><Left><C-f>i
-" }
-" Register {
-nnoremap <silent> <Space>s' :s/\(<C-r>"\)//g<Left><Left>
-nnoremap <silent> <Space>sa' :%s/\(<C-r>"\)//g<Left><Left>
-nnoremap <silent> <Space>sf' :s/\(<C-r>"\)//g<Left><Left><C-f>i
-nnoremap <silent> <Space>sfa' :%s/\(<C-r>"\)//g<Left><Left><C-f>i
-" }
+" Each sub set defines sequences like <Space>s<additional><range><key>
+" such that '<Space>sas' means sub all standard, or '<Space>scaw' means sub
+" all with correct flag for current word under cursor. See sub.vim for more
+" details. Probably shouldn't use f, c, a, or e as the additional because
+" they're the excepted ranges
+" Sub standard - s
+call sub#make_set('s', '')
+" Word - w
+call sub#make_set('w', '\(<C-r><C-w>\)')
+" Search - /
+call sub#make_set('/', '\(<C-r>/\)')
+" Register - '
+call sub#make_set("'", '\(<C-r>"\)')
+" Last - l
+call sub#make_set('l', '')
 " }
 
 " Search {
+map <Space><Space> <Plug>(easymotion-s)
 map <Space>// <Plug>(easymotion-s)
 map <Space>/2 <Plug>(easymotion-s2)
 map <Space>/B <Plug>(easymotion-B)
@@ -389,29 +381,18 @@ nnoremap <silent> <Space>/a :Ag <C-r><C-w><CR>
 
 " Alignment {
 " simple {
-nnoremap <silent> <Space>a" :Tabularize /"<CR>
-vnoremap <silent> <Space>a" :Tabularize /"<CR>
-nnoremap <silent> <Space>a' :Tabularize /'<CR>
-vnoremap <silent> <Space>a' :Tabularize /'<CR>
-nnoremap <silent> <Space>a& :Tabularize /&<CR>
-vnoremap <silent> <Space>a& :Tabularize /&<CR>
-nnoremap <silent> <Space>a, :Tabularize /,<CR>
-vnoremap <silent> <Space>a, :Tabularize /,<CR>
-nnoremap <silent> <Space>a=> :Tabularize /=><CR>
-vnoremap <silent> <Space>a=> :Tabularize /=><CR>
-nnoremap <silent> <Space>a: :Tabularize /:<CR>
-vnoremap <silent> <Space>a: :Tabularize /:<CR>
+call util#nvmap('a"', ':Tabularize /"<CR>')
+call util#nvmap("a'", ":Tabularize /'<CR>")
+call util#nvmap('a&', ':Tabularize /&<CR>')
+call util#nvmap('a,', ':Tabularize /,<CR>')
+call util#nvmap('a=>', ':Tabularize /=><CR>')
+call util#nvmap('a:', ':Tabularize /:<CR>')
 " }
-nnoremap <silent> <Space>a:: :Tabularize /:\zs<CR>
-vnoremap <silent> <Space>a:: :Tabularize /:\zs<CR>
-nnoremap <silent> <Space>a,, :Tabularize /,\zs<CR>
-vnoremap <silent> <Space>a,, :Tabularize /,\zs<CR>
-nnoremap <silent> <Space>a= :Tabularize /^[^=]*\zs=<CR>
-vnoremap <silent> <Space>a= :Tabularize /^[^=]*\zs=<CR>
-nnoremap <silent> <Space>a<Bar> :Tabularize /<Bar><CR>
-vnoremap <silent> <Space>a<Bar> :Tabularize /<Bar><CR>
-nnoremap <silent> <Space>ac :Tabularize /
-vnoremap <silent> <Space>ac :Tabularize /
+call util#nvmap('a::', ':Tabularize /:\zs<CR>')
+call util#nvmap('a,,', ':Tabularize /,\zs<CR>')
+call util#nvmap('a=', ':Tabularize /^[^=]*\zs=<CR>')
+call util#nvmap('a<Bar>', ':Tabularize /<Bar><CR>')
+call util#nvmap('ac', ':Tabularize /')
 " }
 
 " Moving text {
@@ -462,30 +443,6 @@ xmap <silent> <Space>m. :<C-U>call ExecuteMacroOnSelection('.')<CR>
 
 " Marks {
 nnoremap <silent> <Space>' :FzfMarks<CR>
-" }
-
-" Vimax {
-nmap <silent> <Space>va <Plug>VimaxList
-nmap <silent> <Space>vbo <Plug>VimaxOpenScratch
-nmap <silent> <Space>vbc <Plug>VimaxCloseScratch
-nmap <silent> <Space>vc <Plug>VimaxClearAddressHistory
-nmap <silent> <Space>vd <Plug>VimaxRunCommandInDir
-nmap <silent> <Space>vg <Plug>VimaxGoToAddress
-nmap <silent> <Space>vh <Plug>VimaxHistory
-nmap <silent> <Space>vi <Plug>VimaxInspectAddress
-nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
-nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
-nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
-nmap <silent> <Space>v<CR> <Plug>VimaxSendReturn
-nmap <silent> <Space>vp <Plug>VimaxPromptCommand
-nmap <silent> <Space>vq <Plug>VimaxCloseAddress
-nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
-nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
-nmap <silent> <Space>vs <Plug>VimaxMotion
-nmap <silent> <Space>vs. <Plug>VimaxMotionSendLastRegion
-vmap <silent> <Space>vs <Plug>VimaxMotion
-nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
-nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }
 
 " Repl and typing {

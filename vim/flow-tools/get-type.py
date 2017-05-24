@@ -22,13 +22,13 @@ class Printer:
 def get_initial_vars() -> Tuple[int, int, List[str], str, Printer]:
     current = vim.current
     line_num, col_num = current.window.cursor
-    flow_bin = vim.vars['deoplete#sources#flow#flow_bin'] or 'flow'
+    flow_bin = vim.vars['flow#flow_path'] or 'flow'
     return (line_num, col_num, current.buffer, flow_bin, Printer())
 
 
 def get_flow_command(flow_bin: str, line_num: int, col_num=1) -> List[str]:
-    return [flow_bin, 'type-at-pos', '--json', '--no-auto-start',
-            str(line_num), str(col_num + 1)]
+    return [flow_bin, 'type-at-pos', '--json', str(line_num),
+            str(col_num + 1)]
 
 
 def decode_json_load(result: bytes) -> Dict[str, Any]:
