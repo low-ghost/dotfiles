@@ -1,5 +1,16 @@
+let g:flow#flowpath = 'flow'
+
 function! FlowGetType()
-  py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
+  if has('python3')
+    py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
+  else
+    let cmd = g:flow#flowpath.' type-at-pos '.line('.').' '.col('.')
+    let buffer_contents = join(getline(1,'$'), "\n")
+    let output = 'FlowType: '.system(cmd, buffer_contents)
+    let output = substitute(output, '\n$', '', '')
+    let g:last_flow_type = output
+    echo output
+  endif
 endfunction
 command! FlowGetType call FlowGetType()
 

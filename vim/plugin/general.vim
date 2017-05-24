@@ -2,9 +2,8 @@
 " Basic settings for all vim instances
 
 " General Settings {
-" Basic {
+" Basic {{{
 set background=dark                             " dark background
-filetype plugin indent on                       " Automatically detect file types
 syntax on                                       " Syntax
 set mouse=a                                     " Mouse support
 set mousehide                                   " hide mouse while typing
@@ -13,13 +12,20 @@ set clipboard=unnamed,unnamedplus               " use unnamed clipboard when pos
 set shortmess+=filmnrxoOtT                      " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 set virtualedit=onemore                         " allow for cursor beyond last character
-set history=2000                                " a ton of history
-set spell                                       " spell checking on
 set hidden                                      " allow switching buffer w/o saving
 "set iskeyword-=.                                " '.' is an end of word designator
 "set iskeyword-=#                                " '#' is an end of word designator
 set iskeyword-=-                                " '-' is an end of word designator
-" }
+" Neovim makes these obsolete: {{
+"filetype plugin indent on
+"set spell
+"set backspace=indent,eol,start
+"set autoindent
+"set history=10000
+"set incsearch
+"set wildmenu
+" }}
+" }}}
 
 " Backups {
 set backup
@@ -29,10 +35,6 @@ set undoreload=10000
 " }
 
 " Theme {
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_contrast_light='soft'
@@ -46,16 +48,13 @@ set showcmd                                    " Show partial commands in status
 set linespace=0                                " No extra spaces between rows
 set number                                     " Line numbers on
 set showmatch                                  " Show matching brackets/parenthesis
-set incsearch                                  " Find as you type search
 set hlsearch                                   " Highlight search terms
 set winminheight=0                             " Windows can be 0 line high
-set wildmenu                                   " Show list instead of just completing
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
 set foldenable                                 " Auto fold code
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set nowrap                                     " Do not wrap long lines
-set autoindent                                 " Indent at the same level of the previous line
 set diffopt+=vertical                          " vertical diffs
 " clean up status line
 let g:bufferline_echo=0
@@ -69,7 +68,6 @@ set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
-set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set matchpairs+=<:>             " Match, to be used with %
 " }
@@ -121,7 +119,6 @@ vnoremap > >gv
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
 vnoremap . :normal .<CR>
-set backspace=indent,eol,start  " Backspace for dummies
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 " Wrapped lines goes down/up to next row, rather than next line in file
 noremap j gj
@@ -185,3 +182,6 @@ set inccommand=split
 " Grep w/ rg
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+let g:test_path = 'test/unit'
+autocmd VimLeavePre * call let g:exit_code = _vimax_tmux_exit()

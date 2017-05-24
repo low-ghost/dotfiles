@@ -84,50 +84,6 @@ function! StripTrailingWhitespace()
 endfunction
 " }
 
-"TODO visual block
-" Insert functions {
-function! AppendLine(go)
-  let c = v:count > 0 ? v:count : 1
-  let i = 0
-  while i < c
-    call append(line("."), "")
-    let i += 1
-  endwhile
-  if a:go
-    execute '+' . c
-    startinsert!
-  endif
-endfunction
-
-function! PrependLine(go)
-  if !a:go
-    let l:scrolloffsave = &scrolloff
-    " Avoid jerky scrolling with ^E at top of window
-    set scrolloff=0
-  endif
-  let c = v:count > 0 ? v:count : 1
-  let i = 0
-  while i < c
-    call append(line(".") - 1, "")
-    let i += 1
-  endwhile
-  if a:go
-    execute '-' . c
-    startinsert!
-  else
-    if winline() != winheight(0)
-      silent normal! <C-e>
-    end
-    let &scrolloff = l:scrolloffsave
-  endif
-endfunction
-
-function! AppendAndPrependLine()
-  call AppendLine(0)
-  call PrependLine(0)
-endfunction
-" }
-
 function! s:getchar()
   let c = getchar()
   if c =~ '^\d\+$'
@@ -138,106 +94,11 @@ endfunction
 
 function! ExecuteMacroOnSelection(...)
   if !exists('a:1') || !exists('s:last_execute_register')
-    echo 'register>'
-    let s:last_execute_register= s:getchar()
+    echo 'register> '
+    let s:last_execute_register = s:getchar()
   endif
-  exe "'<,'>normal @".s:last_execute_register
+  exe "'<,'>normal @" . s:last_execute_register
 endfunction
-
-function! RefreshAllBuffers()
-  set noconfirm
-  bufdo e!
-  set confirm
-endfunction
-
-function! BufferByMatch(delete)
-   let bufNr = bufnr("$")
-   let str = a:delete
-     \ ? input('Delete buffers matching> ')
-     \ : input('Keep only buffers matching> ')
-   while bufNr > 0
-     let bname = bufname(bufNr)
-     if buflisted(bufNr)
-       \ && (a:delete ? bname =~ str : bname !~ str)
-       \ && getbufvar(bufNr, '&modified') == 0
-       exe "bd ".bufNr
-     endif
-     let bufNr = bufNr-1
-   endwhile
-endfunction
-
-" BufOnly.vim {
-"
-" Delete all the buffers except the current/named buffer.
-"
-" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
-"
-" Distributed under the terms of the Vim license.  See ":help license".
-"
-" Usage:
-"
-" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
-"
-" Without any arguments the current buffer is kept.  With an argument the
-" buffer name/number supplied is kept.
-
-command! -nargs=? -complete=buffer -bang Bonly
-      \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang BOnly
-      \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang Bufonly
-      \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang BufOnly
-      \ :call BufOnly('<args>', '<bang>')
-
-function! BufOnly(buffer, bang)
-  if a:buffer == ''
-    " No buffer provided, use the current buffer.
-    let buffer = bufnr('%')
-  elseif (a:buffer + 0) > 0
-    " A buffer number was provided.
-    let buffer = bufnr(a:buffer + 0)
-  else
-    " A buffer name was provided.
-    let buffer = bufnr(a:buffer)
-  endif
-
-  if buffer == -1
-    echohl ErrorMsg
-    echomsg "No matching buffer for" a:buffer
-    echohl None
-    return
-  endif
-
-  let last_buffer = bufnr('$')
-
-  let delete_count = 0
-  let n = 1
-  while n <= last_buffer
-    if n != buffer && buflisted(n)
-      if a:bang == '' && getbufvar(n, '&modified')
-        echohl ErrorMsg
-        echomsg 'No write since last change for buffer'
-              \ n '(add ! to override)'
-        echohl None
-      else
-        silent exe 'bdel' . a:bang . ' ' . n
-        if ! buflisted(n)
-          let delete_count = delete_count+1
-        endif
-      endif
-    endif
-    let n = n+1
-  endwhile
-
-  if delete_count == 1
-    echomsg delete_count "buffer deleted"
-  elseif delete_count > 1
-    echomsg delete_count "buffers deleted"
-  endif
-
-endfunction
-" }
 
 " Miscellaneous {
 function! IncrementVisualNumbers()
@@ -252,51 +113,4 @@ function! IncrementVisualNumbers()
 endfunction
 vnoremap <C-a> :call IncrementVisualNumbers()<CR>
 
-function! CountCommand(command, ...)
-  let lcount = exists('a:1') && v:count == 0 ? a:1 : v:count1
-  "execute a command like b or ll w/ a count
-  if exists('a:2')
-    exe ''.a:command.''.lcount
-  else
-    exe a:command lcount
-  endif
-endfunction
 "}
-
-" Extra Coercion {
-
-function! SelectionToCamel()
-  silent try | :silent s/\%V\-\(.\)/\U\1/g | catch || endtry
-  silent normal crc
-  silent normal! `<
-endfunction
-
-"}
-
-function! EditFtPlugin()
-  let to_edit = &ft
-  exe 'e ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
-endfunction
-
-function! SourceFtPlugin()
-  let to_edit = &ft
-  exe 'so ~/repo/dotfiles/vim/ftplugin/' . to_edit . '.vim'
-endfunction 
-
-let g:test_path = 'test/unit'
-function! EditTestFile(direction)
-  let current_dir = expand('%:p')
-  let git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    return s:warn('Not in git repo')
-  endif
-  let diff_path = matchlist(current_dir, git_root . '\(.*\)')[1]
-  let full_alt_path = git_root . '/' . g:test_path . diff_path
-  if a:direction == 'e'
-    exe 'e ' . full_alt_path
-  elseif a:direction == 's'
-    exe 'sp ' . full_alt_path
-  else
-    exe 'vsp ' . full_alt_path
-  endif
-endfunction

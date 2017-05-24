@@ -62,6 +62,7 @@ while getopts ':i:lr' opt; do
             echo 'tmux (from repo)'
             git clone https://github.com/tmux/tmux.git ~/repo/tmux
             cd ~/repo/tmux
+            git checkout tags/2.1
             sudo apt-get install ncurses-dev libevent-dev autotools-dev automake
             sh autogen.sh
             sudo ./configure && sudo make
