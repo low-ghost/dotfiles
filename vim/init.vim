@@ -1,11 +1,9 @@
-" vim: foldmarker={,} foldmethod=marker spell:
 set nocompatible
 set shell=/bin/zsh
 
-"TODO: figure out why cursor doesn't show in history edit
-
 call plug#begin('~/.nvim/plugged')
-"Not currently used
+
+"Not currently used {{{
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'amirh/HTML-AutoCloseTag'
 "Plug 'jiangmiao/auto-pairs'
@@ -14,6 +12,7 @@ call plug#begin('~/.nvim/plugged')
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'edkolev/promptline.vim'
 "Plug 'gorodinskiy/vim-coloresque'
+" }}}
 
 "All other vim settings
 Plug '~/repo/dotfiles/vim'
@@ -49,7 +48,7 @@ Plug 'low-ghost/vim-macro-manager'
 Plug 'low-ghost/vimax'
 Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
-Plug 'matchit.zip'
+"Plug 'matchit.zip'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 Plug 'morhetz/gruvbox'
@@ -72,6 +71,7 @@ Plug 'vim-scripts/restore_view.vim'
 Plug 'wellle/targets.vim'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'simnalamburt/vim-mundo'
+Plug 'vimwiki/vimwiki'
 " Python {{{
 Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
@@ -84,6 +84,10 @@ Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'd
 Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'steelsojka/deoplete-flow', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+" }}}
+" Go {{{
+Plug 'zchee/deoplete-go', { 'do': 'make' }
+Plug 'fatih/vim-go'
 " }}}
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
@@ -465,27 +469,27 @@ nnoremap <silent> <Space>' :FzfMarks<CR>
 " }
 
 " Vimax {
-nmap <silent> <Space>va <Plug>VimaxList
-nmap <silent> <Space>vbo <Plug>VimaxOpenScratch
-nmap <silent> <Space>vbc <Plug>VimaxCloseScratch
-nmap <silent> <Space>vc <Plug>VimaxClearAddressHistory
-nmap <silent> <Space>vd <Plug>VimaxRunCommandInDir
-nmap <silent> <Space>vg <Plug>VimaxGoToAddress
-nmap <silent> <Space>vh <Plug>VimaxHistory
-nmap <silent> <Space>vi <Plug>VimaxInspectAddress
-nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
-nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
-nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
-nmap <silent> <Space>v<CR> <Plug>VimaxSendReturn
-nmap <silent> <Space>vp <Plug>VimaxPromptCommand
-nmap <silent> <Space>vq <Plug>VimaxCloseAddress
-nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
-nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
-nmap <silent> <Space>vs <Plug>VimaxMotion
-nmap <silent> <Space>vs. <Plug>VimaxMotionSendLastRegion
-vmap <silent> <Space>vs <Plug>VimaxMotion
-nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
-nmap <silent> <Space>vz <Plug>VimaxZoomAddress
+"nmap <silent> <Space>va <Plug>VimaxList
+"nmap <silent> <Space>vbo <Plug>VimaxOpenScratch
+"nmap <silent> <Space>vbc <Plug>VimaxCloseScratch
+"nmap <silent> <Space>vc <Plug>VimaxClearAddressHistory
+"nmap <silent> <Space>vd <Plug>VimaxRunCommandInDir
+"nmap <silent> <Space>vg <Plug>VimaxGoToAddress
+"nmap <silent> <Space>vh <Plug>VimaxHistory
+"nmap <silent> <Space>vi <Plug>VimaxInspectAddress
+"nmap <silent> <Space>vj <Plug>VimaxScrollDownInspect
+"nmap <silent> <Space>vk <Plug>VimaxScrollUpInspect
+"nmap <silent> <Space>vl <Plug>VimaxRunLastCommand
+"nmap <silent> <Space>v<CR> <Plug>VimaxSendReturn
+"nmap <silent> <Space>vp <Plug>VimaxPromptCommand
+"nmap <silent> <Space>vq <Plug>VimaxCloseAddress
+"nmap <silent> <Space>vr <Plug>VimaxRunCommandAtGitRoot
+"nmap <silent> <Space>vss <Plug>VimaxMotionCurrentLine
+"nmap <silent> <Space>vs <Plug>VimaxMotion
+"nmap <silent> <Space>vs. <Plug>VimaxMotionSendLastRegion
+"vmap <silent> <Space>vs <Plug>VimaxMotion
+"nmap <silent> <Space>vx <Plug>VimaxInterruptAddress
+"nmap <silent> <Space>vz <Plug>VimaxZoomAddress
 " }
 
 " Repl and typing {
