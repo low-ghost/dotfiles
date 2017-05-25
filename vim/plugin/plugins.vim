@@ -1,12 +1,15 @@
-" vim: foldmarker={,} foldmethod=marker spell:
 " Plugin specific settings
 
+" YouCompleteMe {{{
 let g:Completion_YouCompleteMe = 1
+" }}}
 let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
+" Vimax {{{
 let g:vimax_history_file = $HOME . '/.zsh_history'
 let g:vimax_default_mappings = 1
-let g:vimax#leader = '<Space>v'
+let g:vimax_leader = '<Space>v'
+" }}}
 let g:airline#extensions#tmuxline#enabled = 0
 let g:jsx_ext_required = 0
 
@@ -16,7 +19,7 @@ let g:jsx_ext_required = 0
   "\ 'b' : [ promptline#slices#cwd() ],
   "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
   "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
-" OmniComplete {
+" OmniComplete {{{
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
     \if &omnifunc == "" |
@@ -39,16 +42,16 @@ inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 " Automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menu,preview,longest
-" }
+" }}}
 
-" Ctags {
+" Ctags {{{
 set tags=./tags;/,~/.vimtags
 " Make tags placed in .git/tags file available in all levels of a repository
 let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
   let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
-" }
+" }}}
 
 " AutoCloseTag {
 " Make it so AutoCloseTag works for xml and xhtml files as well
@@ -56,7 +59,7 @@ endif
 "nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 " }
 
-" NerdTree {
+" NerdTree {{{
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.py[cd]$', '\.map\.*', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let NERDTreeChDirMode=0
@@ -65,7 +68,7 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
-" }
+" }}}
 
 " JSON {
 let g:vim_json_syntax_conceal = 0
@@ -356,3 +359,5 @@ call textobj#user#plugin('line', {
 \     'select-i': 'iss', 'select-i-function': 'textobj#line#select_i',
 \   },
 \ })
+
+let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md', 'auto_tags': 1}]

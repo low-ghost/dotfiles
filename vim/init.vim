@@ -304,7 +304,7 @@ vnoremap <silent> <Space>ib :<C-U>call line#append_and_prepend(v:count1, v:true)
 
 " Applications (a is also alignment, watch for conflicts) {
 nnoremap <silent> <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-nnoremap <silent> <Space>au :UndotreeToggle<CR>
+nnoremap <silent> <Space>au :MundoToggle<CR>
 "TODO normal mode accepting range
 vnoremap <silent> <Space>as :sort<CR>
 "t for template

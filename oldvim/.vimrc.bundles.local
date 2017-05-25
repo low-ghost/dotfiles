@@ -1,4 +1,0 @@
-Bundle 'benmills/vimux'
-Bundle 'edkolev/tmuxline.vim'
-Bundle 'moll/vim-node'
-Bundle 'marijnh/tern_for_vim'
