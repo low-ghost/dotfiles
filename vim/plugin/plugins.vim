@@ -241,15 +241,6 @@ if !empty(g:neomake_javascript_enabled_makers)
   autocmd! BufWritePost * Neomake
 endif
 
-let g:neomake_go_gometalinter_args = [
-  \ '--disable-all',
-  \ '--enable=errcheck',
-  \ '--enable=gosimple',
-  \ '--enable=staticcheck',
-  \ '--enable=unused',
-  \ '--enable=go vet'
-  \ ]
-
 " }
 
 

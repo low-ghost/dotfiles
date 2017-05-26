@@ -142,3 +142,8 @@ export PATH=/opt/apache-maven-3.3.9/bin:$PATH
 
 # Add repo bin to path
 export PATH=$HOME/repo/dotfiles/bin:$PATH
+
+# Add go path
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin

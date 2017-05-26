@@ -73,7 +73,6 @@ dbuilde() {
   dir=${PWD##*/}
   echo ${1-$dir}
 }
-dockerlink() { docker run -it --link $1:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U exm-app-development exm-development' }
 
 # }
 # node {
@@ -83,11 +82,6 @@ alias nvma='nvm alias'
 alias nvmi='nvm install'
 alias nvml='nvm ls'
 alias nlo='nvm exec latest node ~/repo/js-repl/standard/lo'
-alias nlo3='nvm exec latest node ~/repo/js-repl/lo3/lo3'
-alias nvlo='NODE_NO_READLINE=1 rlwrap -P "const [lo, fp] = [require(\"lodash\"), require(\"lodash/fp\")];" -r --always-readline node'
-alias ncw='nvm exec 6.4 node ~/repo/js-repl/standard/cw'
-alias ncwp='APP_ENV=production nvm exec 6.4 node ~/repo/js-repl/standard/cw'
-alias ncws='APP_ENV=staging R=true nvm exec 6.4 node ~/repo/js-repl/standard/cw'
 alias npml='npm link'
 
 nvmu(){
@@ -129,27 +123,6 @@ _gitunadd () {
   compadd -S '' `_gitunadd_completion`
 }
 
-# clone from the excel micro repo
-gclex() {
-  if [ -z "$1" ]; then
-    repo=`_gclex_completion | fzf`
-    if [ -z "$repo" ]; then
-      echo 'no repo chosen'
-      return
-    fi
-  else
-    repo=$1
-  fi
-  git clone git@bitbucket.org:excelmicro/$repo.git ~/repo/$repo
-}
-_gclex_completion() {
-  cat ~/repo/.temp_list | jq '.values | .[].full_name' | sed 's:"excelmicro/\(.*\)":\1:g'
-}
-_gclex () {
-  compset -P '*,'
-  compadd -S '' `_gclex_completion`
-}
-
 # }
 # apt {
 
@@ -171,17 +144,6 @@ pyserve() {
     timeout "$@" python -m SimpleHTTPServer; notify-send 'python server shutdown'
   fi
 }
-alias rdevstart='docker run -p 6379:6379 -d redis'
-
-# pgjacob() {
-    #if [ $# -eq 0 ]; then
-        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM
-    #elif [ $# -eq 1 ]; then
-        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c $1 -t
-    #else
-        #command psql -h 192.168.0.218 -U $PG_USER_LOC -d $PG_DB_EXM -c "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM ($1) AS fooo;" -t | jq $2
-    #fi
-#}
 
 groot() {
   git rev-parse --show-toplevel
@@ -200,11 +162,18 @@ _cdr() {
 cdr() {
   fzf_ize "_cdr_completion" "_cdr_pre_fzf" $1
 }
-# start a test environment
-alias testenv='env $(ejson decrypt test.json | python ./env.py) docker-compose -f pg-redis.yml up'
 
-# master git
-alias gcom='git checkout master'
+_cdrg_pre_fzf() { cd $1 }
+_cdrg_completion() {
+  find ~/go/src/ -type d -print | grep -v '\.git\|golang\|gometalinter\|go-quickfix\|gocode'
+}
+_cdrg() {
+  compset -P '*,'
+  compadd -S '' `_cdrg_completion`
+}
+cdrg() {
+  fzf_ize "_cdrg_completion" "_cdrg_pre_fzf" $1
+}
 
 # npm view
 alias npmv='npm view'
@@ -251,108 +220,108 @@ gcmin() {
 alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
 
 alias gbcur="git rev-parse --abbrev-ref HEAD"
-gb_to_issue() {
-  echo $1 | sed 's/^[[:alnum:]]*-\([[:alnum:]]*\)-\([[:alnum:]]*\).*/\1-\2/'
-}
+#gb_to_issue() {
+  #echo $1 | sed 's/^[[:alnum:]]*-\([[:alnum:]]*\)-\([[:alnum:]]*\).*/\1-\2/'
+#}
 # jira issue
-jiraissue() {
-  curl -s --netrc-file ~/.jira-netrc -X GET -H "Content-Type:application/json" \
-    https://excelmicro.atlassian.net/rest/api/2/issue/$1 | jq .fields.summary
-}
+#jiraissue() {
+  #curl -s --netrc-file ~/.jira-netrc -X GET -H "Content-Type:application/json" \
+    #https://excelmicro.atlassian.net/rest/api/2/issue/$1 | jq .fields.summary
+#}
 gname() {
   git remote show origin -n | grep "Fetch URL:" | sed -E 's:^.*/(.*).git$:\1:g'
 }
 # jira issue from git
-gjira() {
-  if [ $# -eq 0 ]; then
-    branch=`gbcur`
-    issue=`gb_to_issue $branch`
-    project_name=`gname`
-  elif [ $# -eq 1 ]; then
-    issue=`gb_to_issue $1`
-    project_name=`gname`
-  else
-    issue=`gb_to_issue $1`
-    project_name=$2
-  fi
-  cached_file_dir=$HOME/.jira-descriptions/$project_name
-  cached_file_loc=$cached_file_dir/$issue
-  if [ -f $cached_file_loc ]; then
-    cat $cached_file_loc
-  else
-    summary=`jiraissue $issue`
-    mkdir -p $cached_file_dir
-    touch $cached_file_loc
-    echo $summary > $cached_file_loc
-    echo $summary
-  fi
-}
+#gjira() {
+  #if [ $# -eq 0 ]; then
+    #branch=`gbcur`
+    #issue=`gb_to_issue $branch`
+    #project_name=`gname`
+  #elif [ $# -eq 1 ]; then
+    #issue=`gb_to_issue $1`
+    #project_name=`gname`
+  #else
+    #issue=`gb_to_issue $1`
+    #project_name=$2
+  #fi
+  #cached_file_dir=$HOME/.jira-descriptions/$project_name
+  #cached_file_loc=$cached_file_dir/$issue
+  #if [ -f $cached_file_loc ]; then
+    #cat $cached_file_loc
+  #else
+    #summary=`jiraissue $issue`
+    #mkdir -p $cached_file_dir
+    #touch $cached_file_loc
+    #echo $summary > $cached_file_loc
+    #echo $summary
+  #fi
+#}
 
-gbjira() {
-  remote=false
-  color=true
-  while [[ "$#" -gt 0 ]]; do
-    case "$1" in
-      -r|--remote) remote=true;;
-      -n|--nocolor) color=false;;
-    esac
-    shift
-  done
-  if [ "$remote" = true ]; then
-    branches=(`git branch -r | cut -c 3-`)
-  else
-    branches=(`git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'`)
-  fi
-  for unformatted_branch in $branches; do
-    branch=`echo $unformatted_branch | sed 's/^[[:alnum:]]*\///'`
-    desc=`gjira $branch`
-    if [ $branch == `git rev-parse --abbrev-ref HEAD` ]; then
-      if [ $color == true ]; then
-        branch="* \033[0;32m$branch\033[0m"
-      else
-        branch="* $branch"
-      fi
-    else
-      branch="  $branch"
-    fi
-    if [ $color == true ]; then
-      echo -e "$branch: \033[0;36m$desc\033[0m"
-    else
-      echo -e "$branch: $desc"
-    fi
-  done
-}
-_gcof_pre_fzf() {
-  gco `echo $1 | sed 's/^..\(.*\):\(.*\)/\1/'`
-}
-_gcof_completion() {
-  gbjira -r -n
-}
-_gcof () {
-  compset -P '*,'
-  compadd -S '' `_gcof_completion`
-}
-gcof() {
-  fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
-}
-#alias gbc="gbjira | grep `gbcur`"
-bb() {
-  while [[ "$#" -gt 1 ]]; do
-    case "$1" in
-      -b|--branch) branch="$2";;
-      -p|--project) project_name="$2";;
-    esac
-    shift
-  done
-  project_name=${project_name:=`gname`}
-  branch=${branch:=`gbcur`}
-  firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
-}
-jj() {
-  branch=${1:-`gbcur`}
-  issue=`gb_to_issue $branch`
-  firefox https://excelmicro.atlassian.net/browse/$issue
-}
+#gbjira() {
+  #remote=false
+  #color=true
+  #while [[ "$#" -gt 0 ]]; do
+    #case "$1" in
+      #-r|--remote) remote=true;;
+      #-n|--nocolor) color=false;;
+    #esac
+    #shift
+  #done
+  #if [ "$remote" = true ]; then
+    #branches=(`git branch -r | cut -c 3-`)
+  #else
+    #branches=(`git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'`)
+  #fi
+  #for unformatted_branch in $branches; do
+    #branch=`echo $unformatted_branch | sed 's/^[[:alnum:]]*\///'`
+    #desc=`gjira $branch`
+    #if [ $branch == `git rev-parse --abbrev-ref HEAD` ]; then
+      #if [ $color == true ]; then
+        #branch="* \033[0;32m$branch\033[0m"
+      #else
+        #branch="* $branch"
+      #fi
+    #else
+      #branch="  $branch"
+    #fi
+    #if [ $color == true ]; then
+      #echo -e "$branch: \033[0;36m$desc\033[0m"
+    #else
+      #echo -e "$branch: $desc"
+    #fi
+  #done
+#}
+#_gcof_pre_fzf() {
+  #gco `echo $1 | sed 's/^..\(.*\):\(.*\)/\1/'`
+#}
+#_gcof_completion() {
+  #gbjira -r -n
+#}
+#_gcof () {
+  #compset -P '*,'
+  #compadd -S '' `_gcof_completion`
+#}
+#gcof() {
+  #fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
+#}
+##alias gbc="gbjira | grep `gbcur`"
+#bb() {
+  #while [[ "$#" -gt 1 ]]; do
+    #case "$1" in
+      #-b|--branch) branch="$2";;
+      #-p|--project) project_name="$2";;
+    #esac
+    #shift
+  #done
+  #project_name=${project_name:=`gname`}
+  #branch=${branch:=`gbcur`}
+  #firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
+#}
+#jj() {
+  #branch=${1:-`gbcur`}
+  #issue=`gb_to_issue $branch`
+  #firefox https://excelmicro.atlassian.net/browse/$issue
+#}
 
 # TODO: execute a file
 #alias pgexec='echo "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM (`cat modules/sql/audit/retrieval.sql | sed 's/;//g'`) AS fooo;" | sed 's/to_timestamp(\$.)/now()/g' | sed 's/\$/:v/g' | psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -t -v v1=62530 -v v2=314 | jq .'
@@ -369,13 +338,13 @@ thesaur() {
 }
 alias other-words='thesaur'
 
-pr() {
-  branch=`gbcur`
-  desc=${2:-`gjira`}
-  firefox `bitbucket pull_request --owner excelmicro --title "$branch: $desc" $branch $1 \
-    | grep 'Link:' \
-    | sed 's/.*Link: \(.*\)/\1/'`
-}
+#pr() {
+  #branch=`gbcur`
+  #desc=${2:-`gjira`}
+  #firefox `bitbucket pull_request --owner excelmicro --title "$branch: $desc" $branch $1 \
+    #| grep 'Link:' \
+    #| sed 's/.*Link: \(.*\)/\1/'`
+#}
 
 # checkout files from the current branch
 alias gcoc='gco `gbcur` -- '
