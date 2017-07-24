@@ -124,3 +124,31 @@ endsnippet
 snippet /edn "eslint-disable-next-line"
 // eslint-disable-next-line${1: rule}
 endsnippet
+
+snippet classE "class-error"
+class ${1:Error} extends Error {
+  constructor(${2:message}) {
+    super(${3:message});
+  }
+}
+endsnippet
+
+snippet destest "describe-test"
+describe('${1:funcName}', () => {
+  test('should ${2:description}', $3() => {
+    expect($1(${4:params})).to${5:expectation};
+  });
+});
+endsnippet
+
+snippet be( "before-each"
+beforeEach($1() => {
+  $2
+});
+endsnippet
+
+snippet ae( "after-each"
+afterEach($1() => {
+  $2
+});
+endsnippet

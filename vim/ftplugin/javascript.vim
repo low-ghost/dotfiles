@@ -1,16 +1,16 @@
 let g:flow#flowpath = 'flow'
 
 function! FlowGetType()
-  if has('python3')
-    py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
-  else
+  "if has('python3')
+    "py3file ~/repo/dotfiles/vim/flow-tools/get-type.py
+  "else
     let cmd = g:flow#flowpath.' type-at-pos '.line('.').' '.col('.')
     let buffer_contents = join(getline(1,'$'), "\n")
     let output = 'FlowType: '.system(cmd, buffer_contents)
     let output = substitute(output, '\n$', '', '')
     let g:last_flow_type = output
     echo output
-  endif
+  "endif
 endfunction
 command! FlowGetType call FlowGetType()
 
@@ -23,7 +23,7 @@ first_line = buf[0]
 if first_line == '// @flow' or first_line == '/* @flow */':
   print('already flow typed')
 else:
-  buf.append(['// @flow', ''], 0)
+  buf.append(['// @flow'], 0)
 endpython
 endfunction
 
@@ -36,8 +36,6 @@ nnoremap <silent> <buffer> <Space>yn :TernRename<CR>
 nnoremap <silent> <buffer> <Space>ya :JsDoc<CR>
 nnoremap <silent> <buffer> <Space>yf :call FlowGetType()<CR>
 nnoremap <silent> <buffer> <Space>yi :call FlowInit()<CR>
-
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
 
 let g:react_lifecycle_list = {
   \ 'Mounting   | constructor(props, context)                              | called before render, initialize state'
@@ -76,3 +74,16 @@ function! ReactLifecyclePicker()
 endfunction
 
 command! Life call ReactLifecyclePicker()
+
+function! EditJavascriptTest()
+  let l:file_name = expand('%')
+  if l:file_name =~# '\.test'
+    let l:alt_file_name = substitute(l:file_name, '\.test\.js$', '.js', '')
+  else
+    let l:alt_file_name = substitute(l:file_name, '\.js$', '.test.js', '')
+  endif
+  let l:full_path = expand('%:p:h')
+  execute "e " . l:full_path . '/' . l:alt_file_name
+endfunction
+
+nnoremap <Space>ft :call EditJavascriptTest()<cr>

@@ -19,6 +19,7 @@ let g:jsx_ext_required = 0
   "\ 'b' : [ promptline#slices#cwd() ],
   "\ 'y' : [ promptline#slices#vcs_branch(), promptline#slices#git_status(), promptline#slices#jobs() ],
   "\ 'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
+
 " OmniComplete {{{
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -148,33 +149,33 @@ let g:neomake_error_sign = {
 let g:neomake_python_enabled_makers = ['pylama', 'mypy']
 let g:neomake_vim_enambled_makers = ['vint']
 
-autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+"autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
-let g:neomake_typescript_tsc_maker = {
-  \ 'args': [
-      \  '-t', 'es5', '-m', 'commonjs', '--noEmit', '--noImplicitAny',
-  \ ],
-  \ 'errorformat':
-      \ '%E%f %#(%l\,%c): error %m,' .
-      \ '%E%f %#(%l\,%c): %m,' .
-      \ '%Eerror %m,' .
-      \ '%C%\s%\+%m'
+"let g:neomake_typescript_tsc_maker = {
+  "\ 'args': [
+      "\  '-t', 'es5', '-m', 'commonjs', '--noEmit', '--noImplicitAny',
+  "\ ],
+  "\ 'errorformat':
+      "\ '%E%f %#(%l\,%c): error %m,' .
+      "\ '%E%f %#(%l\,%c): %m,' .
+      "\ '%Eerror %m,' .
+      "\ '%C%\s%\+%m'
+  "\ }
+"let g:neomake_typescript_tsca_maker = {
+  "\ 'exe': 'tsc',
+  "\ 'append_file': 0,
+  "\ 'errorformat':
+      "\ '%E%f %#(%l\,%c): error %m,' .
+      "\ '%E%f %#(%l\,%c): %m,' .
+      "\ '%Eerror %m,' .
+      "\ '%C%\s%\+%m'
   \ }
-let g:neomake_typescript_tsca_maker = {
-  \ 'exe': 'tsc',
-  \ 'append_file': 0,
-  \ 'errorformat':
-      \ '%E%f %#(%l\,%c): error %m,' .
-      \ '%E%f %#(%l\,%c): %m,' .
-      \ '%Eerror %m,' .
-      \ '%C%\s%\+%m'
-  \ }
-let g:neomake_typescript_eslint_maker = {
-  \ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
-  \ 'args': ['-f', 'compact'],
-  \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-    \ '%W%f: line %l\, col %c\, Warning - %m'
-  \ }
+"let g:neomake_typescript_eslint_maker = {
+  "\ 'exe': substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', ''),
+  "\ 'args': ['-f', 'compact'],
+  "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    "\ '%W%f: line %l\, col %c\, Warning - %m'
+  "\ }
 let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
 
 function! Tsc()
@@ -210,11 +211,6 @@ command! -nargs=* Ag call NeoAg(<q-args>)
 command! -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!
 command! -nargs=+ -complete=file -bar Gr silent! grep! <args>|cwindow|redraw!
 
-function! Esfix()
-  exe 'Neomake eslintf'
-endfunction
-command! Esfix call Esfix()
-
 function! StrTrim(txt)
   return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 endfunction
@@ -228,17 +224,12 @@ if findfile('.flowconfig', '.;') !=# ''
   if g:flow_path != 'flow not found'
     let g:neomake_javascript_flow_maker = {
           \ 'exe': 'sh',
-          \ 'args': ['-c', g:flow_path.' --json 2> /dev/null | flow-vim-quickfix'],
+          \ 'args': ['-c', g:flow_path . ' --json 2> /dev/null | flow-vim-quickfix'],
           \ 'errorformat': '%E%f:%l:%c\,%n: %m',
           \ 'cwd': '%:p:h' 
           \ }
-    let g:neomake_javascript_enabled_makers = g:neomake_javascript_enabled_makers + [ 'flow']
+    let g:neomake_javascript_enabled_makers = g:neomake_javascript_enabled_makers + ['flow']
   endif
-endif
-
-" This is kinda useful to prevent Neomake from unnecessary runs
-if !empty(g:neomake_javascript_enabled_makers)
-  autocmd! BufWritePost * Neomake
 endif
 
 " }

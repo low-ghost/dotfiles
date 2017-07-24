@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+read -n1 -r -p "Press space to continue...\n" key
+
+if [ "$key" = '' ]; then
+  notify-send 'space pressed'
+    # Space pressed, do something
+    # echo [$key] is empty when SPACE is pressed # uncomment to trace
+else
+  notify-send 'not space pressed'
+    # Anything else pressed, do whatever else.
+    # echo [$key] not empty
+fi
+

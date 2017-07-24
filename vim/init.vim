@@ -12,6 +12,7 @@ call plug#begin('~/.nvim/plugged')
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'edkolev/promptline.vim'
 "Plug 'gorodinskiy/vim-coloresque'
+"Plug 'MarcWeber/vim-addon-local-vimrc'
 " }}}
 
 "All other vim settings
@@ -22,7 +23,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'benekastah/neomake'
 Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
@@ -92,6 +92,10 @@ Plug 'fatih/vim-go'
 " Never got deoplete typescript working well...
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --all', 'for': ['typescript']}
 " }}}
+" Neomake {{{
+Plug 'benekastah/neomake'
+Plug 'benjie/neomake-local-eslint.vim'
+" }}}
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
 
@@ -138,6 +142,24 @@ nnoremap : ;
 vnoremap : ;
 nnoremap ,, ,
 vnoremap ,, ,
+
+" Map g* keys in Normal, Operator-pending, and Visual+select
+noremap <silent> $ :call WrapRelativeMotion("$")<CR>
+noremap <silent> <End> :call WrapRelativeMotion("$")<CR>
+noremap <silent> 0 :call WrapRelativeMotion("0")<CR>
+noremap <silent> <Home> :call WrapRelativeMotion("0")<CR>
+noremap <silent> ^ :call WrapRelativeMotion("^")<CR>
+" Overwrite the operator pending $/<End> mappings from above
+" to force inclusive motion with :execute normal!
+onoremap <silent> $ v:call WrapRelativeMotion("$")<CR>
+onoremap <silent> <End> v:call WrapRelativeMotion("$")<CR>
+" Overwrite the Visual+select mode mappings from above
+" to ensure the correct vis_sel flag is passed to function
+vnoremap <silent> $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
+vnoremap <silent> <End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
+vnoremap <silent> 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
+vnoremap <silent> <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
+vnoremap <silent> ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
 
 "Spacemacs style keys {{{
 

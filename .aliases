@@ -208,8 +208,6 @@ spoc() {
   notify-send $current
 }
 
-# get the jira issue from the current branch name
-alias gitissue="git rev-parse --abbrev-ref HEAD | sed 's/.*-\(.*\)-\(.*\)/\1-\2/'"
 gcmi() {
   git commit -m "`gitissue`: $1"
 }
@@ -220,9 +218,13 @@ gcmin() {
 alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
 
 alias gbcur="git rev-parse --abbrev-ref HEAD"
-#gb_to_issue() {
-  #echo $1 | sed 's/^[[:alnum:]]*-\([[:alnum:]]*\)-\([[:alnum:]]*\).*/\1-\2/'
-#}
+gb_to_issue() {
+  echo $1 | sed 's/^\([[:alnum:]]*\)-\([[:alnum:]]*\)-.*/\1-\2/'
+}
+# get the jira issue from the current branch name
+gitissue() {
+  gb_to_issue `gbcur`
+}
 # jira issue
 #jiraissue() {
   #curl -s --netrc-file ~/.jira-netrc -X GET -H "Content-Type:application/json" \
@@ -317,20 +319,20 @@ gname() {
   #branch=${branch:=`gbcur`}
   #firefox https://bitbucket.com/excelmicro/$project_name/src/?at=$branch
 #}
-#jj() {
-  #branch=${1:-`gbcur`}
-  #issue=`gb_to_issue $branch`
-  #firefox https://excelmicro.atlassian.net/browse/$issue
-#}
+jj() {
+  branch=${1:-`gbcur`}
+  issue=`gb_to_issue $branch`
+  firefox https://$JIRA_SITE/browse/$issue
+}
 
 # TODO: execute a file
 #alias pgexec='echo "SELECT array_to_json(array_agg(row_to_json(fooo))) FROM (`cat modules/sql/audit/retrieval.sql | sed 's/;//g'`) AS fooo;" | sed 's/to_timestamp(\$.)/now()/g' | sed 's/\$/:v/g' | psql -h $PG_HOST_EXM -U $PG_USER_LOC -d exm-staging -t -v v1=62530 -v v2=314 | jq .'
 
 # typescript to json helper
-tsc-json() {
-  ./node_modules/typescript-json-schema/bin/typescript-json-schema \
-    models/$1/types.d.ts $2 --keywords errorMessage,id,title --required > schema/$1/$3.json
-}
+#tsc-json() {
+  #./node_modules/typescript-json-schema/bin/typescript-json-schema \
+    #models/$1/types.d.ts $2 --keywords errorMessage,id,title --required > schema/$1/$3.json
+#}
 
 # thesaurus lookup
 thesaur() {
@@ -360,3 +362,41 @@ _egit() {
 egit() {
   fzf_ize "_egit_completion" "_egit_pre_fzf" $1
 }
+
+# get linux release info
+alias compinfo='cat /etc/lsb-release'
+
+# go to github for ssh repo
+ghub() {
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\).git$/\1/'`
+}
+ghubb() {
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\).git$/\1/'`/tree/`gbcur`
+}
+
+_gcof_pre_fzf() {
+  git checkout $1
+}
+_gcof_completion() {
+  git branch --sort=-committerdate | sed 's/^\(\*\|\)\s*//g'
+}
+_gcof () {
+  compset -P '*,'
+  compadd -S '' `_gcof_completion`
+}
+gcof() {
+  fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
+}
+
+_wgo_completion() {
+  wmctrl -l
+}
+_wgo_func() {
+  echo $1 | awk '{print $1}' | xargs wmctrl -i -a
+}
+wgo() {
+  fzf_ize "_wgo_completion" "_wgo_func" $1
+}
+
+# commits sorted by last commit
+alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"

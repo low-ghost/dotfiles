@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+wmctrl -a tmux || gnome-terminal -e "tmux -2"
+exit 0

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+wmctrl -a $1 || $2

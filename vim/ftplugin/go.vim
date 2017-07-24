@@ -2,9 +2,9 @@ set tabstop=4
 set shiftwidth=4
 set noexpandtab
 
+"\ '--enable=errcheck',
 let g:neomake_go_gometalinter_args = [
   \ '--disable-all',
-  \ '--enable=errcheck',
   \ '--enable=gosimple',
   \ '--enable=staticcheck',
   \ '--enable=unused'
@@ -24,7 +24,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 
-nmap <Space>ft <Plug>(go-alternate)
+nnoremap <Space>ft :GoAlternate<cr>
 nmap <Space>y<Space> <Plug>(go-run)
 nmap <Space>yc <Plug>(go-build)
 nmap <Space>yD <Plug>(go-describe)

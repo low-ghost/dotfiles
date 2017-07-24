@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+pkill xcape > /dev/null
+rm -f /var/lib/xkb/*.xkm
+setxkbmap -layout nc
+. ~/.xcaperc
+exit 0
