@@ -62,7 +62,7 @@ while getopts ':i:lr' opt; do
             echo 'tmux (from repo)'
             git clone https://github.com/tmux/tmux.git ~/repo/tmux
             cd ~/repo/tmux
-            git checkout tags/2.1
+            git checkout tags/2.3
             sudo apt-get install ncurses-dev libevent-dev autotools-dev automake
             sh autogen.sh
             sudo ./configure && sudo make
@@ -113,20 +113,8 @@ while getopts ':i:lr' opt; do
             ;;
           # check latest download url first, change version in zshrc if necessary and download maven manually
           java)
-            sudo mkdir -p /opt/java && cd /opt/java
-            sudo wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-linux-x64.tar.gz
-            sudo tar -zxvf jdk-8u102-linux-x64.tar.gz	
-            cd jdk1.8.0_102/
-            sudo update-alternatives --install /usr/bin/java java /opt/java/jdk1.8.0_102/bin/java 100  
-            sudo update-alternatives --config java
-            sudo update-alternatives --install /usr/bin/javac javac /opt/java/jdk1.8.0_102/bin/javac 100
-            sudo update-alternatives --config javac
-            sudo update-alternatives --install /usr/bin/jar jar /opt/java/jdk1.8.0_102/bin/jar 100
-            sudo update-alternatives --config jar
-            sudo update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /opt/java/jdk1.8.0_102/jre/lib/amd64/libnpjp2.so 20000
-            #cd ~/Downloads
-            #tar xzvf apache-maven-3.3.9-bin.tar.gz
-            #sudo mv {,/opt/}apache-maven-3.3.9
+            curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
+            jabba install 1.9.0-180
             ;;
           em)
             echo 'installing ejson, postgres, virtualbox'

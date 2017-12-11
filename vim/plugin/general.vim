@@ -166,5 +166,4 @@ set inccommand=split
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 
-let g:test_path = 'test/unit'
-autocmd VimLeavePre * call let g:exit_code = _vimax_tmux_exit()
+set spellfile=$HOME/repo/dotfiles/vim/spell/en.utf-8.add

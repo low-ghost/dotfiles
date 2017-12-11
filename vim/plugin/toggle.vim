@@ -58,9 +58,11 @@ endfunction
 " Wrap {
 function! ToggleWrap()
   if &wrap == 'nowrap'
-    set wrap
+    set wrap nolist linebreak
+    set showbreak=····
   else
-    set nowrap
+    set nowrap list nolinebreak
+    set showbreak=
   endif
 endfunction
 " }

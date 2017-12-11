@@ -14,6 +14,22 @@ function! s:build(key, action, range_selection, range, is_correct, end) abort
   endif 
 endfunction
 
+function! s:build_upper(key, action, range_selection, range, is_correct, end) abort
+  let l:std_extra = a:action ==# '' && a:key !=# 'l' ? '<Left>' : ''
+  let l:arrows = '<Left><Left>' . l:std_extra
+  let l:map_str = 'noremap <silent> <Space>S' . a:range_selection
+  let l:correct_extra = a:is_correct == v:true ? 'c<Left>' : ''
+  let l:sub_str = 'S/' . a:action . '//g' . l:correct_extra . l:arrows
+  let l:full_command_except_mode =
+    \ l:map_str . a:key . ' :' . a:range . l:sub_str . a:end
+
+  exe 'n' . l:full_command_except_mode
+
+  if a:range_selection !~# 'a\|e'
+    exe 'v' . l:full_command_except_mode
+  endif 
+endfunction
+
 function! sub#make_set(key, action) abort
   " Sub
   call s:build(a:key, a:action, '', '', v:false, '')
@@ -38,4 +54,19 @@ function! sub#make_set(key, action) abort
   " Sub all in command mode
   call s:build(a:key, a:action, 'fca', '%', v:true, '<C-f>i')
   call s:build(a:key, a:action, 'fce', '.,$', v:true, '<C-f>i')
+endfunction
+
+function! sub#make_set_upper(key, action) abort
+  call s:build_upper(a:key, a:action, 'fce', '.,$', v:true, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'fca', '%', v:true, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'fc', '', v:true, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'ce', '.,$', v:true, '')
+  call s:build_upper(a:key, a:action, 'ca', '%', v:true, '')
+  call s:build_upper(a:key, a:action, 'c', '', v:true, '')
+  call s:build_upper(a:key, a:action, 'fe', '.,$', v:false, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'fa', '%', v:false, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'f', '', v:false, '<C-f>i')
+  call s:build_upper(a:key, a:action, 'e', '.,$', v:false, '')
+  call s:build_upper(a:key, a:action, 'a', '%', v:false, '')
+  call s:build_upper(a:key, a:action, '', '', v:false, '')
 endfunction

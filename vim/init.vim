@@ -96,6 +96,9 @@ Plug 'Valloric/YouCompleteMe', {'do': './install.py --all', 'for': ['typescript'
 Plug 'benekastah/neomake'
 Plug 'benjie/neomake-local-eslint.vim'
 " }}}
+" GraphQl {{{
+Plug 'jparise/vim-graphql'
+" }}}
 call plug#end()
 let g:used_javascript_libs='react,underscore,chai'
 
@@ -130,6 +133,8 @@ let g:terminal_scrollback_buffer_size=10000 "default is 1000 limit is 100000
 
 vnoremap crc :call case#selection_to_camel()<cr>
 vnoremap O <Esc>O
+
+vnoremap . :normal .<CR>
 
 nnoremap H ^
 vnoremap H ^
@@ -346,6 +351,9 @@ nnoremap <silent> <Space>aps :PlugStatus<CR>
 nnoremap <silent> <Space>apr :UpdateRemotePlugins<CR>
 " }
 nnoremap <silent> <Space>am :Neomake<CR>
+nnoremap <silent> <Space>amd :NeomakeDisable<CR>
+nnoremap <silent> <Space>ame :NeomakeEnable<CR>
+nnoremap <silent> <Space>amt :NeomakeToggle<CR>
 " }
 
 
@@ -357,14 +365,19 @@ nnoremap <silent> <Space>am :Neomake<CR>
 " they're the excepted ranges
 " Sub standard - s
 call sub#make_set('s', '')
+call sub#make_set_upper('s', '')
 " Word - w
 call sub#make_set('w', '\(<C-r><C-w>\)')
+call sub#make_set_upper('w', '<C-r><C-w>')
 " Search - /
 call sub#make_set('/', '\(<C-r>/\)')
+call sub#make_set_upper('/', '<C-r>/')
 " Register - '
 call sub#make_set("'", '\(<C-r>"\)')
+call sub#make_set_upper("'", '<C-r>"')
 " Last - l
 call sub#make_set('l', '')
+call sub#make_set_upper('l', '')
 " }
 
 " Search {
@@ -466,8 +479,10 @@ nmap <silent> <Space>ml <Plug>MMListLoaded
 xmap <silent> <Space>m :<C-U>call ExecuteMacroOnSelection()<CR>
 xmap <silent> <Space>m. :<C-U>call ExecuteMacroOnSelection('.')<CR>
 
-" Marks {
-nnoremap <silent> <Space>' :FzfMarks<CR>
+" Marks and registers {
+nnoremap <silent> <Space>'/ :FzfMarks<CR>
+nnoremap c<Space> "_c
+nnoremap d<Space> "_d
 " }
 
 " Repl and typing {

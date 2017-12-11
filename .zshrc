@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode kubectl)
+plugins=(git vi-mode kubectl pyenv)
 
 # User configuration
 
@@ -150,3 +150,10 @@ export PATH=$PATH:$GOPATH/bin
 
 # Adr tools
 export PATH=$PATH:$HOME/repo/adr-tools/src/
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+eval "$(pyenv virtualenv-init -)"

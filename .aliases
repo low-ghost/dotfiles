@@ -368,10 +368,10 @@ alias compinfo='cat /etc/lsb-release'
 
 # go to github for ssh repo
 ghub() {
-  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\).git$/\1/'`
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git$\|$\)/\1/'`
 }
 ghubb() {
-  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\).git$/\1/'`/tree/`gbcur`
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git$\|$\)/\1/'`/tree/`gbcur`
 }
 
 _gcof_pre_fzf() {
@@ -400,3 +400,8 @@ wgo() {
 
 # commits sorted by last commit
 alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+
+gclcar () {
+  name=${2:-$1}
+  gcl git@github.com:Getsidecar/$1 ~/repo/$name
+}

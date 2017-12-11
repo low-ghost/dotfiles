@@ -1,5 +1,5 @@
 function! s:get_path() abort
-  let l:to_edit = &filetype
+  let l:to_edit = substitute(&filetype, '\.jsx', '', '')
   return '~/repo/dotfiles/vim/ftplugin/' . l:to_edit . '.vim'
 endfunction
 

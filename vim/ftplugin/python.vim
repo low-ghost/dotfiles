@@ -17,4 +17,7 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<Space>yn"
 let g:jedi#completions_enabled = 0
 
+nnoremap <silent> <buffer> <Space>yf :0,$!yapf<CR>
+
 let g:color_column = 79
+
