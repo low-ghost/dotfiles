@@ -157,3 +157,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 eval "$(pyenv virtualenv-init -)"
+
+export AWS_REGION=us-east-1

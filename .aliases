@@ -123,6 +123,16 @@ _gitunadd () {
   compadd -S '' `_gitunadd_completion`
 }
 
+# search all branches for a file (regex w/ rg)
+gfsgrep() {
+  for branch in `git for-each-ref --format="%(refname)" refs/heads`; do
+    found_file=`git ls-tree -r --name-only $branch | rg $1`
+    if [[ ! -z "${found_file// }" ]]; then
+      echo $branch: $found_file
+    fi
+  done
+}
+
 # }
 # apt {
 
@@ -404,4 +414,12 @@ alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD)
 gclcar () {
   name=${2:-$1}
   gcl git@github.com:Getsidecar/$1 ~/repo/$name
+}
+
+# execute a graphql query
+graphql() {
+  curl 'localhost:4000/graphql' \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "{ \"query\": \"query $1\" }" | jq .
 }
