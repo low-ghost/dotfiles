@@ -30,7 +30,9 @@ nnoremap <silent> <buffer> <Space>yn :TernRename<CR>
 nnoremap <silent> <buffer> <Space>ya :JsDoc<CR>
 nnoremap <silent> <buffer> <Space>yi :FlowInit<CR>
 
-nnoremap <silent> <buffer> <Space>ft :EditJavascriptTest<cr>
+nnoremap <silent> <buffer> <Space>ft :call EditJavascriptTest('e')<cr>
+nnoremap <silent> <buffer> <Space>fvt :call EditJavascriptTest('v')<cr>
+nnoremap <silent> <buffer> <Space>fst :call EditJavascriptTest('s')<cr>
 
 if get(g:, 'javascript_funcs_loaded')
   finish
@@ -161,15 +163,26 @@ endfunction
 command! Life call ReactLifecyclePicker()
 
 "follows pattern of file.js and __tests__/file.spec.js
-function! EditJavascriptTest()
+function! EditJavascriptTest(direction)
+  let l:edit = 'e'
+  if a:direction ==# 'v'
+    let l:edit = 'vsp'
+  elseif a:direction ==# 's'
+    let l:edit = 'sp'
+  endif
+
   let l:file_name = expand('%')
   let l:full_path = expand('%:p:h')
   if l:file_name =~# '\.spec'
     let l:alt_file_name = substitute(l:file_name, '\.spec\.js$', '.js', '')
-    execute 'e ' . l:full_path . '/../' . l:alt_file_name
+    execute l:edit . ' ' . l:full_path . '/../' . l:alt_file_name
   else
     let l:alt_file_name = substitute(l:file_name, '\.js$', '.spec.js', '')
-    execute "e " . l:full_path . '/__tests__/' . l:alt_file_name
+    let l:test_dir = l:full_path . '/__tests__/'
+    if !isdirectory(l:test_dir)
+      call mkdir(l:test_dir, 'p')
+    endif
+    execute l:edit . ' ' . l:test_dir . l:alt_file_name
   endif
 endfunction
 command! EditJavascriptTest call EditJavascriptTest()

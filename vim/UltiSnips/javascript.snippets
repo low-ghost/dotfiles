@@ -141,6 +141,24 @@ describe('${1:funcName}', () => {
 });
 endsnippet
 
+snippet desit "describe-it"
+describe('${1:funcName}', () => {
+  it('should ${2:description}', $3() => {
+    expect($1(${4:params})).to${5:expectation};
+  });
+});
+endsnippet
+
+snippet desf "describe-file"
+describe('${1:file description}', () => {
+  describe('${2:funcName}', () => {
+    it('should ${3:description}', $4() => {
+      expect($2(${5:params})).to${6:expectation};
+    });
+  });
+});
+endsnippet
+
 snippet testa "test-async"
 test('should ${1:description}', async () => {
   $2
@@ -157,4 +175,34 @@ snippet ae( "after-each"
 afterEach($1() => {
   $2
 });
+endsnippet
+
+snippet te "toEqual" i
+toEqual(${1:true});
+endsnippet
+
+snippet elprops "expect(el.props())..."
+expect(el.props()).toMatchObject({
+  $1
+});
+endsnippet
+
+snippet called "expect called with"
+expect(${1:fn}).toHaveBeenCalledWith($2);
+endsnippet
+
+snippet it "it (js)"
+it('should ${1:description}', () => {
+  $0
+});
+endsnippet
+
+snippet ita "it async (js)"
+it('should ${1:description}', async (): * => {
+  $0
+});
+endsnippet
+
+snippet cld "console.log display"
+console.log(\`___START $1___\`, '\n', ${1:'here'}, '\n', \`___END $1___\`);
 endsnippet

@@ -378,10 +378,10 @@ alias compinfo='cat /etc/lsb-release'
 
 # go to github for ssh repo
 ghub() {
-  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git$\|$\)/\1/'`
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`
 }
 ghubb() {
-  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git$\|$\)/\1/'`/tree/`gbcur`
+  firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`/tree/`gbcur`
 }
 
 _gcof_pre_fzf() {
@@ -417,9 +417,33 @@ gclcar () {
 }
 
 # execute a graphql query
-graphql() {
+gqlquery() {
   curl 'localhost:4000/graphql' \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
-    -d "{ \"query\": \"query $1\" }" | jq .
+    -d "{ \"query\": \"query $1\" }"
 }
+gqlmut() {
+  curl 'localhost:4000/graphql' \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "{ \"query\": \"$1\" }"
+}
+
+# postgres local connect
+alias pgloc='psql -U root -h localhost -d connect'
+
+# postgres staging connect
+alias pgsta='psql -U `chamber read connectapi-staging postgres_user -q` -h `chamber read connectapi-staging postgres_host -q` -d `chamber read connectapi-staging postgres_db -q`'
+
+# postgres production connect
+alias pgprod='psql -U `chamber read connectapi-production postgres_user -q` -h `chamber read connectapi-production postgres_host -q` -d `chamber read connectapi-production postgres_db -q`'
+
+# kill all the docker
+alias dockernuke='sudo docker rmi -f $(sudo docker images -a -q); sudo docker rm $(sudo docker ps -a -f status=exited -q)'
+
+# temp alias to check out the develop-reporting branch of connect-ui
+alias gcod='gco develop-reporting'
+
+# More memorable command for markdown preview
+alias preview='grip'
