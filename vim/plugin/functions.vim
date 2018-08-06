@@ -112,5 +112,4 @@ function! IncrementVisualNumbers()
   normal `<
 endfunction
 vnoremap <C-a> :call IncrementVisualNumbers()<CR>
-
 "}

@@ -44,11 +44,15 @@ xkb_symbols "basic" {
   key <I120> { [ a, A ] };
   key <I129> { [ z, Z ] };
   key <I149> { [ apostrophe, quotedbl ] };
-  key <I151> { [ backslash ] };
+  key <I151> { [ backslash ], [ backslash ] };
   key <I154> { [ space ] };
   // This is convoluted, isn't it? Somehow, works with xcape and mapping keycode for return (36)
   // to Pause
   key <PAUS> { [ Return, Pause ] };
+  key <KPEN> { [ bracketleft, braceleft ], [ parenleft ] };
+  key <KPEQ> { [ bracketright, braceright ], [ parenright ] };
+	key <NMLK> { [ Tab, Tab ] };
+	key <INS> { [ Tab, Tab ] };
 
   // F keys for scripting (xbindkeys an action to F20, xcompose F20 to some comination, and you
   // can get any arbitrary key combo to run anything in linux). Only listing them if xcape ever
@@ -106,10 +110,11 @@ xkb_symbols "basic" {
   // Q Row
   // ================
 
-  key <AD01> { [ q, Q ] };
+  // key <TAB> { [ Super_L, Super_L ] };
+  key <AD01> { [ q, Q ], [ any, U2620] };
   key <AD02> { [ w, W ], [ underscore ] };
-  key <AD03> { [ f, F ], [ bracketleft ] };
-  key <AD04> { [ p, P ], [ bracketright ] };
+  key <AD03> { [ f, F ] };
+  key <AD04> { [ p, P ], [ any, paragraph ] }; // PILCROW SIGN
   key <AD05> {
     [ g, G ],
     [ asciicircum ],
@@ -117,14 +122,13 @@ xkb_symbols "basic" {
   };
   key <AD06> {
     [ j, J ],
-    [ exclam ],
-    [ underscore ],
+    [ exclam, downarrow ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK12>, clearmods=Mod5) ],
     actions[Group4]=[ RedirectKey(key=<DOWN>) ]
   };
   key <AD07> {
     [ l, L ],
-    [ less ],
+    [ less, rightarrow ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK07>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE07>) ],
     //actions[Group3]=[ MovePtr(x=-2, y=-2) ],
@@ -133,7 +137,7 @@ xkb_symbols "basic" {
   };
   key <AD08> {
     [ u, U ],
-    [ greater ],
+    [ greater, U2260 ], // ≠ -- Not Equal To
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK08>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE08>) ],
     //actions[Group3]=[ MovePtr(y=-2) ],
@@ -141,22 +145,19 @@ xkb_symbols "basic" {
   };
   key <AD09> {
     [ y, Y ],
-    [ equal ],
+    [ equal, U2261 ], // -: ≡ -- Identical To
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK09>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE09>) ]
     //actions[Group3]=[ MovePtr(x=+2, y=-2) ]
   };
   key <AD10> {
     [ semicolon, colon ],
-    [ ampersand ],
+    [ ampersand, U2227 ], // logical and, up caret tilde
     [ minus ]
   };
-  key <AD11> {
-    [ Multi_key, dead_stroke ],
-    [ at ],
-    [ comma ]
-  };
-  key <AD12> { [ dead_hook, dead_greek ], [ numbersign ] };
+  key <AD11> { [ BackSpace, BackSpace ] };
+  key <AD12> { [ Delete, Delete ] };
+  key <BKSL> { [ Multi_key, dead_greek ] };
 
   // ================
   // A Row
@@ -166,24 +167,23 @@ xkb_symbols "basic" {
   key <AC01> {
     [ VoidSymbol, VoidSymbol ],
     actions[Group1]=[ SetGroup(group=2), SetGroup(group=2) ],
-    actions[Group2]=[ RedirectKey(key=<BKSL>) ]
+    actions[Group2]=[ RedirectKey(key=<I151>) ]
   };
   key <AC02> { [ r, R ], [ slash ] };
-  key <AC03> { [ s, S ], [ braceleft ] };
+  key <AC03> { [ s, S ], [ braceleft, U2606 ] }; // Star
   key <AC04> {
     [ t, T ],
-    [ braceright ],
+    [ braceright, therefore ],
     actions[Group4]=[ RedirectKey(key=<DELE>) ]
   };
   key <AC05> {
     [ d, D ],
-    [ asterisk ],
+    [ asterisk, degree ],
     actions[Group4]=[ RedirectKey(key=<PGDN>) ]
   };
   key <AC06> {
     [ h, H ],
-    [ question ],
-    [ period ],
+    [ question, leftarrow ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK11>, clearmods=Mod5) ],
     actions[Group4]=[ RedirectKey(key=<LEFT>) ]
   };
@@ -197,15 +197,15 @@ xkb_symbols "basic" {
   };
   key <AC08> {
     [ e, E ],
-    [ parenright ],
-    actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK05>, clearmods=Mod5) ],
-    actions[Group3]=[ RedirectKey(key=<AE05>) ],
-   //actions[Group3]=[ PointerButton(button=default) ],
+    [ parenright, U21D4 ],
+    actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK05>, clearmods=Mod5)],
+    actions[Group3]=[ RedirectKey(key=<AE05>)],
+    //PointerButton(button=default) 
     actions[Group4]=[ RedirectKey(key=<END>) ]
   };
   key <AC09> {
     [ i, I ],
-    [ minus ],
+    [ minus, U221e ], // Infinity
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK06>, clearmods=Mod5) ],
     //actions[Group3]=[ MovePtr(x=+2) ],
     actions[Group3]=[ RedirectKey(key=<AE06>) ],
@@ -238,46 +238,46 @@ xkb_symbols "basic" {
   };
   key <AB02> {
     [ x, X ],
-    [ dollar ],
+    [ dollar, cent ],
     actions[Group3]=[ RedirectKey(key=<BKSP>) ],
-    actions[Group4]=[ RedirectKey(key=<BKSP>) ]
+    actions[Group4]=[ SetGroup(group=5) ]
   };
   key <AB03> {
     [ c, C ],
-    [ bar ],
+    [ bar, U2228 ], // logical or
     actions[Group4]=[ RedirectKey(key=<DELE>) ]
   };
-  key <AB04> { [ v, V ], [ asciitilde ] };
-  key <AB05> { [ b, B ], [ grave ] };
+  key <AB04> { [ v, V ], [ asciitilde, U2248 ] }; // almost equal to
+  key <AB05> { [ b, B ], [ grave, because ] };
   key <AB06> {
     [ k, K ],
-    [ plus ],
+    [ plus, uparrow ],
     [ 0 ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK10>, clearmods=Mod5) ],
     actions[Group4]=[ RedirectKey(key=<UP>) ]
   };
   key <AB07> {
     [ m, M ],
-    [ percent ],
+    [ percent, U1F355 ],
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK01>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE01>) ]
     //actions[Group3]=[ MovePtr(x=-2, y=+2) ],
   };
   key <AB08> {
     [ comma, less ],
-    [ comma ],
+    [ comma, U2264 ], // ≤ -- Less-than Or Equal To
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK02>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE02>) ]
     //actions[Group3]=[ MovePtr(y=+2) ],
   };
   key <AB09> {
     [ period, greater ],
-    [ period ],
+    [ at, U2265 ], // ≥ -- Greater-than Or Equal To
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK03>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE03>) ]
     //actions[Group3]=[ MovePtr(x=+2, y=+2) ]
   };
-  key <AB10> { [ slash, question ], [ slash ] };
+  key <AB10> { [ slash, question ], [ numbersign, U203D ] }; // Interrobang
 
   key <RTRN> { [ Control_R, Control_R ] };
   key <LCTL> {
@@ -289,13 +289,17 @@ xkb_symbols "basic" {
     [ VoidSymbol, VoidSymbol ],
     actions=[ SetGroup(group=4) ]
   };
+  key <RTSH> {
+    [ VoidSymbol, VoidSymbol ],
+    actions=[ SetGroup(group=4) ]
+  };
   key <LWIN> { [ Super_L ], [ Super_L ] };
+  key <BKSP> { [ VoidSymbol, VoidSymbol ] };
 
   include "level5(modifier_mapping)"
   include "nc(caps_cntr)"
-  include "nc(rshift_ralt)"
   include "nc(space_shift)"
-
+  include "nc(rctrl_ralt)"
 };
 
 partial modifier_keys
@@ -325,6 +329,12 @@ partial modifier_keys
 xkb_symbols "rshift_ralt" {
   replace key <RTSH> { [ Alt_L, Alt_L ] };
   modifier_map Mod1 { <RTSH> };
+};
+
+partial modifier_keys
+xkb_symbols "rctrl_ralt" {
+  replace key <RCTL> { [ Alt_R, Alt_R ] };
+  modifier_map Mod1 { <RCTL> };
 };
 
 partial modifier_keys

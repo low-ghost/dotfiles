@@ -430,6 +430,14 @@ gqlmut() {
     -d "{ \"query\": \"$1\" }"
 }
 
+gqlqueryfile() {
+  curl 'localhost:4000/graphql' \
+    -X POST \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{ "query": "$(cat $1 | tr "\n" " ")" }'
+}
+
 # postgres local connect
 alias pgloc='psql -U root -h localhost -d connect'
 
@@ -447,3 +455,25 @@ alias gcod='gco develop-reporting'
 
 # More memorable command for markdown preview
 alias preview='grip'
+
+kube_port() {
+  namespace=$1
+  pod=$2
+  local_port=$3
+  remote_port=${4:-$3}
+  cat <<- EOF
+  executing:
+  kubectl -n $namespace port-forward $pod $local_port:$remote_port
+
+EOF
+  kubectl -n $namespace port-forward $pod $local_port:$remote_port
+}
+kube_port_help() {
+  cat << 'EOF'
+    namespace=$1
+    pod=$2
+    local_port=$3
+    remote_port=${4:-$3}
+    kubectl -n $namespace port-forward $pod $local_port:$remote_port
+EOF
+}

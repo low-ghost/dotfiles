@@ -2,7 +2,7 @@
 " Basic settings for all vim instances
 
 " General Settings {
-" Basic {{{
+" Basic {
 set background=dark                             " dark background
 syntax on                                       " Syntax
 set mouse=a                                     " Mouse support
@@ -16,7 +16,7 @@ set hidden                                      " allow switching buffer w/o sav
 "set iskeyword-=.                                " '.' is an end of word designator
 "set iskeyword-=#                                " '#' is an end of word designator
 set iskeyword-=-                                " '-' is an end of word designator
-" Neovim makes these obsolete: {{
+" Neovim makes these obsolete: {
 "filetype plugin indent on
 set spell
 "set backspace=indent,eol,start
@@ -24,8 +24,8 @@ set spell
 "set history=10000
 "set incsearch
 "set wildmenu
-" }}
-" }}}
+" }
+" }
 
 " Backups {
 set backup
@@ -83,15 +83,15 @@ set expandtab     " Spaces instead of tabs
 " Fixes {
 " WrapRelativeMotion {
 function! WrapRelativeMotion(key, ...)
-	let vis_sel=""
-	if a:0
-		let vis_sel="gv"
-	endif
-	if &wrap
-		execute "normal!" vis_sel . "g" . a:key
-	else
-		execute "normal!" vis_sel . a:key
-	endif
+  let vis_sel=""
+  if a:0
+    let vis_sel="gv"
+  endif
+  if &wrap
+    execute "normal!" vis_sel . "g" . a:key
+  else
+    execute "normal!" vis_sel . a:key
+  endif
 endfunction
 " }
 
@@ -118,7 +118,9 @@ inoremap <Esc> <Esc><Esc>
 
 " Autocmds {
 " automatically change directory to buffer dir
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+if exists("g:gui_oni") 
+  autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+endif
 " always go to first line of git commit messages
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 " restore cursor from prev edit {

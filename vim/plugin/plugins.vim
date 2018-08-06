@@ -1,9 +1,9 @@
 " Plugin specific settings
 
 " YouCompleteMe {{{
-let g:Completion_YouCompleteMe = 1
+"let g:Completion_YouCompleteMe = 1
 " }}}
-let g:Make_neomake = 1
+"let g:Make_neomake = 1
 let g:fzf_command_prefix = 'Fzf'
 " Vimax {{{
 let g:vimax_history_file = $HOME . '/.zsh_history'
@@ -101,17 +101,23 @@ let g:deoplete#enable_ignore_case = 'ignorecase'
 let g:deoplete#auto_completion_start_length = 0
 let g:min_pattern_length = 0
 let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
+"let g:deoplete#omni#functions.javascript = [
+  "\ 'tern#Complete',
+"\]
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
-let g:deoplete#sources['javascript'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
+"let g:deoplete#sources['javascript.jsx'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
+"let g:deoplete#sources['javascript'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
 let g:deoplete#sources['python'] = ['file', 'jedi', 'ultisnips']
-call deoplete#custom#set('flow', 'rank', 9999)
-
+"call deoplete#custom#source('flow', 'rank', 9999)
 let g:deoplete#enable_refresh_always=1
+
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['flow-language-server', '--stdio'],
+    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+    \ }
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_loggingLevel = 'DEBUG'
 
 
 " UndoTree {
@@ -134,20 +140,20 @@ let g:airline#extensions#tabline#tab_min_count = 2
 " }
 
 " neomake {
-autocmd! BufWritePost * Neomake
-let g:neomake_open_list = 2
+"autocmd! BufWritePost * Neomake
+"let g:neomake_open_list = 2
 
-let g:neomake_warning_sign = {
-  \ 'text': '>',
-  \ 'texthl': 'WarningMsg',
-  \ }
-let g:neomake_error_sign = {
-  \ 'text': '>>',
-  \ 'texthl': 'ErrorMsg',
-  \ }
+"let g:neomake_warning_sign = {
+  "\ 'text': '>',
+  "\ 'texthl': 'WarningMsg',
+  "\ }
+"let g:neomake_error_sign = {
+  "\ 'text': '>>',
+  "\ 'texthl': 'ErrorMsg',
+  "\ }
 
-let g:neomake_python_enabled_makers = ['pylama', 'mypy']
-let g:neomake_vim_enambled_makers = ['vint']
+"let g:neomake_python_enabled_makers = ['pylama', 'mypy']
+"let g:neomake_vim_enambled_makers = ['vint']
 
 "autocmd FileType typescript autocmd BufWritePre <buffer> let b:neomake_typescript_eslint_exe = substitute(system('PATH=$(npm bin):$PATH && which eslint'), '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 
@@ -176,38 +182,38 @@ let g:neomake_vim_enambled_makers = ['vint']
   "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
     "\ '%W%f: line %l\, col %c\, Warning - %m'
   "\ }
-let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
+"let g:neomake_typescript_enabled_makers = ['tsc', 'eslint']
 
-function! Tsc()
+"function! Tsc()
+  ""let path = systemlist('git rev-parse --show-toplevel')[0]
+  ""if v:shell_error
+    ""return s:warn('Not in git repo')
+  ""endif
+  ""exe 'cd' path
+  "exe 'Neomake tsca'
+"endfunction
+"command! Tsc call Tsc()
+
+"function! NeoAg(search, ...)
+  ""Takes a search parameter as first arg and all additional args
+  ""to perform ag query at git root
   "let path = systemlist('git rev-parse --show-toplevel')[0]
+  "exe 'lcd' path
   "if v:shell_error
     "return s:warn('Not in git repo')
   "endif
-  "exe 'cd' path
-  exe 'Neomake tsca'
-endfunction
-command! Tsc call Tsc()
-
-function! NeoAg(search, ...)
-  "Takes a search parameter as first arg and all additional args
-  "to perform ag query at git root
-  let path = systemlist('git rev-parse --show-toplevel')[0]
-  exe 'lcd' path
-  if v:shell_error
-    return s:warn('Not in git repo')
-  endif
-  let base_args = ['--column', '--nogroup', a:search ] + a:000
-  call neomake#Make(0, [{
-    \ 'name': 'Ag',
-    \ 'exe': 'ag',
-    \ 'cwd': path,
-    \ 'args': base_args,
-    \ 'errorformat': '%I%f:%l:%c:%m'
-    \ }])
-  let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
-  call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
-endfunction
-command! -nargs=* Ag call NeoAg(<q-args>)
+  "let base_args = ['--column', '--nogroup', a:search ] + a:000
+  "call neomake#Make(0, [{
+    "\ 'name': 'Ag',
+    "\ 'exe': 'ag',
+    "\ 'cwd': path,
+    "\ 'args': base_args,
+    "\ 'errorformat': '%I%f:%l:%c:%m'
+    "\ }])
+  "let @/ = matchstr(a:search, "\\v(-)\@<!(\<)\@<=\\w+|['\"]\\zs.{-}\\ze['\"]")
+  "call feedkeys(":let &hlsearch=1 \| echo \<CR>", "n")
+"endfunction
+"command! -nargs=* Ag call NeoAg(<q-args>)
 command! -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!
 command! -nargs=+ -complete=file -bar Gr silent! grep! <args>|cwindow|redraw!
 " }
@@ -321,3 +327,35 @@ call textobj#user#plugin('line', {
 \ })
 
 let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md', 'auto_tags': 1}]
+
+function! ExpandLspSnippet()
+    call UltiSnips#ExpandSnippetOrJump()
+    if !pumvisible() || empty(v:completed_item)
+      return ''
+    endif
+
+    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
+    let l:value = v:completed_item['word']
+    let l:matched = len(l:value)
+    if l:matched <= 0
+        return ''
+    endif
+
+    " remove inserted chars before expand snippet
+    if col('.') == col('$')
+        exec 'normal! ' . l:matched . 'Xx'
+    else
+        exec 'normal! ' . l:matched . 'X'
+    endif
+
+    if col('.') == col('$') - 1
+        " move to $ if at the end of line.
+        call cursor(line('.'), col('$'))
+    endif
+
+    " expand snippet now.
+    call UltiSnips#Anon(l:value)
+    return ''
+endfunction
+
+inoremap <C-j> <C-R>=ExpandLspSnippet()<CR>
