@@ -56,33 +56,33 @@ clip() { "$1" | xclip -sel clip }
 
 # docker {
 
-alias dc='sudo docker-compose'
-alias dcs='sudo docker-compose stop'
-alias ds='sudo docker stop'
-alias dps='sudo docker ps'
-alias dr='sudo docker rm'
-alias dls='sudo docker ps -a'
+# alias dc='sudo docker-compose'
+# alias dcs='sudo docker-compose stop'
+# alias ds='sudo docker stop'
+# alias dps='sudo docker ps'
+# alias dr='sudo docker rm'
+# alias dls='sudo docker ps -a'
 
 dstopall() { docker stop $(docker ps -a -q) }
-alias drmall='docker rm $(docker ps -a -q)'
-dbuild() {
-  dir=${PWD##*/}
-  sudo docker build -t ${1-$dir} .
-}
-dbuilde() {
-  dir=${PWD##*/}
-  echo ${1-$dir}
-}
+# alias drmall='docker rm $(docker ps -a -q)'
+# dbuild() {
+#   dir=${PWD##*/}
+#   sudo docker build -t ${1-$dir} .
+# }
+# dbuilde() {
+#   dir=${PWD##*/}
+#   echo ${1-$dir}
+# }
 
 # }
 # node {
 
-alias nvmc='nvm current'
-alias nvma='nvm alias'
-alias nvmi='nvm install'
-alias nvml='nvm ls'
-alias nlo='nvm exec latest node ~/repo/js-repl/standard/lo'
-alias npml='npm link'
+# alias nvmc='nvm current'
+# alias nvma='nvm alias'
+# alias nvmi='nvm install'
+# alias nvml='nvm ls'
+# alias nlo='nvm exec latest node ~/repo/js-repl/standard/lo'
+# alias npml='npm link'
 
 nvmu(){
   nvm use $1 && sed -i 's/\(nvm use \).*\( > \/dev\/null\)/\1'$1'\2/' ~/.zshrc
@@ -108,10 +108,17 @@ ungicd() {
   git update-index --no-assume-unchanged `git ls-files --directory $1 -z` > /dev/null 2>&1
 }
 alias -g gcan='git commit -a -n -m'
-gpan() {
-  echo "Enter a message"
+gpa() {
+  echo "Enter a commit message:"
   read message
-  `git commit -a -n -m $message; ggpush`
+  git commit -a -m $message
+  ggpush
+}
+gpan() {
+  echo "Enter a commit message:"
+  read message
+  git commit -a -n -m $message
+  ggpush
 }
 
 # git unadd: remove file from
@@ -193,21 +200,21 @@ function npmvv() {
 }
 
 # npm install
-alias npmi='npm i'
-alias npmis='npm i -S'
-alias npmid='npm i -D'
-alias npmig='npm i -g'
+# alias npmi='npm i'
+# alias npmis='npm i -S'
+# alias npmid='npm i -D'
+# alias npmig='npm i -g'
 
 # google and firefox
-goog() {
-  firefox google.com/#q=$1
-  sleep .5
-  wmctrl -a 'google'
-}
+# goog() {
+#   firefox google.com/#q=$1
+#   sleep .5
+#   wmctrl -a 'google'
+# }
 
-fire() {
-  firefox -vimperator "+c 'js liberator.sleep(1000) && liberator.open(\"$@\")'"
-}
+# fire() {
+#   firefox -vimperator "+c 'js liberator.sleep(1000) && liberator.open(\"$@\")'"
+# }
 
 # raise spotify window
 alias spo="wmctrl -ia `wmctrl -lx | grep spotify.Spotify | awk '{ print $0 }'`"
@@ -229,7 +236,7 @@ alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
 
 alias gbcur="git rev-parse --abbrev-ref HEAD"
 gb_to_issue() {
-  echo $1 | sed 's/^\([[:alnum:]]*\)-\([[:alnum:]]*\)-.*/\1-\2/'
+  echo $1 | sed 's:^\([[:alnum:]]*\)/\([[:alnum:]]*\)-\([[:alnum:]]*\)/.*:\2-\3:'
 }
 # get the jira issue from the current branch name
 gitissue() {
@@ -411,17 +418,12 @@ wgo() {
 # commits sorted by last commit
 alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
-gclcar () {
-  name=${2:-$1}
-  gcl git@github.com:Getsidecar/$1 ~/repo/$name
-}
-
 # execute a graphql query
 gqlquery() {
-  curl 'localhost:4000/graphql' \
+  curl -v 'localhost:4000/graphql' \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
-    -d "{ \"query\": \"query $1\" }"
+    -d "{ \"query\": \"$1\" }"
 }
 gqlmut() {
   curl 'localhost:4000/graphql' \
@@ -430,13 +432,13 @@ gqlmut() {
     -d "{ \"query\": \"$1\" }"
 }
 
-gqlqueryfile() {
-  curl 'localhost:4000/graphql' \
-    -X POST \
-    -H "Authorization: Bearer $TOKEN" \
-    -H "Content-Type: application/json" \
-    -d '{ "query": "$(cat $1 | tr "\n" " ")" }'
-}
+# gqlqueryfile() {
+#   curl 'localhost:4000/graphql' \
+#     -X POST \
+#     -H "Authorization: Bearer $TOKEN" \
+#     -H "Content-Type: application/json" \
+#     -d '{ "query": "$(cat $1 | tr "\n" " ")" }'
+# }
 
 # postgres local connect
 alias pgloc='psql -U root -h localhost -d connect'
@@ -477,3 +479,124 @@ kube_port_help() {
     kubectl -n $namespace port-forward $pod $local_port:$remote_port
 EOF
 }
+
+# vim:set et sw=2 ft=zsh ts=2:
+# keyboard {
+alias xkbclear='rm -f /var/lib/xkb/*.xkm'
+# does not work?
+alias xkbe='setxkbmap -layout us; pkill xcape'
+alias xkbc='setxkbmap -layout us -variant colemak; pkill xcape'
+alias xkbset='setxkbmap -layout nc'
+alias xkb='pkill xcape > /dev/null; xkbclear; xkbset; . ~/.xcaperc'
+# }
+
+alias dotinstall='sh ~/repo/dotfiles/setup.sh -i'
+alias dotlink='sh ~/repo/dotfiles/setup.sh -l'
+# configs {
+alias e='vim'
+alias ea='e ~/repo/dotfiles/.aliases'
+alias ek='e ~/repo/dotfiles/xkb/nc'
+alias esh='e ~/repo/dotfiles/setup.sh'
+alias et='e ~/repo/dotfiles/.tmux.conf'
+alias ev='e ~/repo/dotfiles/vim/init.vim'
+alias ez='e ~/repo/dotfiles/.zshrc'
+alias ec='e /usr/share/X11/locale/en_US.UTF-8/Compose'
+# }
+
+# refresh cache font
+# alias refont='sudo fc-cache -f -v'
+# less watch file
+# alias lf='less +F'
+
+# bookmarks {
+# b() {
+#   if [ $# -eq 1 ]; then
+#     echo $1' - '$PWD >> ~/.bookmarks
+#   else
+#     echo "Enter a name for the bookmark> "
+#     read name
+#     echo $name' - '$PWD >> ~/.bookmarks
+#   fi
+# }
+#TODO: completion
+# cb() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     cd $chosen
+#   else
+#     echo 'Aborted or no such bookmark'
+#   fi
+# }
+# cbr() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     print -z $chosen
+#   fi
+# }
+# eb() {
+#   if [ $# -eq 1 ]; then
+#     e +/$1 ~/.bookmarks
+#   else
+#     e ~/.bookmarks
+#   fi
+# }
+# db() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
+#   else
+#     echo 'Aborted or no such bookmark'
+#   fi
+# }
+# }
+
+# alias {
+addali() {
+  echo "Enter a description for the alias:"
+  read comment
+  echo "\n# $comment" >> ~/.aliases
+  echo "alias $1='`fc -ln -1`'" >> ~/.aliases
+}
+# fuzzy search alias and add text to command line
+ali() {
+  print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
+}
+# }
+
+# countdown() {
+#    date1=$((`date +%s` + $1)); 
+#    while [ "$date1" -ne `date +%s` ]; do 
+#      echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+#      sleep 0.1
+#    done
+#    notify-send 'countdown finished'
+# }
+
+tmuxa() { tmux -2 attach -t `echo $1 | cut -d ":" -f 1` }
+_tmuxa_completion() {
+  tmux ls | awk '{print $1$2"-"$3":"$5"-"$6"-"$7}'
+}
+_tmuxa () {
+  compadd -S '' `_tmuxa_completion`
+}
+
+compdef _tmuxa tmuxa
+compdef _gitunadd gun
+compdef _cdr cdr
+compdef _cdrg cdrg
+compdef _apt apt='sudo apt-get'
+compdef _apti apti='sudo apt-get install'
+compdef _gcof gcof
+compdef docker dockerd

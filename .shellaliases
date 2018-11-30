@@ -13,78 +13,71 @@ alias dotlink='sh ~/repo/dotfiles/setup.sh -l'
 # configs {
 alias e='vim'
 alias ea='e ~/repo/dotfiles/.aliases'
-alias eas='e ~/repo/dotfiles/.shellaliases'
-alias ef='e ~/repo/dotfiles/vim/plugin/functions.vim'
-alias eg='e ~/repo/dotfiles/vim/plugin/general.vim'
 alias ek='e ~/repo/dotfiles/xkb/nc'
-alias ep='e ~/repo/dotfiles/vim/plugin/plugins.vim'
 alias esh='e ~/repo/dotfiles/setup.sh'
 alias et='e ~/repo/dotfiles/.tmux.conf'
 alias ev='e ~/repo/dotfiles/vim/init.vim'
 alias ez='e ~/repo/dotfiles/.zshrc'
 alias ec='e /usr/share/X11/locale/en_US.UTF-8/Compose'
-etest() {
-  e -O {test/unit/,}$1
-}
 # }
 
 # refresh cache font
-alias refont='sudo fc-cache -f -v'
+# alias refont='sudo fc-cache -f -v'
 # less watch file
-alias lf='less +F'
+# alias lf='less +F'
 
 # bookmarks {
-b() {
-  if [ $# -eq 1 ]; then
-    echo $1' - '$PWD >> ~/.bookmarks
-  else
-    echo "Enter a name for the bookmark> "
-    read name
-    echo $name' - '$PWD >> ~/.bookmarks
-  fi
-}
+# b() {
+#   if [ $# -eq 1 ]; then
+#     echo $1' - '$PWD >> ~/.bookmarks
+#   else
+#     echo "Enter a name for the bookmark> "
+#     read name
+#     echo $name' - '$PWD >> ~/.bookmarks
+#   fi
+# }
 #TODO: completion
-cb() {
-  if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
-  else
-    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
-  fi
-  if [ -n "$chosen" ]; then
-    cd $chosen
-  else
-    echo 'Aborted or no such bookmark'
-  fi
-}
-cbr() {
-  if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
-  else
-    chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
-  fi
-  if [ -n "$chosen" ]; then
-    print -z $chosen
-  fi
-}
-eb() {
-  if [ $# -eq 1 ]; then
-    e +/$1 ~/.bookmarks
-  else
-    e ~/.bookmarks
-  fi
-}
-db() {
-  if [ $# -eq 1 ]; then
-    chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
-  else
-    chosen=`cat ~/.bookmarks | fzf`
-  fi
-  if [ -n "$chosen" ]; then
-    sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
-  else
-    echo 'Aborted or no such bookmark'
-  fi
-}
+# cb() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     cd $chosen
+#   else
+#     echo 'Aborted or no such bookmark'
+#   fi
+# }
+# cbr() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0 | sed 's/^.*\ -\ //g'`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf | sed 's/^.*\ -\ //g'`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     print -z $chosen
+#   fi
+# }
+# eb() {
+#   if [ $# -eq 1 ]; then
+#     e +/$1 ~/.bookmarks
+#   else
+#     e ~/.bookmarks
+#   fi
+# }
+# db() {
+#   if [ $# -eq 1 ]; then
+#     chosen=`cat ~/.bookmarks | fzf --query \^$1 -1 -0`
+#   else
+#     chosen=`cat ~/.bookmarks | fzf`
+#   fi
+#   if [ -n "$chosen" ]; then
+#     sed -i "/${chosen//\//\\/}/d" ~/.bookmarks
+#   else
+#     echo 'Aborted or no such bookmark'
+#   fi
+# }
 # }
 
 # alias {
@@ -100,14 +93,14 @@ ali() {
 }
 # }
 
-countdown() {
-   date1=$((`date +%s` + $1)); 
-   while [ "$date1" -ne `date +%s` ]; do 
-     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-     sleep 0.1
-   done
-   notify-send 'countdown finished'
-}
+# countdown() {
+#    date1=$((`date +%s` + $1)); 
+#    while [ "$date1" -ne `date +%s` ]; do 
+#      echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+#      sleep 0.1
+#    done
+#    notify-send 'countdown finished'
+# }
 
 tmuxa() { tmux -2 attach -t `echo $1 | cut -d ":" -f 1` }
 _tmuxa_completion() {

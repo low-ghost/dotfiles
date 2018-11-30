@@ -1,2 +1,1 @@
-xcape -e '#38=a;#48=apostrophe;#65=space;#66=Escape;#36=Pause;#52=z;#50=bracketleft;#62=bracketright'
-# ;#23=Tab
+xcape -e '#38=a;#48=apostrophe;#65=space;#66=Escape;#36=Pause;#52=z'

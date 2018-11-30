@@ -110,11 +110,10 @@ xkb_symbols "basic" {
   // Q Row
   // ================
 
-  // key <TAB> { [ Super_L, Super_L ] };
   key <AD01> { [ q, Q ], [ any, U2620] };
   key <AD02> { [ w, W ], [ underscore ] };
-  key <AD03> { [ f, F ] };
-  key <AD04> { [ p, P ], [ any, paragraph ] }; // PILCROW SIGN
+  key <AD03> { [ f, F ], [ bracketleft ] };
+  key <AD04> { [ p, P ], [ bracketright, paragraph ] }; // PILCROW SIGN
   key <AD05> {
     [ g, G ],
     [ asciicircum ],
@@ -189,7 +188,7 @@ xkb_symbols "basic" {
   };
   key <AC07> {
     [ n, N ],
-    [ parenleft ],
+    [ parenleft, U2248 ], // (N)ear, approximately equal ≈
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK04>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE04>) ],
     actions[Group4]=[ RedirectKey(key=<BKSP>) ]
@@ -258,7 +257,7 @@ xkb_symbols "basic" {
   };
   key <AB07> {
     [ m, M ],
-    [ percent, U1F355 ],
+    [ percent, U1F355 ], // Pizza
     actions[Group1]=[ NoAction(), NoAction(), RedirectKey(key=<FK01>, clearmods=Mod5) ],
     actions[Group3]=[ RedirectKey(key=<AE01>) ]
     //actions[Group3]=[ MovePtr(x=-2, y=+2) ],
@@ -290,8 +289,7 @@ xkb_symbols "basic" {
     actions=[ SetGroup(group=4) ]
   };
   key <RTSH> {
-    [ VoidSymbol, VoidSymbol ],
-    actions=[ SetGroup(group=4) ]
+    [ Scroll_Lock, Scroll_Lock ]
   };
   key <LWIN> { [ Super_L ], [ Super_L ] };
   key <BKSP> { [ VoidSymbol, VoidSymbol ] };

@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-
+source $HOME/repo/sandboxd/sandboxd
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode kubectl pyenv yarn)
+plugins=(git vi-mode)
 
 # User configuration
 
@@ -83,11 +83,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/.shellaliases
 source ~/.aliases
 source ~/.secrets
-source ~/.compdef
-source ~/.nvm/nvm.sh
+# source ~/.nvm/nvm.sh
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -99,7 +97,7 @@ bindkey '\ea' insert-last-word
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 NVIM_TUI_ENABLE_TRUE_COLOR=1
-TERM=xterm-256color
+TERM=screen-256color
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -128,11 +126,11 @@ function TRAPINT() {
 
 source ~/.promptline_dark
 
-nvm use latest > /dev/null
+# nvm use latest > /dev/null
 
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 
 # Add java path
 export JAVA_HOME=/opt/java/jdk1.8.0_102
@@ -152,6 +150,9 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/repo/adr-tools/src/
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH=$PATH:$PYENV_ROOT/bin
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"

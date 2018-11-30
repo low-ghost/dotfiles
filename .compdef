@@ -1,10 +1,6 @@
 compdef _tmuxa tmuxa
-compdef _his his
-compdef _ds ds='docker stop'
-compdef _npml npml='cd '
 compdef _gitunadd gun
 compdef _gitignoreio gi
-compdef _gclex gclex
 compdef _cdr cdr
 compdef _cdrg cdrg
 compdef _apt apt='sudo apt-get'
