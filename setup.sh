@@ -9,14 +9,14 @@ while getopts ':i:lr' opt; do
         case $arg in
           # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,java,em,chrome,spotify,docker,docker-compose,omz
+            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,spotify,docker,docker-compose,omz
             sh ~/repo/dotfiles/setup.sh -l
             vim +PlugInstall +qall
             zsh
             ;;
           basic)
             echo 'curl, xsel, zsh, cmake, ag, wmctrl, fonts, jq, colors'
-            sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common silversearcher-ag wmctrl jq
+            sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common ripgrep jq
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update
@@ -62,7 +62,7 @@ while getopts ':i:lr' opt; do
             echo 'tmux (from repo)'
             git clone https://github.com/tmux/tmux.git ~/repo/tmux
             cd ~/repo/tmux
-            git checkout tags/2.3
+            git checkout tags/2.6
             sudo apt-get install ncurses-dev libevent-dev autotools-dev automake
             sh autogen.sh
             sudo ./configure && sudo make
@@ -116,11 +116,9 @@ while getopts ':i:lr' opt; do
             curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
             jabba install 1.9.0-180
             ;;
-          em)
-            echo 'installing ejson, postgres, virtualbox'
-            sudo mkdir -p /opt/ejson/keys
-            gem install ejson
-            sudo apt-get install -y postgresql virtualbox libpq-dev
+          pg)
+            echo 'installing postgres'
+            sudo apt-get install -y postgresql
             # remember to add entries in pgpass and secrets
             touch ~/.pgpass
             chmod 0600 ~/.pgpass
