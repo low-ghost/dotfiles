@@ -1,6 +1,6 @@
 set $mod Mod4
 
-new_window pixel 1
+new_window pixel 0
 new_float normal
 
 hide_edge_borders none
@@ -50,20 +50,29 @@ for_window [class="Xfburn"] floating enable
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
+for_window [class="Slack"] move window to scratchpad
+for_window [class="Slack"] floating enable border normal
+for_window [class="Spotify"] move window to scratchpad
+for_window [title=".*Calendar.*"] move window to scratchpad
+
 # Autostart applications
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
+# exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id pamac-tray
+# exec --no-startup-id clipit
+exec --no-startup-id spotify
+exec --no-startup-id slack
+exec --no-startup-id firefox
+exec --no-startup-id rofi -key-run Mod4+d
+exec --no-startup-id rofi -key-window Mod4+Shift+d
+exec --no-startup-id google-chrome https://calendar.google.com
 exec_always --no-startup-id compton -b
 exec_always --no-startup-id killall polybar;
 exec_always --no-startup-id sh $HOME/.config/polybar/i3wmthemer_bar_launch.sh
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
+# exec_always --no-startup-id ff-theme-util
+# exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id $HOME/.config/i3/xkb.sh
-exec_always --no-startup-id rofi -key-run Mod4+d
-exec_always --no-startup-id rofi -key-window Mod4+Shift+d
 
 # Theme colors
 client.focused #c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7
@@ -83,32 +92,35 @@ smart_gaps on
 bindsym Scroll_Lock mode "i3"
 mode "i3" {
   bindsym Escape mode "default"
+  bindsym $mod mode "default"
+
   bindsym u border none; mode "default"
   bindsym Shift+u border normal; mode "default"
-  bindsym n exec i3-input -F \
-  'rename workspace to "'$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')':%s"' \
-  -P 'Rename workspace to '$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')': '; mode "default"
 
-  bindsym Return exec i3-sensible-terminal; mode "default"
+  bindsym n exec i3-input -F \
+    'rename workspace to "'$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')':%s"' \
+    -P 'Rename workspace to '$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')': '; mode "default"
+  # arbitrary i3-msg execution
+  bindsym z exec i3-input -F \
+    'mark %s' -P 'Mark name: '
+  bindsym Shift+z exec i3-input -F \
+    '[con_mark=%s] focus' -P 'Go to mark: '
+
+  bindsym Return exec gnome-terminal -e 'tmux -2'; mode "default"
 
   # Window kill command
   bindsym q kill; mode "default"
 
-# start program launcher
-# bindsym $mod+d exec --no-startup-id rofi -show run
-# bindsym $mod+m exec dmenu_run
-# change focus
+  # start program launcher
+  # bindsym $mod+d exec --no-startup-id rofi -show run
+  # bindsym $mod+m exec dmenu_run
+  # change focus
   bindsym h focus left; mode "default"
   bindsym j focus down; mode "default"
   bindsym k focus up; mode "default"
   bindsym l focus right; mode "default"
 
-  bindsym Left focus left; mode "default"
-  bindsym Down focus down; mode "default"
-  bindsym Up focus up; mode "default"
-  bindsym Right focus right; mode "default"
-
-# move focused window
+  # move focused window
   bindsym Shift+h move left; mode "default"
   bindsym Shift+j move down; mode "default"
   bindsym Shift+k move up; mode "default"
@@ -117,43 +129,28 @@ mode "i3" {
   bindsym b workspace back_and_forth; mode "default"
   bindsym Shift+b move container to workspace back_and_forth; workspace back_and_forth; mode "default"
 
-# split orientation
-  bindsym s split h;exec notify-send 'tile horizontally'; mode "default"
-  bindsym v split v;exec notify-send 'tile vertically'; mode "default"
-  bindsym Shift+v split toggle; mode "default"
+  # split orientation
+  bindsym s split h; exec notify-send 'tile horizontally'; mode "default"
+  bindsym v split v; exec notify-send 'tile vertically'; mode "default"
 
-# toggle fullscreen mode for the focused container
+  # toggle fullscreen mode for the focused container
   bindsym f fullscreen toggle; mode "default"
 
-# change container layout (stacked, tabbed, toggle split)
-  bindsym Shift+w layout stacking; mode "default"
-  bindsym w layout tabbed; mode "default"
-  bindsym e layout toggle split; mode "default"
+  bindsym w mode "$mode_layout"
+  # change focus between tiling / floating windows
+  # bindsym $mod+space focus mode_toggle
 
-# toggle tiling / floating
-  bindsym Shift+f floating toggle; mode "default"
-
-# change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
-
-# toggle sticky
+  # toggle sticky
   bindsym Shift+s sticky toggle; mode "default"
 
-# focus the parent container
-  bindsym a focus parent; mode "default"
+  # focus the parent container
+  bindsym p focus parent; mode "default"
 
-# move the currently focused window to the scratchpad
-  bindsym Shift+minus move scratchpad; mode "default"
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-  bindsym minus scratchpad show; mode "default"
-
-# navigate workspaces next / previous
+  # navigate workspaces next / previous
   bindsym Ctrl+Right workspace next; mode "default"
   bindsym Ctrl+Left workspace prev; mode "default"
 
-# switch to workspace
+  # switch to workspace
   bindsym 1 workspace number $ws1; mode "default"
   bindsym 2 workspace number $ws2; mode "default"
   bindsym 3 workspace number $ws3; mode "default"
@@ -163,7 +160,7 @@ mode "i3" {
   bindsym 7 workspace number $ws7; mode "default"
   bindsym 8 workspace number $ws8; mode "default"
 
-# Move focused container to workspace
+  # Move focused container to workspace
   bindsym Ctrl+1 move container to workspace number $ws1; mode "default"
   bindsym Ctrl+2 move container to workspace number $ws2; mode "default"
   bindsym Ctrl+3 move container to workspace number $ws3; mode "default"
@@ -173,7 +170,7 @@ mode "i3" {
   bindsym Ctrl+7 move container to workspace number $ws7; mode "default"
   bindsym Ctrl+8 move container to workspace number $ws8; mode "default"
 
-# Move to workspace with focused container
+  # Move to workspace with focused container
   bindsym Shift+1 move container to workspace number $ws1; workspace number $ws1; mode "default"
   bindsym Shift+2 move container to workspace number $ws2; workspace number $ws2; mode "default"
   bindsym Shift+3 move container to workspace number $ws3; workspace number $ws3; mode "default"
@@ -183,66 +180,38 @@ mode "i3" {
   bindsym Shift+7 move container to workspace number $ws7; workspace number $ws7; mode "default"
   bindsym Shift+8 move container to workspace number $ws8; workspace number $ws8; mode "default"
 
-# exit i3 (logs you out of your X session)
+  # exit i3 (logs you out of your X session)
   bindsym Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
 
   bindsym bracketleft move workspace to output left; mode "default"
   bindsym bracketright move workspace to output right; mode "default"
 
+  # Hit existing key combo to raise `rofi`, Mod4+d
+  bindsym --release d exec --no-startup-id xdotool key "Super+d"; mode "default"
+  bindsym --release Shift+d exec --no-startup-id xdotool key "Super+Shift+d"; mode "default"
+
+  bindsym Ctrl+p --release exec \
+    "scrot -s -e 'mv $f /home/mike/Pictures/scrot/; notify-send screenshot'"; mode "default"
+
+  bindsym Shift+t exec $HOME/repo/i3-quickterm/i3-quickterm shell; mode "default"
+  bindsym Ctrl+t exec $HOME/repo/i3-quickterm/i3-quickterm shell2; mode "default"
+
+  #  Modes
   bindsym space mode "vim"
   bindsym r mode "$mode_reload"
   bindsym Shift+r mode "$keyboard_switch"
-  # Set shut down, restart and locking features
   bindsym 0 mode "$mode_system"
   bindsym m mode "resize"
   bindsym g mode "$mode_gaps"
   bindsym t mode "$mode_type"
+  bindsym a mode "$mode_audio"
+  bindsym c mode "$mode_scratch"
 }
 
-bindsym $mod+u border none
-bindsym $mod+Shift+u border normal
-
-bindsym $mod+n exec i3-input -F \
-'rename workspace to "'$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')':%s"' \
--P 'Rename workspace to '$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')': '
-
-bindsym $mod+Return exec i3-sensible-terminal
-
-# Window kill command
-bindsym $mod+q kill
-
-# start program launcher
-# bindsym $mod+d exec --no-startup-id rofi -show run
-# bindsym $mod+m exec dmenu_run
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
-
-# split orientation
-bindsym $mod+s split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+Shift+v split toggle
-
-bindsym $mod+space mode "vim"
 mode "vim" {
+    bindsym Escape mode "default"
+    bindsym $mod mode "default"
+
     bindsym --release j exec --no-startup-id xdotool key --clearmodifiers Down 
     bindsym --release k exec --no-startup-id xdotool key --clearmodifiers Up
     bindsym h exec $(xdotool key Left)
@@ -264,7 +233,6 @@ mode "vim" {
     bindsym --release a exec --no-startup-id xdotool key --clearmodifiers key Right; mode "default"
     bindsym --release Shift+a exec --no-startup-id xdotool --clearmodifiers key End keyup Shift key l; mode "default"
     bindsym --release Shift+k exec --no-startup-id xdotool --clearmodifiers key End l
-    bindsym Escape mode "default"
 }
 mode "vim-delete" {
     bindsym --release w mode "default"; exec --no-startup-id xdotool key --clearmodifiers keydown Shift keydown Ctrl key Right keyup Ctrl keyup Shift key Delete; mode "vim"
@@ -288,192 +256,173 @@ mode "vim-select" {
     bindsym --release Shift+x exec --no-startup-id xdotool keyup Shift key Backspace; mode "vim"
 }
 
-# toggle fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+w layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
-
-# change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
-
-# toggle sticky
-bindsym $mod+Shift+s sticky toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
-# navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
-
-# switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-
-# Move focused container to workspace
-bindsym $mod+Ctrl+1 move container to workspace number $ws1
-bindsym $mod+Ctrl+2 move container to workspace number $ws2
-bindsym $mod+Ctrl+3 move container to workspace number $ws3
-bindsym $mod+Ctrl+4 move container to workspace number $ws4
-bindsym $mod+Ctrl+5 move container to workspace number $ws5
-bindsym $mod+Ctrl+6 move container to workspace number $ws6
-bindsym $mod+Ctrl+7 move container to workspace number $ws7
-bindsym $mod+Ctrl+8 move container to workspace number $ws8
-
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace number $ws1; workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5; workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6; workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7; workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8; workspace number $ws8
-
-bindsym $mod+r mode "$mode_reload"
 set $mode_reload (r)estart i3, (c)onfig, (m)monitors, (k)eyboard, (K)eyboard mode
 mode "$mode_reload" {
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
   # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
   bindsym r restart; mode "default"
   # reload the configuration file
   bindsym c reload; mode "default"
   bindsym m exec --no-startup-id sh $HOME/.config/polybar/i3wmthemer_bar_launch.sh; mode "default"
   bindsym k exec --no-startup-id $HOME/.config/i3/xkb.sh; mode "default"
+  bindsym 1 [class=".*"] move workspace to output eDP-1; mode "default"
   bindsym Shift+k mode "$keyboard_switch"
-  bindsym Return mode "default'
-  bindsym Escape mode "default"
 }
 
-bindsym $mod+Shift+r mode "$keyboard_switch"
 set $keyboard_switch (n)eo-colemak, (c)olemak, (q)uerty, (r)eload neo-colemak
 mode "$keyboard_switch" {
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
   bindsym n exec --no-startup-id $HOME/.config/i3/xkb.sh; mode "default"; exec --no-startup-id notify-send "switched keyboard to neo-colemak"
   bindsym r exec --no-startup-id $HOME/.config/i3/xkb.sh; mode "default"; exec --no-startup-id notify-send "switched keyboard to neo-colemak"
   bindsym c exec --no-startup-id setxkbmap -layout us -variant colemak; exec --no-startup-id pkill xcape; mode "default"; exec --no-startup-id notify-send "switched keyboard to colemak"
   bindsym q exec --no-startup-id setxkbmap -layout us; exec --no-startup-id pkill xcape; mode "default"; exec --no-startup-id notify-send "switched keyboard to querty"
-  bindsym Return mode "default'
-  bindsym Escape mode "default"
 }
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
-bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
-
     bindsym Escape mode "default"
+    bindsym $mod mode "default"
+    bindsym l exec --no-startup-id $HOME/.config/i3/exit.sh lock; mode "default"
+    bindsym s exec --no-startup-id $HOME/.config/i3/exit.sh suspend; mode "default"
+    bindsym u exec --no-startup-id $HOME/.config/i3/exit.sh switch_user; mode "default"
+    bindsym e exec --no-startup-id $HOME/.config/i3/exit.sh logout; mode "default"
+    bindsym h exec --no-startup-id $HOME/.config/i3/exit.sh hibernate; mode "default"
+    bindsym r exec --no-startup-id $HOME/.config/i3/exit.sh reboot; mode "default"
+    bindsym Shift+s exec --no-startup-id $HOME/.config/i3/exit.sh shutdown; mode "default"
 }
 
-# Resize window (you can also use the mouse for that)
-bindsym $mod+m mode "resize"
+# Resize window (you can also use the mou$HOME/.config/i3/exit.sh se for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  # These bindings trigger as soon as you enter the resize mode
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
 
-        bindsym Shift+h resize shrink width 25 px or 25 ppt
-        bindsym Shift+j resize grow height 25 px or 25 ppt
-        bindsym Shift+k resize shrink height 25 px or 25 ppt
-        bindsym Shift+l resize grow width 25 px or 25 ppt
+  bindsym Shift+h resize shrink width 25 px or 25 ppt
+  bindsym Shift+j resize grow height 25 px or 25 ppt
+  bindsym Shift+k resize shrink height 25 px or 25 ppt
+  bindsym Shift+l resize grow width 25 px or 25 ppt
 
-        bindsym Ctrl+h move left 5px
-        bindsym Ctrl+j move down 5px
-        bindsym Ctrl+k move up 5px
-        bindsym Ctrl+l move right 5px
+  bindsym Ctrl+h move left 5px
+  bindsym Ctrl+j move down 5px
+  bindsym Ctrl+k move up 5px
+  bindsym Ctrl+l move right 5px
 
-        bindsym Ctrl+Shift+h move left 25px
-        bindsym Ctrl+Shift+j move down 25px
-        bindsym Ctrl+Shift+k move up 25px
-        bindsym Ctrl+Shift+l move right 25px
-
-        # exit resize mode: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  bindsym Ctrl+Shift+h move left 25px
+  bindsym Ctrl+Shift+j move down 25px
+  bindsym Ctrl+Shift+k move up 25px
+  bindsym Ctrl+Shift+l move right 25px
 }
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +(n)|-(t)|0(o) (local), Shift + +(n)|-(t)|0(o) (global), (a)lternate
 set $mode_gaps_inner Inner Gaps: +(n)|-(t)|0(o) (local), Shift + +(n)|-(t)|0(o) (global), (a)lterniate
-bindsym $mod+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym o mode "$mode_gaps_outer"
+  bindsym i mode "$mode_gaps_inner"
 }
 mode "$mode_gaps_inner" {
-        bindsym n gaps inner current plus 5
-        bindsym t gaps inner current minus 5
-        bindsym o gaps inner current set 0
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym n gaps inner current plus 5
+  bindsym t gaps inner current minus 5
+  bindsym o gaps inner current set 0
 
-        bindsym Shift+n gaps inner all plus 5
-        bindsym Shift+t gaps inner all minus 5
-        bindsym Shift+o gaps inner all set 0
+  bindsym Shift+n gaps inner all plus 5
+  bindsym Shift+t gaps inner all minus 5
+  bindsym Shift+o gaps inner all set 0
 
-        bindsym a      mode "$mode_gaps_outer"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # Alternate gap mode
+  bindsym a mode "$mode_gaps_outer"
 }
 mode "$mode_gaps_outer" {
-        bindsym n gaps outer current plus 5
-        bindsym t gaps outer current minus 5
-        bindsym o gaps outer current set 0
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym n gaps outer current plus 5
+  bindsym t gaps outer current minus 5
+  bindsym o gaps outer current set 0
 
-        bindsym Shift+n gaps outer all plus 5
-        bindsym Shift+t gaps outer all minus 5
-        bindsym Shift+o gaps outer all set 0
+  bindsym Shift+n gaps outer all plus 5
+  bindsym Shift+t gaps outer all minus 5
+  bindsym Shift+o gaps outer all set 0
 
-        bindsym a      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # Alternate gap mode
+  bindsym a mode "$mode_gaps_inner"
 }
 
-bindsym $mod+bracketleft move workspace to output left
-bindsym $mod+bracketright move workspace to output right
-
-bindsym $mod+t mode "$mode_type"
 set $mode_type (s)hrug, (e)mail, (q)uery, (i)nsert
 mode "$mode_type" {
-  bindsym --release e mode "default"; exec --no-startup-id xdotool type mbagwell@getsidecar.com
-  bindsym --release i mode "default"; exec --no-startup-id xdotool type --clearmodifiers 'insert into () values ()'
-  bindsym --release q mode "default"; exec --no-startup-id xdotool type 'select * from '
-  bindsym --release s mode "defualt"; exec --no-startup-id xdotool type '¯\_(ツ)_/¯'
-  bindsym Return mode "default'
   bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym --release e mode "default"; exec --no-startup-id xdotool type mbagwell@getsidecar.com; mode "default"
+  bindsym --release i mode "default"; exec --no-startup-id xdotool type --clearmodifiers 'insert into () values ()'; mode "default"
+  bindsym --release q mode "default"; exec --no-startup-id xdotool type 'select * from '; mode "default"
+  bindsym --release s mode "defualt"; exec --no-startup-id xdotool type '¯\_(ツ)_/¯'; mode "default"
+}
+
+set $volume_up "notify-send `amixer -D pulse sset Master '5%+' | grep '\[on\]' | head -n 1 | sed 's:\(.*\)\[\([0-9]\+\)%\]\(.*\):\2%:g'`"
+set $volume_down "notify-send `amixer -D pulse sset Master '5%-' | grep '\[on\]' | head -n 1 | sed 's:\(.*\)\[\([0-9]\+\)%\]\(.*\):\2%:g'`"
+set $volume_toggle "amixer -D pulse set Master toggle"
+set $audio_play "playerctl play-pause; notify-send `playerctl status`"
+
+set $mode_audio Audio: (u)p volume, (d)own volume, (m)ute volume, (l) next, (h) previous, (Enter/p)lay/pause, (i)nfo, (g)o to
+mode "$mode_audio" {
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym u exec --no-startup-id $volume_up
+  bindsym d exec --no-startup-id $volume_down
+  bindsym m exec --no-startup-id $volume_toggle
+  bindsym l exec --no-startup-id playerctl next
+  bindsym h exec --no-startup-id playerctl previous
+  bindsym i exec --no-startup-id notify-send "♫ Artist: `playerctl metadata artist`\nAlbum: `playerctl metadata album`\nTitle: `playerctl metadata title | cut -c1-40`"
+  bindsym p exec --no-startup-id $audio_play
+  bindsym Return exec --no-startup-id $audio_play
+  bindsym g [class="Spotify"] scratchpad show; mode "default"
+}
+
+# Bind to actual keys to, for laziness/being mostly away from keyboard
+bindsym XF86AudioRaiseVolume exec --no-startup-id $volume_up
+bindsym XF86AudioLowerVolume exec --no-startup-id $volume_down
+bindsym XF86AudioMute exec --no-startup-id $volume_toggle
+bindsym XF86AudioPlay exec --no-startup-id $audio_play
+
+# change container layout
+set $mode_layout layout: (t)oggle, (s)tacking, (f)loating, (v) split
+mode "$mode_layout"  {
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  bindsym t layout toggle; mode "default"
+  bindsym s layout toggle stacking; mode "default"
+  # toggle tiling / floating
+  bindsym f floating toggle; mode "default"
+  bindsym v layout toggle split; mode "default"
+}
+
+set $mode_scratch scratch: (Enter) move to, (c)ycle/hide, (s)lack, (a)udio/spotify, (d)ate
+mode "$mode_scratch"  {
+  bindsym Escape mode "default"
+  bindsym $mod mode "default"
+  # move the currently focused window to the scratchpad
+  bindsym Return move scratchpad; mode "default"
+  # Show the next scratchpad window or hide the focused scratchpad window.
+  # If there are multiple scratchpad windows, this command cycles through them.
+  bindsym c scratchpad show; mode "default"
+  bindsym s [class="Slack"] scratchpad show; mode "default"
+  bindsym a [class="Spotify"] scratchpad show; mode "default"
+  bindsym d [title=".*Calendar.*"] scratchpad show; mode "default"
+  bindsym f floating toggle; mode "default"
 }

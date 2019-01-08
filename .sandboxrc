@@ -1,0 +1,25 @@
+sandbox_init_nvm(){
+  source $HOME/.nvm/nvm.sh
+}
+
+sandbox_hook nvm node
+sandbox_hook nvm nodemon
+sandbox_hook nvm flow
+sandbox_hook nvm yarn
+sandbox_hook nvm npm
+sandbox_hook nvm flow-language-server
+sandbox_hook nvm flow-typed
+sandbox_hook nvm neovim-node-host
+
+sandbox_init_rvm(){
+  if test -f ~/.rvm/scripts/rvm; then
+     [ "$(type rvm | grep -o function)" = "function" ] || source ~/.rvm/scripts/rvm
+  fi
+}
+
+sandbox_hook rvm gem
+sandbox_hook rvm travis
+
+sandbox_init_kubectl(){
+  source <(kubectl completion zsh)
+}

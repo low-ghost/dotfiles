@@ -217,13 +217,13 @@ function npmvv() {
 # }
 
 # raise spotify window
-alias spo="wmctrl -ia `wmctrl -lx | grep spotify.Spotify | awk '{ print $0 }'`"
+# alias spo="wmctrl -ia `wmctrl -lx | grep spotify.Spotify | awk '{ print $0 }'`"
 
 # notify current track info
-spoc() {
-  current=`. ~/sp current`
-  notify-send $current
-}
+# spoc() {
+#   current=`. ~/sp current`
+#   notify-send $current
+# }
 
 gcmi() {
   git commit -m "`gitissue`: $1"
@@ -405,15 +405,15 @@ gcof() {
   fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
 }
 
-_wgo_completion() {
-  wmctrl -l
-}
-_wgo_func() {
-  echo $1 | awk '{print $1}' | xargs wmctrl -i -a
-}
-wgo() {
-  fzf_ize "_wgo_completion" "_wgo_func" $1
-}
+# _wgo_completion() {
+#   wmctrl -l
+# }
+# _wgo_func() {
+#   echo $1 | awk '{print $1}' | xargs wmctrl -i -a
+# }
+# wgo() {
+#   fzf_ize "_wgo_completion" "_wgo_func" $1
+# }
 
 # commits sorted by last commit
 alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"

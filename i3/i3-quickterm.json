@@ -1,6 +1,6 @@
 {
     "menu": "rofi -dmenu -p 'quickterm: ' -no-custom -auto-select",
-    "term": "urxvt",
+    "term": "gnome-terminal",
     "history": "{$HOME}/.cache/i3/i3-quickterm.order",
     "ratio": 0.25,
     "pos": "top",
@@ -8,6 +8,7 @@
         "haskell": "ghci",
         "js": "node",
         "python": "ipython3 --no-banner",
-        "shell": "{$SHELL}"
+        "shell": "{$SHELL}",
+        "shell2": "{$SHELL}"
     }
 }

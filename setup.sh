@@ -9,13 +9,13 @@ while getopts ':i:lr' opt; do
         case $arg in
           # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,spotify,docker,docker-compose,omz
+            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,spotify,docker,docker-compose,omz,sandbox,pyenv
             sh ~/repo/dotfiles/setup.sh -l
             vim +PlugInstall +qall
             zsh
             ;;
           basic)
-            echo 'curl, xsel, zsh, cmake, ag, wmctrl, fonts, jq, colors'
+            echo 'curl, xsel, zsh, cmake, ag, fonts, jq, colors'
             sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common ripgrep jq
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
@@ -135,6 +135,25 @@ while getopts ':i:lr' opt; do
             sudo apt-get update
             sudo apt-get install -y spotify-client
             ;;
+          sandbox)
+            echo "Installing and linking sandbox"
+            git clone https://github.com/benvan/sandboxd ~/repo/sandboxd
+            ln -f .sandboxrc ~/.sandboxrc
+            ;;
+          pyenv)
+            echo "Installing pyenv"
+            curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+            pyenv update
+            ;;
+          kube)
+            echo "Installing kube"
+            sudo snap install kubectl --classic
+            ;;
+          i3)
+            sudo apt-get install i3 i3status dmenu feh
+            git clone https://github.com/unix121/i3wm-themer ~/repo/i3wm-themer
+            cd ~/repo/i3wm-themer
+            cp -r scripts/* /home/$USER/.config/polybar
           :)
             echo "Invalid option"
             exit 1
