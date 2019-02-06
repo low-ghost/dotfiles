@@ -162,11 +162,12 @@ pyserve() {
   fi
 }
 
-groot() {
-  git rev-parse --show-toplevel
-}
-# change dir to git root
-alias cdg='cd `groot`'
+# grt from oh-my-zsh does this
+# groot() {
+#   git rev-parse --show-toplevel
+# }
+# # change dir to git root
+# alias cdg='cd `groot`'
 
 _cdr_pre_fzf() { cd ~/repo/$1 }
 _cdr_completion() {
@@ -232,7 +233,7 @@ gcmin() {
   git commit -n -m "`gitissue`: $1"
 }
 # better xev
-alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
+# alias xev='xev | sed -ne '/^KeyPress/,/^$/p''
 
 alias gbcur="git rev-parse --abbrev-ref HEAD"
 gb_to_issue() {
@@ -390,6 +391,9 @@ ghub() {
 ghubb() {
   firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`/tree/`gbcur`
 }
+gghubb() {
+  google-chrome https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`/tree/`gbcur`
+}
 
 _gcof_pre_fzf() {
   git checkout $1
@@ -450,7 +454,7 @@ alias pgsta='psql -U `chamber read connectapi-staging postgres_user -q` -h `cham
 alias pgprod='psql -U `chamber read connectapi-production postgres_user -q` -h `chamber read connectapi-production postgres_host -q` -d `chamber read connectapi-production postgres_db -q`'
 
 # kill all the docker
-alias dockernuke='sudo docker rmi -f $(sudo docker images -a -q); sudo docker rm $(sudo docker ps -a -f status=exited -q)'
+alias dockernuke='docker rmi -f $(docker images -a -q); docker rm $(docker ps -a -f status=exited -q)'
 
 # temp alias to check out the develop-reporting branch of connect-ui
 alias gcod='gco develop-reporting'
@@ -602,3 +606,20 @@ compdef _gcof gcof
 compdef docker dockerd
 
 alias rg='rg --hidden'
+
+kubex() {
+  name=`kubectl get pods --namespace connect -o json | jq '.items[].metadata.name' | grep 'connect-api' | head -n 1 | sed 's/"\(.*\)"/\1/g'`
+  kubectl --namespace connect exec $name -it /bin/sh
+}
+
+kuberepl() {
+  namespace=${1:-connect}
+  name=`kubectl get pods --namespace $namespace -o json | jq '.items[].metadata.name' | grep 'connect-api' | head -n 1 | sed 's/"\(.*\)"/\1/g'`
+  kubectl --namespace $namespace exec $name -it -- chamber exec connectapi-staging -- yarn repl:10
+}
+
+kubereplprod() {
+  namespace=${1:-connect}
+  name=`kubectl get pods --namespace $namespace -o json | jq '.items[].metadata.name' | grep 'connect-api' | head -n 1 | sed 's/"\(.*\)"/\1/g'`
+  kubectl --namespace $namespace exec $name -it -- chamber exec connectapi-production -- yarn repl:10
+}

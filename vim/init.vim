@@ -1,4 +1,5 @@
 let g:fzf_command_prefix = 'Fzf'
+let g:vimax_tmux_py_enabled = 0
 
 let g:javascript_conceal_NaN = "ℕ"
 let g:javascript_plugin_flow = 1
@@ -38,6 +39,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'morhetz/gruvbox'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/rhubarb'
 " GraphQl {{{
 Plug 'jparise/vim-graphql'
 " }}}
@@ -380,7 +382,7 @@ else
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': [ 'javascript', 'javascript.jsx' ] }
   Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ], 'do': 'npm install -g tern' }
   "Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
-  Plug 'steelsojka/deoplete-flow', { 'for': [ 'javascript', 'javascript.jsx' ] }
+  "Plug 'steelsojka/deoplete-flow', { 'for': [ 'javascript', 'javascript.jsx' ] }
   Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
   " }}}
   " Go {{{
@@ -552,3 +554,4 @@ endif
 " function! AsyncQF(cmd) abort
 "   call jobstart(a:cmd, { 'on_stdout': function('SetQF') })
 " endfunction
+

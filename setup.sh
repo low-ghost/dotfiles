@@ -9,7 +9,7 @@ while getopts ':i:lr' opt; do
         case $arg in
           # For just the keyboard, run sh ~/repo/dotfiles/setup.sh -i xcape; source ~/repo/dotfiles/.minimal_aliases; xkb;
           all)
-            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,spotify,docker,docker-compose,omz,sandbox,pyenv
+            sh ~/repo/dotfiles/setup.sh -i basic,repos,xcape,tmux,rvm,neovim,nvm,js-repl,npm,spotify,docker,docker-compose,omz,sandbox,pyenv,kube
             sh ~/repo/dotfiles/setup.sh -l
             vim +PlugInstall +qall
             zsh
@@ -105,11 +105,12 @@ while getopts ':i:lr' opt; do
           npm)
             echo 'installing lodash, typescript, eslint...'
             npm install -g lodash typescript eslint tern eslint-plugin-import eslint-plugin-react \
-              babel-eslint flow-bin flow-typed flow-vim-quickfix
+              babel-eslint flow-bin flow-typed flow-vim-quickfix flow-language-server
             ;;
           rvm)
-            gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-            \curl -sSL https://get.rvm.io | bash -s stable --ruby
+            sudo apt-add-repository -y ppa:rael-gc/rvm
+            sudo apt-get update
+            sudo apt-get install rvm
             ;;
           # check latest download url first, change version in zshrc if necessary and download maven manually
           java)
@@ -154,6 +155,48 @@ while getopts ':i:lr' opt; do
             git clone https://github.com/unix121/i3wm-themer ~/repo/i3wm-themer
             cd ~/repo/i3wm-themer
             cp -r scripts/* /home/$USER/.config/polybar
+            ;;
+          ipsec)
+            sudo apt-get install strongswan strongswan-pki
+            sudo apparmor_parser -R /etc/apparmor.d/usr.lib.ipsec.charon
+            sudo apparmor_parser -R /etc/apparmor.d/usr.lib.ipsec.stroke
+            # cp <file>.crt /etc/ipsec.d/certs/<file>.crt
+            # cp <file>.key /etc/ipsec.d/private
+            # cp cacert.pem /etc/ipsec.d/cacerts
+            #
+            # Add `<address> : ECDSA <file>.key` to /etc/ipsec.secrets
+            #
+            # add config to /etc/ipsec.conf:
+            # conn ikev2-<address>
+            #     fragmentation=yes
+            #     rekey=no
+            #     dpdaction=clear
+            #     keyexchange=ikev2
+            #     compress=no
+            #     dpddelay=35s
+            #     ike=aes128gcm16-prfsha512-ecp256!
+            #     esp=aes128gcm16-ecp256!
+            #     right=<address>
+            #     rightid=<address>
+            #     rightsubnet=0.0.0.0/0
+            #     rightauth=pubkey
+            #     leftsourceip=%config
+            #     leftauth=pubkey
+            #     leftcert=<file>.crt
+            #     leftfirewall=yes
+            #     left=%defaultroute
+            #     auto=add
+            #
+            # sudo ipsec restart
+            #
+            # use:
+            # sudo ipsec up ikev-2-<address>
+            # sudo ipsec down ikev-2-<address>
+            ;;
+          other)
+            sudo apt-get install postgresql
+            pip install awscli --upgrade --user
+            ;;
           :)
             echo "Invalid option"
             exit 1

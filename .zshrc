@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.aliases
 source ~/.secrets
-# source ~/.nvm/nvm.sh
+source ~/.nvm/nvm.sh
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -153,10 +153,4 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PATH:$PYENV_ROOT/bin
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-eval "$(pyenv virtualenv-init -)"
-
 export AWS_REGION=us-east-1

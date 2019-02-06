@@ -1,15 +1,15 @@
-sandbox_init_nvm(){
-  source $HOME/.nvm/nvm.sh
-}
-
-sandbox_hook nvm node
-sandbox_hook nvm nodemon
-sandbox_hook nvm flow
-sandbox_hook nvm yarn
-sandbox_hook nvm npm
-sandbox_hook nvm flow-language-server
-sandbox_hook nvm flow-typed
-sandbox_hook nvm neovim-node-host
+# sandbox_init_nvm(){
+#   source $HOME/.nvm/nvm.sh
+# }
+# 
+# sandbox_hook nvm node
+# sandbox_hook nvm nodemon
+# sandbox_hook nvm flow
+# sandbox_hook nvm yarn
+# sandbox_hook nvm npm
+# sandbox_hook nvm flow-language-server
+# sandbox_hook nvm flow-typed
+# sandbox_hook nvm neovim-node-host
 
 sandbox_init_rvm(){
   if test -f ~/.rvm/scripts/rvm; then

@@ -109,7 +109,12 @@ let g:deoplete#sources = {}
 "let g:deoplete#sources['javascript'] = ['file', 'buffer', 'noderepl', 'flow', 'tern', 'ultisnips']
 let g:deoplete#sources['python'] = ['file', 'jedi', 'ultisnips']
 "call deoplete#custom#source('flow', 'rank', 9999)
-let g:deoplete#enable_refresh_always=1
+let g:deoplete#enable_refresh_always = 1
+
+let g:deoplete#sources#go#source_importer = 1
+let g:deoplete#sources#go#builtin_objects = 1
+let g:deoplete#sources#go#pointer = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['flow-language-server', '--stdio'],
