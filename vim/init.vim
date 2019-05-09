@@ -109,6 +109,7 @@ vnoremap <silent> ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
 
 " Search {{{
 map <Space><Space> <Plug>(easymotion-s)
+map ,, <Plug>(easymotion-s)
 map <Space>// <Plug>(easymotion-s)
 map <Space>/2 <Plug>(easymotion-s2)
 map <Space>/B <Plug>(easymotion-B)

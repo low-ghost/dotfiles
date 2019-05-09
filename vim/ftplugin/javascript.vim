@@ -1,3 +1,4 @@
+let g:LanguageClient_diagnosticsEnable=0
 " let g:flow#flowpath = 'flow'
 
 " if !exists("b:flow_init")
@@ -41,6 +42,7 @@ nnoremap <silent> <buffer> <Space>yT :BothType<CR>
 
 " nnoremap <silent> <buffer> <Space>yg :FlowJumpTo<CR>
 nnoremap <silent> <buffer> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <buffer> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> <buffer> gvd :vs<CR>:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <buffer> gsd :sp<CR>:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <buffer> gD :TernDef<CR>
@@ -64,9 +66,13 @@ nnoremap <silent> <buffer> <Space>fst :call javascript#edit_javascript_test('s')
 
 
 let b:ale_fixers = ['prettier']
+" killed flow-language-server
+let g:ale_linters.javascript = ['eslint', 'flow', 'jscs', 'jshint', 'standard', 'xo']
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%% code%]'
 let g:ale_javascript_prettier_eslint_options = '--single-quote --trailing-comma all'
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 0
 let b:color_column = 80
 
 " if get(b:, 'javascript_funcs_loaded')
@@ -146,4 +152,4 @@ let b:color_column = 80
 
 " let b:javascript_funcs_loaded = 1
 
-set completefunc=LanguageClient#complete
+" set completefunc=LanguageClient#complete

@@ -117,6 +117,7 @@ let g:deoplete#sources#go#pointer = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 let g:LanguageClient_serverCommands = {
+    \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['flow-language-server', '--stdio'],
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }

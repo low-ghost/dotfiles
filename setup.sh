@@ -16,7 +16,9 @@ while getopts ':i:lr' opt; do
             ;;
           basic)
             echo 'curl, xsel, zsh, cmake, ag, fonts, jq, colors'
-            sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common ripgrep jq
+            sudo apt-get install -y curl xsel zsh build-essential checkinstall software-properties-common jq
+	    # only available from apt-get in ubuntu 18.10+
+	    sudo snap install ripgrep --classic
             chsh -s $(which zsh)
             sudo add-apt-repository ppa:george-edison55/cmake-3.x
             sudo apt-get update

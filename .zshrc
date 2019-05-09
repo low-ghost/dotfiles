@@ -1,11 +1,13 @@
+ZSH_DISABLE_COMPFIX=true
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-source $HOME/repo/sandboxd/sandboxd
+# source $HOME/repo/sandboxd/sandboxd
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME=""
+# ~/.oh-my-zsh/themes/powerlevel9k
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,7 +51,7 @@ ZSH_THEME=""
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode aws)
 
 # User configuration
 
@@ -103,34 +105,30 @@ TERM=screen-256color
 
 source "$HOME/.nvim/plugged/gruvbox/gruvbox_256palette.sh"
 
-vim_ins_mode="INSERT"
-vim_cmd_mode="NORMAL"
-vim_mode=$vim_ins_mode
+# vim_ins_mode="INSERT"
+# vim_cmd_mode="NORMAL"
+# vim_mode=$vim_ins_mode
 
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  __promptline
-  zle reset-prompt
-}
-zle -N zle-keymap-select
+# function zle-keymap-select {
+#   vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+#   __promptline
+#   zle reset-prompt
+# }
+# zle -N zle-keymap-select
 
-function zle-line-finish {
-  vim_mode=$vim_ins_mode
-}
-zle -N zle-line-finish
+# function zle-line-finish {
+#   vim_mode=$vim_ins_mode
+# }
+# zle -N zle-line-finish
 
-function TRAPINT() {
-  vim_mode=$vim_ins_mode
-  return $(( 128 + $1 ))
-}
+# function TRAPINT() {
+#   vim_mode=$vim_ins_mode
+#   return $(( 128 + $1 ))
+# }
 
-source ~/.promptline_dark
+# source ~/.promptline_dark
 
 # nvm use latest > /dev/null
-
-# Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 
 # Add java path
 export JAVA_HOME=/opt/java/jdk1.8.0_102
@@ -154,3 +152,53 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PATH:$PYENV_ROOT/bin
 export AWS_REGION=us-east-1
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator vi_mode dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext status background_jobs virtualenv pyenv time)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_package_name"
+POWERLEVEL9K_VI_INSERT_MODE_STRING="I"
+POWERLEVEL9K_VI_COMMAND_MODE_STRING="N"
+POWERLEVEL9K_DIR_HOME_BACKGROUND='4'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='4'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='4'
+# POWERLEVEL9K_DIR_HOME_FOREGROUND='236'
+# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='236'
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='236'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='66'
+# POWERLEVEL9K_VCS_CLEAN_BACKGROUND='119'
+# POWERLEVEL9K_VCS_CLEAN_FOREGROUND='236'
+# POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='214'
+# POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='236'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='3'
+# POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='236'
+POWERLEVEL9K_TIME_BACKGROUND='15'
+
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='4'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='1'
+
+POWERLEVEL9K_KUBECONTEXT_BACKGROUND='166'
+POWERLEVEL9K_KUBECONTEXT_FOREGROUND='236'
+
+# Add RVM to PATH for scripting
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+source /usr/share/rvm/scripts/rvm
+source <(kubectl completion zsh)
+export PATH="$PATH:/usr/share/rvm/bin"
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /home/low-ghost/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+[ -s "/home/low-ghost/.jabba/jabba.sh" ] && source "/home/low-ghost/.jabba/jabba.sh"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/low-ghost/.sdkman"
+[[ -s "/home/low-ghost/.sdkman/bin/sdkman-init.sh" ]] && source "/home/low-ghost/.sdkman/bin/sdkman-init.sh"

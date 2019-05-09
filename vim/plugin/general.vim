@@ -73,7 +73,7 @@ set matchpairs+=<:>             " Match, to be used with %
 " }
 
 " Formatting Defaults{
-set shiftwidth=2  " Use indents of 4 spaces
+set shiftwidth=2  " Use indents of 2 spaces
 set tabstop=2     " An indentation every four columns
 set softtabstop=2 " Let backspace delete indent
 set expandtab     " Spaces instead of tabs
