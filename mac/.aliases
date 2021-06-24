@@ -1,0 +1,255 @@
+nvim_wrapper() {
+  if test -z $NVIM_LISTEN_ADDRESS; then
+      nvim $argv
+  else
+    if test -z $argv; then
+        nvr -l -c new
+    else
+        nvr -l $argv
+    fi
+  fi
+}
+
+alias nvim="nvim_wrapper"
+alias e='nvim'
+alias vim='nvim'
+
+fzf_ize() {
+  local completion_func=$1
+  local func=$2
+  local initial_param=$3
+  local _eval_fzf() {
+    local result
+    if [[ -z "$1" ]]; then
+      result=`$completion_func | fzf -1`
+      if [[ "$?" == 130 ]]; then
+        echo 'no items were chosen'
+        return
+      fi
+    fi
+    { # try
+      if [[ -n "$result" ]]; then
+        $func $result 2>/dev/null
+      else
+        result=`$completion_func | fzf -1 -q $1`
+        if [[ "$?" == 130 ]]; then
+          echo 'no items were chosen'
+          return
+        fi
+        $func $result
+      fi
+    } || { # catch
+      result=`$completion_func | fzf -1 -q $1`
+      if [[ "$?" == 130 ]]; then
+        echo 'no items were chosen'
+        return
+      fi
+      $func $result
+    }
+  }
+  _eval_fzf $initial_param
+}
+
+whatsonport() { sudo netstat -tulnap | grep :$1 }
+
+clip() { "$1" | xclip -sel clip }
+
+# alias drmall='docker rm $(docker ps -a -q)'
+# dbuild() {
+#   dir=${PWD##*/}
+#   sudo docker build -t ${1-$dir} .
+# }
+# dbuilde() {
+#   dir=${PWD##*/}
+#   echo ${1-$dir}
+# }
+
+# git {
+
+# stash, but keep files
+alias -g gstai='git stash --keep-index'
+# same, but more fun
+alias -g gstain='git stash --keep-index'
+# ignore file in git
+alias -g gic='git update-index --assume-unchanged'
+# ignore dir in git
+gicd() {
+  git update-index --assume-unchanged `git ls-files --directory $1 -z` > /dev/null 2>&1
+}
+# restore watching file in git
+alias -g ungic='git update-index --no-assume-unchanged'
+#unignore dir
+ungicd() {
+  git update-index --no-assume-unchanged `git ls-files --directory $1 -z` > /dev/null 2>&1
+}
+alias -g gcan='git commit -a -n -m'
+gpa() {
+  echo "Enter a commit message:"
+  read message
+  git commit -a -m $message
+  ggpush
+}
+gpan() {
+  echo "Enter a commit message:"
+  read message
+  git commit -a -n -m $message
+  ggpush
+}
+
+# search all branches for a file (regex w/ rg)
+gfsgrep() {
+  for branch in `git for-each-ref --format="%(refname)" refs/heads`; do
+    found_file=`git ls-tree -r --name-only $branch | rg $1`
+    if [[ ! -z "${found_file// }" ]]; then
+      echo $branch: $found_file
+    fi
+  done
+}
+
+# }
+
+# simple calculations
+calc() { echo $1 | bc -l }
+
+pyserve() {
+  if [ -z "$1" ]; then
+    timeout 1h python -m SimpleHTTPServer; notify-send 'python server shutdown'
+  else
+    timeout "$@" python -m SimpleHTTPServer; notify-send 'python server shutdown'
+  fi
+}
+
+_cdr_pre_fzf() { cd ~/git/$1 }
+_cdr_completion() {
+  ls ~/git
+}
+_cdr() {
+  compset -P '*,'
+  compadd -S '' `_cdr_completion`
+}
+cdr() {
+  fzf_ize "_cdr_completion" "_cdr_pre_fzf" $1
+}
+
+# npm view
+alias npmv='npm view'
+
+function npmvv() {
+  npm view $1 versions
+}
+
+gcmi() {
+  git commit -m "`gitissue`: $1"
+}
+
+gcmin() {
+  git commit -n -m "`gitissue`: $1"
+}
+
+gname() {
+  git remote show origin -n | grep "Fetch URL:" | sed -E 's:^.*/(.*).git$:\1:g'
+}
+
+# thesaurus lookup
+thesaur() {
+  curl http://words.bighugelabs.com/api/2/$THES_KEY/$1/json | jq .
+}
+alias other-words='thesaur'
+
+_egit_pre_fzf() { vim $1 }
+_egit_completion() {
+  git ls-files
+}
+_egit() {
+  compset -P '*,'
+  compadd -S '' `_egit_completion`
+}
+egit() {
+  fzf_ize "_egit_completion" "_egit_pre_fzf" $1
+}
+
+# get linux release info
+alias compinfo='cat /etc/lsb-release'
+
+# go to github for ssh repo
+# just use `hub`
+# ghub() {
+#   firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`
+# }
+# ghubb() {
+#   firefox https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`/tree/`gbcur`
+# }
+# gghub() {
+#   chromium https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`
+# }
+# gghubb() {
+#   chromium https://github.com/`git config --get "remote.origin.url" | sed 's/git@github.com:\(.*\)\(\.git\|$\)/\1/'`/tree/`gbcur`
+# }
+
+# added $(...) instead of just $1 for mac
+_gcof_pre_fzf() { git checkout $(echo $1 | awk '{$1=$1};1') }
+_gcof_completion() {
+  git branch --sort=-committerdate | sed 's/^\(\*\|\)\s*//g'
+}
+_gcof () {
+  compset -P '*,'
+  compadd -S '' `_gcof_completion`
+}
+gcof() {
+  fzf_ize "_gcof_completion" "_gcof_pre_fzf" $1
+}
+
+# commits sorted by last commit
+alias glast="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+
+# kill all the docker
+alias dockernuke='docker rmi -f $(docker images -a -q); docker rm $(docker ps -a -f status=exited -q)'
+
+# alias {
+addali() {
+  echo "Enter a description for the alias:"
+  read comment
+  echo "\n# $comment" >> ~/.aliases
+  echo "alias $1='`fc -ln -1`'" >> ~/.aliases
+}
+# fuzzy search alias and add text to command line
+ali() {
+  print -z $(alias | fzf | sed "s/\S*='//g" | sed 's/.$//')
+}
+# }
+
+# countdown() {
+#    date1=$((`date +%s` + $1)); 
+#    while [ "$date1" -ne `date +%s` ]; do 
+#      echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+#      sleep 0.1
+#    done
+#    notify-send 'countdown finished'
+# }
+
+tmuxa() { tmux -2 attach -t `echo $1 | cut -d ":" -f 1` }
+_tmuxa_completion() {
+  tmux ls | awk '{print $1$2"-"$3":"$5"-"$6"-"$7}'
+}
+_tmuxa () {
+  compadd -S '' `_tmuxa_completion`
+}
+
+compdef _tmuxa tmuxa
+compdef _gitunadd gun
+compdef _cdr cdr
+compdef _cdrg cdrg
+compdef _apt apt='sudo apt-get'
+compdef _apti apti='sudo apt-get install'
+compdef _gcof gcof
+compdef docker dockerd
+
+alias rg='rg --hidden'
+
+# make qmk file for mac
+alias qmkmake='cd ~/git/qmk_firmware; rm -rf keyboards/ergodox_ez/keymaps/neo_colemak; rm _map.hex; cp -r ~/git/dotfiles/qmk/neo_colemak keyboards/ergodox_ez/keymaps/neo_colemak; make ergodox_ez:neo_colemak; mv ergodox_ez_neo_colemak.hex _map.hex'
+
+gco_re() { git checkout `echo ${1:10}` }
+pyclean() {
+    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+}
