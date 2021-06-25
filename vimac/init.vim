@@ -298,6 +298,8 @@ nnoremap <Space>wz :ZoomToggle<CR>
 "split
 nnoremap <Space>ws <C-W>s:bn<CR>
 nnoremap <Space>wv <C-W>v:bn<CR>
+nnoremap <Space>wt <C-W>v:term<CR>i
+nnoremap <Space>wT <C-W>s:term<CR>i
 "only
 nnoremap <Space>wo :only<CR>
 "rotate
