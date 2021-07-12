@@ -3,6 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'sainnhe/gruvbox-material'
 
 Plug 'norcalli/nvim-terminal.lua'
 
@@ -33,7 +34,7 @@ Plug 'reedes/vim-pencil', {'for': 'markdown'}
 
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -616,3 +617,5 @@ require'treesitter-context.config'.setup{
 
 require'terminal'.setup()
 EOF
+
+let g:python3_host_prog="/usr/local/bin/python3"

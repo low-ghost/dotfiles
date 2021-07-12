@@ -35,7 +35,18 @@ set undoreload=10000
 " }
 
 " Theme {
-colorscheme gruvbox
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_enable_italic = 1
+let g:gruvbox_enable_bold = 1
+let g:gruvbox_material_diagnostic_text_highlight = 1
+let g:gruvbox_material_palette = 'material'
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+colorscheme gruvbox-material
+
+if has('termguicolors')
+  set termguicolors
+endif
 " }
 
 " Appearance {

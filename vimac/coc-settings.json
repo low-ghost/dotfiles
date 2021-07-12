@@ -1,5 +1,6 @@
 {
   "jedi.hover.enable": true,
+  "jedi.workspace.extraPaths": ["/Users/michaelbagwell/Library/Python/3.9/lib/python/site-packages"],
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": " ❯❯❯ ",

@@ -59,7 +59,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md', 
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline_powerline_fonts=1
 " See `:echo g:airline_theme_map` for some more choices
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'gruvbox_material'
 let g:airline#extensions#tabline#enabled = 0
 " tab airline weirdly flashed all buffer names on landing in new buffer,
 " slowing everything down
@@ -97,7 +97,6 @@ function! s:goyo_enter()
   set noshowcmd
   set scrolloff=999
   set showbreak=····
-  call ToggleBG()
   set nocursorline
   set fo+=a
 endfunction
@@ -111,7 +110,6 @@ function! s:goyo_leave()
   set showcmd
   set scrolloff=3
   set showbreak=
-  call ToggleBG()
   set cursorline
   set fo-=a
 endfunction
@@ -124,12 +122,10 @@ augroup pencil
   autocmd filetype markdown,mkd call pencil#init()
         \ | call lexical#init()
         \ | call litecorrect#init()
-        \ | setl spell spl=en_us fdl=4 noru nonu nornu
         \ | setl fdo+=search
 augroup END
 " Pencil / Writing Controls {{{
-let g:pencil#wrapModeDefault = 'soft'
-let g:pencil#textwidth = 74
+let g:pencil#textwidth = 80 
 let g:pencil#joinspaces = 0
 let g:pencil#cursorwrap = 1
 let g:pencil#conceallevel = 3
