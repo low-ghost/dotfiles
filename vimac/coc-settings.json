@@ -78,7 +78,8 @@
       "rootPatterns": [
         "mypy.ini",
         ".mypy.ini",
-        "setup.cfg"
+        "setup.cfg",
+        "pyproject.toml"
       ],
       "formatPattern": [
         "^.*:(\\d+?):(\\d+?): ([a-z]+?): (.*)$",

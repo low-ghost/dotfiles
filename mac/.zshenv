@@ -1,5 +1,8 @@
+# alias nvim=lvim
 # git {
-alias gbcur="git rev-parse --abbrev-ref HEAD"
+gbcur() {
+  git rev-parse --abbrev-ref HEAD
+}
 
 gb_to_issue() {
   ticket=`echo $1 | sed 's:^\([[:alnum:]]*\)/.*:\1:'`
@@ -15,7 +18,9 @@ gitissue() {
   gb_to_issue `gbcur`
 }
 
-alias club="open https://app.clubhouse.io/quotapath/story/$(gitissue | cut -c 3-)"
+club() {
+  open https://app.clubhouse.io/quotapath/story/$(gitissue | cut -c 3-)
+}
 
 # git unadd: remove file from
 gun() { git reset HEAD $@ ;}
@@ -27,9 +32,12 @@ _gitunadd () {
 }
 
 alias -g ggpullqp='git pull quotapath "$(git_current_branch)"'
+alias -g ggg='git pull quotapath "$(git_current_branch)"'
+alias -g grssd='git restore -s develop'
 
 # }
 # docker {
 alias dc='docker-compose'
 dstopall() { docker stop $(docker ps -a -q) }
 # }
+. "$HOME/.cargo/env"

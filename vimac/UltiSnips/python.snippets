@@ -1,0 +1,13 @@
+snippet classt "class TestCase"
+class ${1:Test}(TestCase):
+    def test_${2:should_do_something}(self):
+        ${3:pass}
+endsnippet
+
+snippet raise "raise"
+raise ${1:Exception}("$2")
+endsnippet
+
+snippet raiseu "raise unimplemented"
+raise NotImplementedError("$1")
+endsnippet

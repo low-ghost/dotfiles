@@ -4,6 +4,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'sainnhe/gruvbox-material'
+Plug 'mizlan/iswap.nvim'
+
+Plug 'folke/which-key.nvim'
 
 Plug 'norcalli/nvim-terminal.lua'
 
@@ -32,7 +35,8 @@ Plug 'reedes/vim-textobj-sentence', {'for': 'markdown'}
 Plug 'reedes/vim-wordy', {'for': 'markdown'}
 Plug 'reedes/vim-pencil', {'for': 'markdown'}
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+" Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'morhetz/gruvbox'
 Plug 'simnalamburt/vim-mundo'
@@ -97,6 +101,7 @@ inoremap ii <esc>
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 inoremap <silent><expr> <TAB> 
       \ pumvisible() ? "\<C-n>" :
@@ -104,10 +109,26 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <silent><expr> <c-p> coc#refresh()
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.') =~# '^ \+$'
 endfunction
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 let g:ale_enabled = 0
 let g:ale_pattern_options = {'.md': {'ale_enabled': 1}}
@@ -121,8 +142,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nmap ge <Plug>(coc-diagnostic-next)
 nmap gE <Plug>(coc-diagnostic-prev)
 nmap gd <Plug>(coc-definition)
-nmap gsd :call CocAction('jumpDefinition', 'vsplit')<cr>
-nmap gSd :call CocAction('jumpDefinition', 'split')<cr>
+nmap gsd ;call CocAction('jumpDefinition', 'vsplit')<cr>
+nmap gSd ;call CocAction('jumpDefinition', 'split')<cr>
 nmap gy <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
@@ -136,6 +157,7 @@ nnoremap <Space>yd :<C-u>CocList -A diagnostics<cr>
 nnoremap <Space>yr :<C-u>CocList -A mru<cr>
 nmap <Space>yf <Plug>(coc-fix-current)
 
+nmap <space>yF <Plug>(coc-format)
 vmap <Space>f <Plug>(coc-format-selected)
 xmap <Space>f <Plug>(coc-format-selected)
 
@@ -218,50 +240,50 @@ tnoremap <C-t>x <C-\><C-n>:tabclose<cr>
 
 " WrapRelative {{{
 " Map g* keys in Normal, Operator-pending, and Visual+select
-noremap $ :call WrapRelativeMotion("$")<CR>
+noremap L :call WrapRelativeMotion("$")<CR>
 noremap <End> :call WrapRelativeMotion("$")<CR>
 noremap 0 :call WrapRelativeMotion("0")<CR>
 noremap <Home> :call WrapRelativeMotion("0")<CR>
-noremap ^ :call WrapRelativeMotion("^")<CR>
+noremap H :call WrapRelativeMotion("^")<CR>
 " Overwrite the operator pending $/<End> mappings from above
 " to force inclusive motion with :execute normal!
-onoremap $ v:call WrapRelativeMotion("$")<CR>
+onoremap L v:call WrapRelativeMotion("$")<CR>
 onoremap <End> v:call WrapRelativeMotion("$")<CR>
 " Overwrite the Visual+select mode mappings from above
 " to ensure the correct vis_sel flag is passed to function
-vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
+vnoremap L :<C-U>call WrapRelativeMotion("$", 1)<CR>
 vnoremap <End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
 vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
 vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
-vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
+vnoremap H :<C-U>call WrapRelativeMotion("^", 1)<CR>
 " }}}
 
 " Search {{{
-map <Space><Space> <Plug>(easymotion-s)
-map ,, <Plug>(easymotion-s)
-map <Space>// <Plug>(easymotion-s)
-map <Space>/2 <Plug>(easymotion-s2)
-map <Space>/B <Plug>(easymotion-B)
-map <Space>/E <Plug>(easymotion-E)
-map <Space>/F <Plug>(easymotion-F)
-map <Space>/T <Plug>(easymotion-T)
-map <Space>/W <Plug>(easymotion-W)
-map <Space>/b <Plug>(easymotion-b)
-map <Space>/e <Plug>(easymotion-e)
-map <Space>/f <Plug>(easymotion-f)
-map <Space>/gE <Plug>(easymotion-gE)
-map <Space>/ge <Plug>(easymotion-ge)
-map <Space>/j <Plug>(easymotion-j)
-map <Space>/k <Plug>(easymotion-k)
-map <Space>/n <Plug>(easymotion-sn)
-map <Space>/t <Plug>(easymotion-t)
-map <Space>/w <Plug>(easymotion-w)
-map <Space>/<space> <Plug>(easymotion-overwin-f)
-omap z <Plug>(easymotion-t)
-omap Z <Plug>(easymotion-T)
-omap x <Plug>(easymotion-f)
-omap X <Plug>(easymotion-F)
-omap <Space> <Plug>(easymotion-prefix)
+" map <Space><Space> <Plug>(easymotion-s)
+" map $ <Plug>(easymotion-s)
+" map <Space>// <Plug>(easymotion-s)
+" map <Space>/2 <Plug>(easymotion-s2)
+" map <Space>/B <Plug>(easymotion-B)
+" map <Space>/E <Plug>(easymotion-E)
+" map <Space>/F <Plug>(easymotion-F)
+" map <Space>/T <Plug>(easymotion-T)
+" map <Space>/W <Plug>(easymotion-W)
+" map <Space>/b <Plug>(easymotion-b)
+" map <Space>/e <Plug>(easymotion-e)
+" map <Space>/f <Plug>(easymotion-f)
+" map <Space>/gE <Plug>(easymotion-gE)
+" map <Space>/ge <Plug>(easymotion-ge)
+" map <Space>/j <Plug>(easymotion-j)
+" map <Space>/k <Plug>(easymotion-k)
+" map <Space>/n <Plug>(easymotion-sn)
+" map <Space>/t <Plug>(easymotion-t)
+" map <Space>/w <Plug>(easymotion-w)
+" map <Space>/<space> <Plug>(easymotion-overwin-f)
+" omap z <Plug>(easymotion-t)
+" omap Z <Plug>(easymotion-T)
+" omap x <Plug>(easymotion-f)
+" omap X <Plug>(easymotion-F)
+" omap <Space> <Plug>(easymotion-prefix)
 " List matching words and go to one. TODO: fzf-ize. Looks like:
 " function ListInstances()
 " redir => lines
@@ -273,8 +295,8 @@ omap <Space> <Plug>(easymotion-prefix)
 nnoremap <Space>/g [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " }}}
 
-nnoremap <Space>r :Rg<CR>
 nnoremap <Space>/r :Gr <C-r><C-w><CR>
+nnoremap <Space>/t :Rg<CR>
 
 " Applications (a is also alignment, watch for conflicts) {{{
 nnoremap <Space>aj <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
@@ -333,8 +355,8 @@ nnoremap <Space>tl :call ToggleHiddenAll()<CR>
 nnoremap <Space>tn :set nu!<CR>
 nnoremap <Space>tN :set relativenumber!<CR>
 nnoremap <Space>tp :RainbowParentheses!!<CR>
-nnoremap <Space>tsp :set spell!<CR>
-nnoremap <Space>tsy :call ToggleSyntax()<CR>
+" nnoremap <Space>tsp :set spell!<CR>
+" nnoremap <Space>tsy :call ToggleSyntax()<CR>
 nnoremap <Space>tlw :call ToggleWrap()<CR>
 nnoremap <Space>tw :Goyo<CR>
 "nmap <Space>tw :ToggleWord<CR>
@@ -441,7 +463,7 @@ command! -nargs=+ FindFile call find#file(<f-args>)
 
 
 
-let g:mapleader = ','
+" let g:mapleader = ','
 "Spacemacs style keys {{{
 
 " Commands {{{
@@ -450,18 +472,19 @@ nnoremap <Space>/x :History :<CR>
 " }}}
 
 " File {{{
-map <C-e> :NERDTreeToggle<CR>
-nnoremap <Space>fev :e $MYVIMRC<CR>
-nnoremap <Space>feo :e ~/git/dotfiles/vimac/<CR>
-nnoremap <Space>feft :call filetype#edit_ft_plugin()<CR>
-nnoremap <Space>flft :call filetype#source_ft_plugin()<CR>
-nnoremap <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
+" map <C-e> :NERDTreeToggle<CR>
+nnoremap <Space>e :NERDTreeToggle<CR>
+nnoremap <Space>fv :e $MYVIMRC<CR>
+" nnoremap <Space>feo :e ~/git/dotfiles/vimac/<CR>
+" nnoremap <Space>feft :call filetype#edit_ft_plugin()<CR>
+" nnoremap <Space>flft :call filetype#source_ft_plugin()<CR>
+" nnoremap <Space>flr :call system("tmux source-file ~/.tmux.conf")<CR>
 nnoremap <Space>flv :source $MYVIMRC<CR>
 nnoremap <Space>fn :NERDTreeFind<CR>
-nnoremap <space>fi :let g:NERDTreeIgnore = ['
-nnoremap <Space>ft :call EditTestFile('e')<CR>
-nnoremap <Space>fst :call EditTestFile('s')<CR>
-nnoremap <Space>fvt :call EditTestFile('v')<CR>
+" nnoremap <space>fi :let g:NERDTreeIgnore = ['
+" nnoremap <Space>ft :call EditTestFile('e')<CR>
+" nnoremap <Space>fst :call EditTestFile('s')<CR>
+" nnoremap <Space>fvt :call EditTestFile('v')<CR>
 " }}}
 
 
@@ -561,61 +584,37 @@ vnoremap <Space>r c<C-O>:set ri<CR><C-R>"<Esc>:set nori<CR>
 " inoremap ([; ([<CR>]);<Esc>ko
 "}
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 command! -nargs=0 DelMarks :delm A-Z
 
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-  indent = {
-    enable = true
-  }
-}
-
-require'nvim-treesitter.configs'.setup {
-  textobjects = {
-    select = {
-      enable = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@comment.outer",
-        ["ic"] = "@comment.outer",
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<space>np"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<space>nP"] = "@parameter.inner",
-      },
-    },
-    lsp_interop = {
-      enable = false,
-    },
-  },
-}
-
-require'treesitter-context.config'.setup{
-    enable = true,
-}
 
 require'terminal'.setup()
 EOF
 
 let g:python3_host_prog="/usr/local/bin/python3"
+
+let g:sneak#prompt = "👟 "
+
+nnoremap <Space>ts :call sneak#cancel()<cr>
+let g:sneak#label = 1
+let g:sneak#s_next = 1 
+
+let g:sneak#target_labels = "arstneowfpuymq/ARSTNEOWFPUYMQ123456789?()\\←↓→↑°±√✓∴∵"
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+nnoremap ; :
+vnoremap ; :
+nnoremap : q:
+vnoremap : q:
+" nnoremap n j|xnoremap n j| onoremap n j
+" nnoremap j n|xnoremap j n| onoremap j n
+" nnoremap N J|xnoremap N J| onoremap N J
+" nnoremap J n|xnoremap J n| onoremap J n
+
+" nnoremap e k|xnoremap n j| onoremap n j
+" nnoremap j n|xnoremap j n| onoremap j n
+" nnoremap N J|xnoremap N J| onoremap N J
+" nnoremap J n|xnoremap J n| onoremap J n

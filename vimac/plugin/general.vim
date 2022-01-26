@@ -124,10 +124,12 @@ nnoremap Y y$
 " inoremap <Esc> <Esc><Esc>
 " }
 
-nnoremap H ^
-vnoremap H ^
-nnoremap L $
-vnoremap L $
+" nnoremap H ^
+" vnoremap H ^
+" onoremap H ^
+" nnoremap L $
+" vnoremap L $
+" onoremap L $
 
 vnoremap O <Esc>O
 vnoremap . :normal .<CR>
