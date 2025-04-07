@@ -1,3 +1,4 @@
+/* clang-format off */
 #include "config.h"
 #include "print.h"
 #include "keycode.h"
@@ -24,12 +25,12 @@ void cmd(uint16_t keycode) {
   tap_while(KC_LGUI, keycode);
 }
 
-void CTRL(uint16_t keycode) {
-  tap_while(KC_LCTRL, keycode);
-}
+// void CTRL(uint16_t keycode) {
+//   tap_while(KC_LCTRL, keycode);
+// }
 
 void shift(uint16_t keycode) {
-  tap_while(KC_LSHIFT, keycode);
+  tap_while(KC_LSFT, keycode);
 }
 
 void ALT(uint16_t keycode) {
@@ -40,9 +41,9 @@ void vim_select_line(bool is_partial) {
   if (!is_partial) {
     cmd(KC_LEFT);
   }
-  press(KC_LSHIFT);
+  press(KC_LSFT);
   cmd(KC_RIGHT);
-  release(KC_LSHIFT);
+  release(KC_LSFT);
 }
 
 /**
@@ -111,13 +112,13 @@ void vim_delete_line(bool is_partial) {
 
 void vim_select_line_vert(uint16_t dir) {
   dir == KC_UP ? cmd(KC_RIGHT) : cmd(KC_LEFT);
-  press(KC_LSHIFT);
+  press(KC_LSFT);
   tap(dir);
   dir == KC_UP ? cmd(KC_LEFT) : cmd(KC_RIGHT);
-  release(KC_LSHIFT);
+  release(KC_LSFT);
 }
 
-void vim_dir(uint16_t dir) {
+bool vim_dir(uint16_t dir) {
   bool to_move = !VIM_QUEUE;
   // To Copy
   if (VIM_QUEUE == VIM_Y) {
@@ -147,7 +148,9 @@ void vim_dir(uint16_t dir) {
   VIM_LEADER(KC_NO);
   if (to_move) {
     tap(dir);
+    return true;
   }
+  return false;
 }
 
 /**
@@ -237,7 +240,7 @@ void VIM_DELETE_BACK(void) {
   press(KC_LALT);
   shift(KC_LEFT); // select to start of word
   shift(KC_DEL); // delete selection
-  release(KC_LSHIFT);
+  release(KC_LSFT);
 }
 
 /***

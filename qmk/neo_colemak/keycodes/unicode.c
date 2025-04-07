@@ -1,3 +1,4 @@
+/* clang-format off */
 #define IRONY UC(0x2E2E)  // ⸮
 #define BANG  UC(0x203D)  // ‽
 #define ELIP  UC(0x2026)  // …
@@ -13,6 +14,11 @@
 #define NSUM  UC(0x2211)  // ∑
 #define DELT  UC(0x0394)  // Δ
 #define CPYW  UC(0x00A9)  // ©
+#define EMDASH UC(0x2014)  // —
+#define ENDASH UC(0x2013)  // –
+#define LAMDA UC(0x03BB)  // λ
+#define CENT  UC(0x00A2)  // ¢
+#define EURO  UC(0x20AC)  // €
 // Editing
 #define LSQT  UC(0x2018)  // ‘
 #define RSQT  UC(0x2019)  // ’
@@ -25,3 +31,9 @@
 #define ENDASH_HEX 0x2013 // –
 #define CPYW_HEX 0x00A9   // ©
 #define RSTR_HEX 0x00AE   // ®
+// screens
+#define KC_CAPW  LGUI(LSFT(KC_3))        // Capture whole screen
+#define KC_CPYW  LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
+#define KC_CAPP  LGUI(LSFT(KC_4))        // Capture portion of screen
+#define KC_CPYP  LGUI(LSFT(LCTL(KC_4)))  // Copy portion of screen
+#define KC_CPYO  LGUI(LSFT(LCTL(KC_5)))  // Copy portion of screen with options

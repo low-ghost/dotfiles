@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 autoload -Uz history-search-end
 
@@ -114,7 +114,7 @@ bindkey -M viins '^[[A' history-beginning-search-backward-end \
                  '^[[B' history-beginning-search-forward-end \
                  '^[OB' history-beginning-search-forward-end
 
-source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"
+# source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -128,8 +128,8 @@ bindkey '^[a' insert-last-word
 source ~/.secrets
 
 function mcutils {
-    export MCUTILS=/Users/michaelbagwell/MCUtils
-    source /Users/michaelbagwell/MCUtils/_aliases
+    export MCUTILS="$HOME/MCUtils"
+    source $HOME/MCUtils/_aliases
 }
 
 export NVM_DIR="$HOME/.nvm"
